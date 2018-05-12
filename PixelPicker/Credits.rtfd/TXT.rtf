@@ -3,25 +3,25 @@
 }
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red230\green230\blue230;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgray\c92143;}
-\margl1440\margr1440\vieww12800\viewh10340\viewkind0
+\paperw12240\paperh15840\margl1440\margr1440\vieww12800\viewh10340\viewkind0
 \deftab720
 \pard\pardeftab720\qc\partightenfactor0
 
 \f0\fs26\fsmilli13333 \cf2 \expnd0\expndtw0\kerning0
 \
-{\field{\*\fldinst{HYPERLINK "https://github.com/acheronfail/apptivator"}}{\fldrslt https://github.com/acheronfail/apptivator}}\
+<insert repo link here>\
 \pard\pardeftab720\qc\partightenfactor0
 
 \f1 \cf2 \uc0\u55356 \u57225 
 \f0 \
 \
 
-\b\fs28 Apptivator makes use of the following open source libraries
-\b0\fs36 \
-{\field{\*\fldinst{HYPERLINK "https://github.com/tmandry/AXSwift"}}{\fldrslt 
-\fs26\fsmilli13333 AXSwift}}
-\fs26\fsmilli13333 \
-{\field{\*\fldinst{HYPERLINK "https://github.com/sindresorhus/LaunchAtLogin"}}{\fldrslt LaunchAtLogin}}\
+\b\fs28 PixelPicker makes use of the following open source libraries
+\b0\fs26\fsmilli13333 \
+\pard\pardeftab720\qc\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/emaloney/CleanroomLogger"}}{\fldrslt \cf2 CleanroomLogger}}\
+\pard\pardeftab720\qc\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/sindresorhus/LaunchAtLogin"}}{\fldrslt \cf2 LaunchAtLogin}}\
 {\field{\*\fldinst{HYPERLINK "https://github.com/shpakovski/MASShortcut"}}{\fldrslt MASShortcut}}\
 {\field{\*\fldinst{HYPERLINK "https://github.com/SwiftyJSON/SwiftyJSON"}}{\fldrslt SwiftyJSON}}\
 \
@@ -30,33 +30,14 @@
 \b0 \
 \pard\pardeftab720\qc\partightenfactor0
 
-\fs26\fsmilli13333 \cf2 These are experimental options that haven't made it into Apptivator's UI yet, and may be toggled via the Terminal. Each override is listed as 
+\fs26\fsmilli13333 \cf2 These are experimental options that haven't made it into PixelPickers's UI yet, and may be toggled via the Terminal. Each override is listed as 
 \b key: 
 \i\b0 type
 \i0  which you can enable like:\
 \pard\pardeftab720\qc\partightenfactor0
 
-\f2\fs20 \cf2 \cb3 defaults write com.acheronfail.apptivator showPopoverOnScreenWithMouse -bool true
+\f2\fs20 \cf2 \cb3 defaults write com.acheronfail.pixel-picker debugMode -bool true
 \f0\fs26\fsmilli13333 \cb1 \
-\
-\pard\pardeftab720\qc\partightenfactor0
-
-\b \cf2 showPopoverOnScreenWithMouse: 
-\i\b0 Bool = false\
-\pard\pardeftab720\qc\partightenfactor0
-
-\i0 \cf2 Makes the popover view (the configure shortcuts panel) always popup in the top-right corner of the monitor which contains the mouse. \
-\
-\pard\pardeftab720\qc\partightenfactor0
-
-\b \cf0 \kerning1\expnd0\expndtw0 leftClickToggles
-\b0 \cf2 \expnd0\expndtw0\kerning0
-: 
-\i \cf0 \kerning1\expnd0\expndtw0 Bool = false\
-\pard\pardeftab720\qc\partightenfactor0
-
-\i0 \cf2 \expnd0\expndtw0\kerning0
-Swaps the left and right click buttons when clicking on the menu bar icon. So left-clicking will enable/disable Apptivator, and right-clicking will open the dropdown menu.\
 \
 \pard\pardeftab720\qc\partightenfactor0
 
@@ -67,28 +48,6 @@ Swaps the left and right click buttons when clicking on the menu bar icon. So le
 \i0 \cf2 \expnd0\expndtw0\kerning0
 \
 Enabling this will make Apptivator automatically switch between light/dark mode to match the menubar and dock.\
-\
-\pard\pardeftab720\qc\partightenfactor0
-
-\b \cf0 \kerning1\expnd0\expndtw0 maxShortcutsInSequence
-\b0 \cf2 \expnd0\expndtw0\kerning0
-: 
-\i \cf0 \kerning1\expnd0\expndtw0 Int = 5
-\i0 \cf2 \expnd0\expndtw0\kerning0
-\
-The maximum amount of shortcuts allowed in a shortcut sequence. If you want more than 5 (not sure why you would) then you can increment this number.\
-Note that this only changes how many will appear when editing the sequence, any previously registered shortcuts longer than the maximum will not be changed.\
-\
-\pard\pardeftab720\qc\partightenfactor0
-
-\b \cf0 \kerning1\expnd0\expndtw0 sequentialShortcutDelay
-\b0 \cf2 \expnd0\expndtw0\kerning0
-: 
-\i \cf0 \kerning1\expnd0\expndtw0 Float = 0.5
-\i0 \cf2 \expnd0\expndtw0\kerning0
-\
-How long (in seconds) Apptivator should wait for the next shortcut in a sequence, before resetting back to its initial state.\
-Set this to a higher value to have more time to press the shortcuts.\
 \
 
 \b \cf0 \kerning1\expnd0\expndtw0 debugMode

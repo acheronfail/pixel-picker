@@ -1,9 +1,9 @@
 //
-//  AppDelegateTests.swift
+//  PPStateTests.swift
 //  PixelPickerTests
 //
 
 import XCTest
 @testable import PixelPicker
 
-class AppDelegateTests: XCTestCase {}
+class PPStateTests: XCTestCase {}
