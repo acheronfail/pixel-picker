@@ -1,0 +1,42 @@
+language: objective-c
+xcode_project: CleanroomLogger.xcodeproj
+os: osx
+osx_image: xcode9
+
+branches:
+  only:
+    - master
+
+git:
+  depth: 1
+  submodules: false
+
+before_install:
+  - sudo systemsetup -settimezone America/New_York					# temporary hack: NYC timezone is required for some MBDataEnvironment date-related unit tests
+  - travis_wait 30 git submodule update --init
+
+install:
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - rm -rf ~/Library/Developer/CoreSimulator					  	# these two lines are a hack around a recurring Travis problem: multiple versions of the
+  - sudo killall -9 com.apple.CoreSimulator.CoreSimulatorService	# same simulator: https://github.com/travis-ci/travis-ci/issues/7580#issuecomment-292974395
+
+script:
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh build iOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh test iOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh build macOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh test macOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh build tvOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh test tvOS
+  - travis_wait 30 ./BuildControl/bin/travisBuildHelper.sh build watchOS
+
+after_failure:
+  - test -f "CleanroomLogger-iOS-build.log" && tail -n 2500 "CleanroomLogger-iOS-build.log"
+  - test -f "CleanroomLogger-iOS-test.log" && tail -n 2500 "CleanroomLogger-iOS-test.log"
+  - test -f "CleanroomLogger-iOS-test.log" && LINE_BEFORE=`cat "CleanroomLogger-iOS-test.log" | grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." | awk -F':' '{print $1}'` && LINE=`expr $LINE_BEFORE + 1` && LOG_FILE=`head -n $LINE "CleanroomLogger-iOS-test.log" | tail -n 1` && cat "$LOG_FILE"
+  - test -f "CleanroomLogger-macOS-build.log" && tail -n 2500 "CleanroomLogger-macOS-build.log"
+  - test -f "CleanroomLogger-macOS-test.log" && tail -n 2500 "CleanroomLogger-macOS-test.log"
+  - test -f "CleanroomLogger-macOS-test.log" && LINE_BEFORE=`cat "CleanroomLogger-macOS-test.log" | grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." | awk -F':' '{print $1}'` && LINE=`expr $LINE_BEFORE + 1` && LOG_FILE=`head -n $LINE "CleanroomLogger-macOS-test.log" | tail -n 1` && cat "$LOG_FILE"
+  - test -f "CleanroomLogger-tvOS-build.log" && tail -n 2500 "CleanroomLogger-tvOS-build.log"
+  - test -f "CleanroomLogger-tvOS-test.log" && tail -n 2500 "CleanroomLogger-tvOS-test.log"
+  - test -f "CleanroomLogger-tvOS-test.log" && LINE_BEFORE=`cat "CleanroomLogger-tvOS-test.log" | grep -n "IDETestOperationsObserverDebug. Writing diagnostic log for test session to." | awk -F':' '{print $1}'` && LINE=`expr $LINE_BEFORE + 1` && LOG_FILE=`head -n $LINE "CleanroomLogger-tvOS-test.log" | tail -n 1` && cat "$LOG_FILE"
+  - test -f "CleanroomLogger-watchOS-build.log" && tail -n 2500 "CleanroomLogger-watchOS-build.log"

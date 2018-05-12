@@ -1,0 +1,15 @@
+# This is a custom fork of MASShortcut which includes its latest commits,
+# and a very minor custom addition which allows *any* shortcut to be valid.
+github "acheronfail/MASShortcut" "2.3.6-custom"
+
+# We encode our configuration and settings in JSON.
+github "SwiftyJSON/SwiftyJSON"
+
+# This makes using Apple Accessibility API much easier in Swift.
+github "tmandry/AXSwift" ~> 0.2
+
+# Greatly simplifies the process of implementing this functionality.
+github "sindresorhus/LaunchAtLogin"
+
+# Used for advanced logging features.
+github "emaloney/CleanroomLogger" ~> 6.0.0

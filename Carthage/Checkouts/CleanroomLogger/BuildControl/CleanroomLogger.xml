@@ -1,0 +1,220 @@
+<MBML>
+	<Var name="project:name" literal="CleanroomLogger"/>
+	<Var name="project:publisher" literal="Gilt Groupe"/>
+	<Var name="repo:owner" literal="emaloney"/>
+	<Var name="project:creator:name" literal="Evan Maloney"/>
+	<Var name="project:license" literal="MIT"/>
+	<Var name="project:bundlePrefix" literal="com.gilt.cleanroom"/>
+	<Var name="project:language" literal="Swift"/>
+	<Var name="project:grouping" literal="Cleanroom"/>
+	<Var name="project:skeleton" literal="framework"/>
+
+	<Var name="project:description:formats" type="map">
+		<Var name="text">CleanroomLogger provides an extensible Swift-based logging API that is simple, lightweight and performant.
+		
+The API provided by CleanroomLogger is designed to be readily understood by anyone familiar with packages such as CocoaLumberjack and log4j.</Var>
+		<Var name="markdown">CleanroomLogger provides an extensible Swift-based logging API that is simple, lightweight and performant.
+		
+The API provided by CleanroomLogger is designed to be readily understood by anyone familiar with packages such as [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack) and [log4j](https://en.wikipedia.org/wiki/Log4j).</Var>
+	</Var>
+
+	<Var name="project:platforms" type="list">
+		<Var literal="iOS"/>
+		<Var literal="macOS"/>
+        <Var literal="tvOS"/>
+        <Var literal="watchOS"/>
+	</Var>
+
+	<Var name="project:platform:versions" type="map">
+		<Var name="minimum" type="map">
+			<Var name="iOS" literal="8.0"/> 
+			<Var name="macOS" literal="10.9"/> 
+		</Var>
+	</Var>
+	
+	<Var name="project:settings" type="map">
+		<Var name="app-extension-only" boolean="T"/>
+	</Var>
+	
+	<Var name="project:readme:preamble">^q(###) Contents
+	
+- [Key Benefits of CleanroomLogger](#key-benefits-of-cleanroomlogger)
+- [Adding CleanroomLogger to your project](#adding-cleanroomlogger-to-your-project)
+- [Using CleanroomLogger](#using-cleanroomlogger)
+	- [Enabling logging](#enabling-logging)
+	- [Logging Examples](#logging-examples)
+- [CleanroomLogger In Depth](#cleanroomlogger-in-depth)
+	- [Configuring CleanroomLogger](#configuring-cleanroomlogger)
+	- [Customized Log Formatting](#customized-log-formatting)
+	- [API Documentation](${docs:api:index})
+- [Design Philosophy](#design-philosophy)	
+- [Architectural Overview](#architectural-overview)
+
+^q(###) Key Benefits of CleanroomLogger
+
+^q(####) ▶︎ Built for speed
+
+You don’t have to choose between smooth scrolling and collecting meaningful log information. CleanroomLogger does *very* little work on the calling thread, so it can get back to business ASAP.
+
+^q(####) ▶ A modern logging engine with first-class legacy support
+
+CleanroomLogger takes advantage of Apple’s new [Unified Logging System](https://developer.apple.com/reference/os/2793189-logging) (_aka_ “OSLog” or “os_log”) when running on iOS 10.0, macOS 10.12, tvOS 10.0, watchOS 3.0 or higher.
+
+On systems where OSLog isn’t available, CleanroomLogger gracefully falls back to other standard output mechanisms, automatically.
+
+^q(####) ▶ 100% documented
+
+Good documentation is critical to the usefulness of any open-source framework. In addition to the extensive high-level documentation you’ll find below, [the CleanroomLogger API](${docs:api:index}) itself is 100% documented.
+
+^q(####) ▶ Organize and filter messages by severity
+
+Messages are assigned one of five [_severity levels_](${docs:api:root}/Enums/LogSeverity.html): the most severe is _error_, followed by _warning_, _info_, _debug_ and _verbose_, the least severe. Knowing a message’s severity lets you perform additional filtering; for example, to minimize the overhead of logging in App Store binaries, you could choose to log only warnings and errors in release builds.
+
+^q(####) ▶ Color-coded log messages
+
+Quickly spot problems at runtime in the Xcode console, where log messages are color coded by severity:
+
+```
+◽️ Verbose messages are tagged with a small gray square — easy to ignore
+◾️ Debug messages have a black square; easier to spot, but still de-emphasized
+🔷 Info messages add a splash of color in the form of a blue diamond
+🔶 Warnings are highlighted with a fire-orange diamond
+❌ Error messages stand out with a big red X — hard to miss!
+```
+
+^q(####) ▶ UNIX-friendly
+
+Support for standard UNIX output streams is built-in. Use [`StandardOutputLogRecorder`](${docs:api:root}/Classes/StandardOutputLogRecorder.html) and [`StandardErrorLogRecorder`](${docs:api:root}/Classes/StandardErrorLogRecorder.html) to direct output to `stdout` and `stderr`, respectively.
+
+Or, use the [`StandardStreamsLogRecorder`](${docs:api:root}/Classes/StandardStreamsLogRecorder.html) to send verbose, debug and info messages to `stdout` while warnings and errors go to `stderr`.
+
+^q(####) ▶ Automatic handling of `OS_ACTIVITY_MODE`
+
+When Xcode 8 was introduced, the console pane got a lot more chatty. This was due to the replacement of [the ASL facility](https://github.com/emaloney/CleanroomASL#about-the-apple-system-log) with OSLog. To silence the extra chatter, developers discovered that [setting the `OS_ACTIVITY_MODE` environment variable to “`disable`”](http://stackoverflow.com/questions/37800790/hide-strange-unwanted-xcode-8-logs/39461256#39461256) would revert to the old logging behavior. It turns out that this silences OSLog altogether, so no output is sent to the console pane. CleanroomLogger notices when the setting is present, and echoes messages to `stdout` or `stderr` in addition to logging them through the [`os_log()`](https://developer.apple.com/reference/os/2320718-os_log) function.
+
+^q(####) ▶ See _where_ your code is logging
+
+If you’re just using `print()` or `NSLog()` everywhere, it can sometimes be difficult to figure out what code is responsible for which log messages. By default, CleanroomLogger outputs the source file and line responsible for issuing each log message, so you can go straight to the source:
+
+```
+🔶 AppleTart.framework didn’t load due to running on iOS 8 (AppleTartShim.swift:19)
+◾️ Uploaded tapstream batch (TapstreamTracker.swift:166)
+◽️ Presenting AccountNavigationController from SaleListingController (BackstopDeepLinkNavigator.swift:174)
+🔷 Successfully navigated to .account for URL: gilt://account (DeepLinkConsoleOutput.swift:104)
+❌ Unrecognized URL: CountrySelector (GiltOnTheGoDeepLinkRouter.swift:100)
+```
+
+^q(####) ▶ Rotating log files
+
+CleanroomLogger provides [simple file-based logging](${docs:api:root}/Classes/FileLogRecorder.html) support as well as [a self-pruning rotating log directory](${docs:api:root}/Classes/RotatingLogFileConfiguration.html) implementation.
+
+^q(####) ▶ Super-simple execution tracing
+
+Developers often use logging to perform tracing. Rather than writing lots of different log messages to figure out what your program is doing at runtime, just sprinkle your source with `Log.debug?.trace()` and `Log.verbose?.trace()` calls, and you’ll see exactly what lines your code hits, when, and on what thread, as well as the signature of the executing function:
+
+```
+2017-01-05 13:46:16.681 -05:00 | 0001AEC4 ◾️ —> StoreDataTransaction.swift:42 - executeTransaction()
+2017-01-05 13:46:16.683 -05:00 | 00071095 ◾️ —> LegacyStoresDeepLinking.swift:210 - viewControllerForRouter(_:destination:)
+2017-01-05 13:46:16.683 -05:00 | 0001AEC4 ◽️ —> StoreDataTransaction.swift:97 - executeTransaction(completion:)
+2017-01-05 13:46:16.684 -05:00 | 00071095 ◾️ —> ContainerViewController.swift:132 - setContentViewController(_:animated:completion:)
+2017-01-05 13:46:16.684 -05:00 | 00071095 ◾️ —> DefaultBackstopDeepLinkNavigator.swift:53 - navigate(to:via:using:viewController:displayOptions:completion:)
+2017-01-05 13:46:16.687 -05:00 | 00071095 ◽️ —> ViewControllerBase.swift:79 - viewWillAppear
+```
+
+^q(####) ▶ Useful built-in formatters
+
+CleanroomLogger ships with two general-purpose log formatters: the [`ReadableLogFormatter`](${docs:api:root}/Classes/ReadableLogFormatter.html) is handy for human consumption, while the [`ParsableLogFormatter`](${docs:api:root}/Classes/ParsableLogFormatter.html) is useful for machine processing. Both can be customized via the initializer.
+
+A formatter constructed using `ReadableLogFormatter()` yields log output that looks like:
+
+```
+2017-01-06 02:06:53.679 -05:00 | Debug   | 001BEF88 | DeepLinkRouterImpl.swift:132 - displayOptions(for:via:displaying:)
+2017-01-06 02:06:53.682 -05:00 | Verbose | 001BEF88 | UIWindowViewControllerExtension.swift:133 - rootTabBarController: nil
+2017-01-06 02:06:53.683 -05:00 | Info    | 001BEF88 | DeepLinkConsoleOutput.swift:104 - Successfully navigated to storeSale for URL: gilt://sale/women/winter-skin-rescue
+2017-01-06 02:07:01.761 -05:00 | Error   | 001BEF88 | Checkout.swift:302 - The user transaction failed
+2017-01-06 02:07:02.397 -05:00 | Warning | 001BEF88 | MemoryCache.swift:233 - Caching is temporarily disabled due to a recent memory warning
+```
+
+When the same log messages are handled by a formatter constructed using `ParsableLogFormatter()`, the timestamp is output in UNIX format, tab is used as the field delimiter, and the severity is indicated numerically:
+
+```
+1483686413.67946	2	001BEF88	DeepLinkRouterImpl.swift:132 - displayOptions(for:via:displaying:)
+1483686413.68170	1	001BEF88	UIWindowViewControllerExtension.swift:133 - rootTabBarController: nil
+1483686413.68342	3	001BEF88	DeepLinkConsoleOutput.swift:104 - Successfully navigated to storeSale for URL: gilt://sale/women/winter-skin-rescue
+1483686421.76101	5	001BEF88	Checkout.swift:302 - The user transaction failed
+1483686422.39651	4	001BEF88	MemoryCache.swift:233 - Caching is temporarily disabled due to a recent memory warning
+```
+
+^q(####) ▶ Easy mix-and-match formatting
+
+If the built-in formatters don’t fit the bill, you can use the [`FieldBasedLogFormatter`](${docs:api:root}/Classes/FieldBasedLogFormatter.html) to assemble just about any kind of log format possible.
+
+Let’s say you wanted a log formatter with the timestamp in ISO 8601 date format, a tab character, the source file and line number of the call site, followed by the severity as an uppercase string right-justified in a 8-character field, then a colon and a space, and finally the log entry’s payload. You could do this by constructing a `FieldBasedLogFormatter` as follows:
+
+```swift
+FieldBasedLogFormatter(fields: [
+	.timestamp(.custom("yyyy-MM-dd'T'HH:mm:ss.SSSZ")),
+	.delimiter(.tab),
+	.callSite,
+	.severity(.custom(textRepresentation: .uppercase, truncateAtWidth: nil, padToWidth: 8, rightAlign: true)),
+	.literal(": "),
+	.payload])
+```
+
+The resulting output would look like:
+
+```
+2017-01-08T12:55:17.905-0500	DeepLinkRouterImpl.swift:207        DEBUG: destinationForURL
+2017-01-08T12:55:20.716-0500	DefaultDeepLinkRouter.swift:95       INFO: Attempting navigation to storeSale
+2017-01-08T12:55:21.995-0500	LegacyUserEnvironment.swift:109		ERROR: Can’t fetch user profile without user guid
+2017-01-08T12:55:25.960-0500	DeepLinkConsoleOutput.swift:104	  WARNING: Can’t find storeProduct for URL
+2017-01-08T12:55:33.457-0500	ProductViewController.swift:92    VERBOSE: deinit
+```
+
+^q(####) ▶ Fully extensible
+
+CleanroomLogger exposes three primary extension points for implementing your own custom logic:
+  - [`LogRecorder`](${docs:api:root}/Protocols/LogRecorder.html)s are used to record formatted log messages. Typically, this involves writing the message to a stream or data store of some kind. You can provide your own `LogRecorder` implementations to utilize facilities not natively supported by CleanroomLogger: to store messages in a database table or send them to a remote HTTP endpoint, for example.
+  - [`LogFormatter`](${docs:api:root}/Protocols/LogFormatter.html)s are used to generate text representations of each [`LogEntry`](${docs:api:root}/Structs/LogEntry.html) to be recorded.
+  - [`LogFilter`](${docs:api:root}/Protocols/LogFilter.html)s get a chance to inspect—and potentially reject—a `LogEntry` before it is passed to a `LogRecorder`.</Var>
+
+	<Var name="project:readme:summation">^q(##) Design Philosophy
+
+**The application developer should be in full control of logging process-wide.** As with any code that executes, there’s an expense to logging, and the application developer should get to decide how to handle the tradeoff between the utility of collecting logs and the expense of collecting them at a given level of detail.
+
+CleanroomLogger’s configuration can only be set once during an application’s lifecycle; after that, the configuration becomes immutable. Any third-party frameworks using CleanroomLogger will be limited to what is explicitly allowed by the application developer. Therefore, embedded code using CleanroomLogger is inherently *well behaved*.
+
+We believe so strongly in this philosophy that we even built a feature for developers that *never* want CleanroomLogger used within their applications. That’s right, we created a way for developers to avoid using our project altogether. So if you need to include a third-party library that uses CleanroomLogger but you don’t want to incur _any_ logging overhead, just call `Log.neverEnable()` instead of `Log.enable()`. CleanroomLogger will be disabled entirely.
+
+**Respect for the calling thread.** Functions like `print()` and `NSLog()` can do a lot of work on the calling thread, and when used from the main thread, that can lead to lower frame rates and choppy scrolling.
+
+When CleanroomLogger is asked to log something, it is immediately handed off to an asynchronous background queue for further dispatching, letting the calling thread get back to work as quickly as possible. Each `LogRecorder` also maintains its own asynchronous background queue used to format log messages and write them to the underlying storage facility. This design ensures that if one recorder gets bogged down, it won’t block the processing of log messages by any other recorder.
+
+**Avoid needless code execution.** The logging API provided by CleanroomLogger takes advantage of Swift short-circuiting to avoid executing code when it is known that no messages of a given severity will ever be logged.
+
+For example, in production code with `.info` as the minimum `LogSeverity`, messages with a severity of `.verbose` or `.debug` will always be ignored. In such a case, `Log.debug` and `Log.verbose` would be `nil`, allowing efficient short-circuiting of any code attempting to use these inactive log channels. Code like `Log.verbose?.trace()` and `Log.debug?.message("Loading URL: \(url)")` would effectively become no-ops at runtime. Debug logging adds zero overhead to your production builds, so don’t be shy about taking advantage of it.
+
+^q(##) Architectural Overview
+
+CleanroomLogger is designed to avoid performing formatting or logging work on the calling thread, making use of Grand Central Dispatch (GCD) queues for efficient processing.
+
+In terms of threads of execution, each request to log *anything* can go through three main phases of processing:
+
+1. On the calling thread:
+  1. Caller attempts to issue a log request by calling a logging function (eg., `message()`, `trace()` or `value()`) of the appropriate `LogChannel` maintained by `Log`.
+    - If there is no `LogChannel` for the given *severity* of the log message (because CleanroomLogger hasn’t yet been `enabled()` or it is not configured to log at that severity), Swift short-circuiting prevents further execution. This makes it possible to leave debug logging calls in place when shipping production code without affecting performance. 
+  2. If a `LogChannel` does exist, it creates an immutable `LogEntry` struct to represent the *thing* being logged.
+  3. The `LogEntry` is then passed to the `LogReceptacle` associated with the `LogChannel`. 
+  4. Based on the severity of the `LogEntry`, the `LogReceptacle` selects one or more `LogConfiguration`s to use for recording the message. Among other things, these configurations determine whether further processing proceeds synchronously or asynchronously when passed to the underlying `LogReceptacle`’s GCD queue. (Synchronous processing is useful during debugging, but is not recommended for general production code.)
+
+2. On the `LogReceptacle` queue:
+  1. The `LogEntry` is passed through zero or more `LogFilter`s that are given a chance to prevent further processing of the `LogEntry`. If *any* filter indicates that `LogEntry` should not be recorded, processing stops.
+  2. The `LogConfiguration` is used to determine which `LogRecorder`s (if any) will be used to record the `LogEntry`.
+  3. For each `LogRecorder` instance specified by the configuration, the `LogEntry` is then dispatched to the GCD queue provided by the `LogRecorder`.
+
+3. On each `LogRecorder` queue:
+  1. The `LogEntry` is passed sequentially to each `LogFormatter` provided by the `LogRecorder`, giving the formatters a chance to create the formatted message for the `LogEntry`.
+    - If no `LogFormatter` returns a string representation of `LogEntry`, further processing stops and nothing is recorded.
+    - If any `LogFormatter` returns a non-`nil` value to represent the formatted message of the `LogEntry`, that string is then passed to the `LogRecorder` for final logging.</Var>
+	
+</MBML>
