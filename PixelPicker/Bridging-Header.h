@@ -9,4 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import <MASShortcut/Shortcut.h>
 
+#import "ShowAndHideCursor.h"
+
 #endif /* Bridging_Header_h */

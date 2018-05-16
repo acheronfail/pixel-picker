@@ -9,7 +9,10 @@ import CleanroomLogger
 let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
-    @IBOutlet weak var window: NSWindow!
+
+    @IBOutlet weak var panel: NSPanel!
+    var panelController: PPOverlayController!
+    
     private var contextMenu: NSMenu = NSMenu()
     private var menuBarItem: NSStatusItem! = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
@@ -26,6 +29,8 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        panelController = (panel.windowController as? PPOverlayController)!
+
         contextMenu.addItem(NSMenuItem(title: "Settings", action: #selector(showSettingsWindow), keyEquivalent: ""))
         contextMenu.addItem(NSMenuItem.separator())
         contextMenu.addItem(NSMenuItem(title: "About", action: #selector(showAboutPanel), keyEquivalent: ""))
@@ -35,6 +40,12 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         menuBarItem.image = ICON
         menuBarItem.action = #selector(onMenuClick)
         menuBarItem.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        
+        // TODO: set this from settings window
+        let shortcut = MASShortcut(keyCode: 0, modifierFlags: 1179648)
+        MASShortcutMonitor.shared().register(shortcut, withAction: {
+            self.panelController.show()
+        })
 
         Log.info?.message("Sucessfully launched.")
     }
@@ -43,10 +54,8 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         PPState.shared.saveToDisk()
     }
     
-    @objc func showSettingsWindow(_ sender: Any) {
-        window.center()
-        window.makeKeyAndOrderFront(nil)
-        NSApplication.shared.activate(ignoringOtherApps: true)
+    @objc func showSettingsWindow(_ sender: Any?) {
+        // TODO: make a settings window
     }
 
     @objc func onMenuClick(sender: NSStatusItem) {

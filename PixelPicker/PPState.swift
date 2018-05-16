@@ -29,6 +29,10 @@ import CleanroomLogger
         defaults.register(defaults: [:])
         Log.info?.message("PPState initialised at \(url.path)")
     }
+    
+    func getConcentrationModeModifier() -> NSEvent.ModifierFlags {
+        return .control
+    }
 
     // Loads the app state (JSON) from disk - if the file exists, otherwise it does nothing.
     func loadFromDisk() {

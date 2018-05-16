@@ -22,8 +22,16 @@
 		15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC8CC7204E2E2C000B5E1E /* PPState.swift */; };
 		B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */; };
 		B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C2C21E25894B009F8E4E /* Assets.xcassets */; };
-		BA74C0F820A692D100306B27 /* PPWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C0F620A692D100306B27 /* PPWindowController.swift */; };
-		BA74C0F920A692D100306B27 /* PPWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C0F720A692D100306B27 /* PPWindowController.xib */; };
+		BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C0F620A692D100306B27 /* PPOverlayController.swift */; };
+		BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C0F720A692D100306B27 /* PPOverlayController.xib */; };
+		BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */; };
+		BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */; };
+		BA74C13B20A9329100306B27 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA74C13520A6F53C00306B27 /* ApplicationServices.framework */; };
+		BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */; };
+		BA74C14220AA409D00306B27 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14120AA409D00306B27 /* NSColor.swift */; };
+		BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */; };
+		BA74C14B20AC0E6E00306B27 /* PPSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */; };
+		BA74C14C20AC0E6E00306B27 /* PPSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +80,17 @@
 		B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B4C2C21E25894B009F8E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B4C2C71E25894B009F8E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA74C0F620A692D100306B27 /* PPWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPWindowController.swift; sourceTree = "<group>"; };
-		BA74C0F720A692D100306B27 /* PPWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPWindowController.xib; sourceTree = "<group>"; };
+		BA74C0F620A692D100306B27 /* PPOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayController.swift; sourceTree = "<group>"; };
+		BA74C0F720A692D100306B27 /* PPOverlayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPOverlayController.xib; sourceTree = "<group>"; };
+		BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayPanel.swift; sourceTree = "<group>"; };
+		BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowAndHideCursor.m; sourceTree = "<group>"; };
+		BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowAndHideCursor.h; sourceTree = "<group>"; };
+		BA74C13520A6F53C00306B27 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayPreview.swift; sourceTree = "<group>"; };
+		BA74C14120AA409D00306B27 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
+		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
+		BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSettingsController.swift; sourceTree = "<group>"; };
+		BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPSettingsController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA74C13B20A9329100306B27 /* ApplicationServices.framework in Frameworks */,
 				151CF3A920876C7800D6DC91 /* MASShortcut.framework in Frameworks */,
 				151CF3A720876C6900D6DC91 /* LaunchAtLogin.framework in Frameworks */,
 				1547AC99208738310088701F /* CleanroomLogger.framework in Frameworks */,
@@ -100,6 +118,7 @@
 		1547AC962087382D0088701F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA74C13520A6F53C00306B27 /* ApplicationServices.framework */,
 				151CF3AA20876C8600D6DC91 /* SwiftyJSON.framework */,
 				151CF3A820876C7800D6DC91 /* MASShortcut.framework */,
 				151CF3A620876C6900D6DC91 /* LaunchAtLogin.framework */,
@@ -112,8 +131,13 @@
 		159ED10B207EB2EF005489ED /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				BA74C0F620A692D100306B27 /* PPWindowController.swift */,
-				BA74C0F720A692D100306B27 /* PPWindowController.xib */,
+				BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */,
+				BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */,
+				BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */,
+				BA74C0F620A692D100306B27 /* PPOverlayController.swift */,
+				BA74C0F720A692D100306B27 /* PPOverlayController.xib */,
+				BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */,
+				BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -152,10 +176,13 @@
 		B3B4C2BF1E25894B009F8E4E /* PixelPicker */ = {
 			isa = PBXGroup;
 			children = (
+				BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */,
+				BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */,
 				B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */,
 				15FC8CC7204E2E2C000B5E1E /* PPState.swift */,
-				15492102207B53AE00E45BBC /* Util.swift */,
 				159ED10B207EB2EF005489ED /* UI */,
+				BA74C14120AA409D00306B27 /* NSColor.swift */,
+				15492102207B53AE00E45BBC /* Util.swift */,
 				B3B4C2C21E25894B009F8E4E /* Assets.xcassets */,
 				155D2C02204F61220087478B /* Credits.rtfd */,
 				B3B4C2C71E25894B009F8E4E /* Info.plist */,
@@ -258,7 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */,
-				BA74C0F920A692D100306B27 /* PPWindowController.xib in Resources */,
+				BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */,
+				BA74C14C20AC0E6E00306B27 /* PPSettingsController.xib in Resources */,
 				155D2C03204F61220087478B /* Credits.rtfd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,9 +324,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
 				15492103207B53AE00E45BBC /* Util.swift in Sources */,
-				BA74C0F820A692D100306B27 /* PPWindowController.swift in Sources */,
+				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
+				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
 				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
+				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
+				BA74C14B20AC0E6E00306B27 /* PPSettingsController.swift in Sources */,
+				BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */,
+				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
 				15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
