@@ -131,8 +131,8 @@ class PPOverlayController: NSWindowController {
             }
 
             CGWarpMouseCursorPosition(convertToCGCoordinateSystem(nextMouseLocation))
+            updatePreview(aroundPoint: nextMouseLocation)
             lastMouseLocation = nextMouseLocation
-            updatePreview(aroundPoint: currentMouseLocation)
         }
     }
 
@@ -146,7 +146,7 @@ class PPOverlayController: NSWindowController {
             lastActiveApp = NSWorkspace.shared.frontmostApplication
         }
 
-        if !PPState.shared.paschaModeEnabled { wrapper.layer?.cornerRadius = panelSize / 2 }
+        wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
         infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
         resizeInfoPanel()
         updatePreview(aroundPoint: NSEvent.mouseLocation)

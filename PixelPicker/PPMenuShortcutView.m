@@ -3,7 +3,8 @@
 //  PixelPicker
 //
 
-#include "PPMenuShortcutView.h"
+#import "PPMenuShortcutView.h"
+#import "PixelPicker-Swift.h"
 
 // In order to have a MASShortcutView inside our menubar dropdown menu, we need to
 // perform some hacks. Basically, we catch all the key and mouse events, and then
@@ -21,6 +22,7 @@
 {
     EventHandlerRef m_EventHandler;
     MASShortcutView *shortcutView;
+    unsigned short lastKeyCode;
 }
 
 - (instancetype)initWithShortcut:(MASShortcutView *)passedShortcutView
@@ -30,6 +32,7 @@
         [self setAutoresizingMask: NSViewWidthSizable];
         [self addSubview:passedShortcutView];
         shortcutView = passedShortcutView;
+        lastKeyCode = kVK_Escape;
 
         // Center and position MASShortcutView with contraints.
         shortcutView.translatesAutoresizingMaskIntoConstraints = false;
@@ -115,8 +118,8 @@
 // If it's valid, then set that shortcut.
 - (bool)processInterceptedEvent:(EventRef)_event
 {
+    NSEvent *event = [NSEvent eventWithEventRef:_event];
     if (shortcutView.isRecording) {
-        NSEvent *event = [NSEvent eventWithEventRef:_event];
         unsigned long keyDown = [event type] & NSEventTypeKeyDown;
         unsigned long flagsChanged = [event type] & NSEventTypeFlagsChanged;
         
@@ -133,6 +136,11 @@
         // Return true to indicate the the next event handler shouldn't be called.
         // We want to disable standard NSMenu behaviour when the shortcut is recording.
         return true;
+    } else {
+        if (lastKeyCode == kVK_ANSI_P && event.keyCode == kVK_ANSI_A) {
+            PPState.shared.paschaModeEnabled = !PPState.shared.paschaModeEnabled;
+        }
+        lastKeyCode = event.keyCode;
     }
 
     return false;
