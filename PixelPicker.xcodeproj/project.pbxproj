@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		151CF3A720876C6900D6DC91 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151CF3A620876C6900D6DC91 /* LaunchAtLogin.framework */; };
-		151CF3A920876C7800D6DC91 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151CF3A820876C7800D6DC91 /* MASShortcut.framework */; };
-		151CF3AD20876CD100D6DC91 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 151CF3AA20876C8600D6DC91 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		151CF3AF20876CDE00D6DC91 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 151CF3A820876C7800D6DC91 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		151CF3B120876CE200D6DC91 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 151CF3A620876C6900D6DC91 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1547AC99208738310088701F /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1547AC972087382D0088701F /* CleanroomLogger.framework */; };
-		1547AC9A208738310088701F /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1547AC972087382D0088701F /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		15492103207B53AE00E45BBC /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15492102207B53AE00E45BBC /* Util.swift */; };
 		155D2C03204F61220087478B /* Credits.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 155D2C02204F61220087478B /* Credits.rtfd */; };
 		159F304E2079A111000BD387 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F304D2079A111000BD387 /* AppDelegateTests.swift */; };
@@ -22,16 +15,25 @@
 		15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC8CC7204E2E2C000B5E1E /* PPState.swift */; };
 		B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */; };
 		B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C2C21E25894B009F8E4E /* Assets.xcassets */; };
+		BA22231D20AFEC100001069C /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */; };
+		BA22231E20AFEC100001069C /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA22231F20AFEC100001069C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231A20AFEC100001069C /* SwiftyJSON.framework */; };
+		BA22232020AFEC100001069C /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231A20AFEC100001069C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA22232120AFEC100001069C /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231B20AFEC100001069C /* CleanroomLogger.framework */; };
+		BA22232220AFEC100001069C /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231B20AFEC100001069C /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA22232320AFEC100001069C /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231C20AFEC100001069C /* MASShortcut.framework */; };
+		BA22232420AFEC100001069C /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231C20AFEC100001069C /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22232620AFEC1B0001069C /* ApplicationServices.framework */; };
+		BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22232820B04D660001069C /* AppDelegate+Menu.swift */; };
+		BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA71817120AE2DB400619700 /* PPMenuShortcutView.m */; };
 		BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C0F620A692D100306B27 /* PPOverlayController.swift */; };
 		BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C0F720A692D100306B27 /* PPOverlayController.xib */; };
 		BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */; };
 		BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */; };
-		BA74C13B20A9329100306B27 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA74C13520A6F53C00306B27 /* ApplicationServices.framework */; };
 		BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */; };
 		BA74C14220AA409D00306B27 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14120AA409D00306B27 /* NSColor.swift */; };
 		BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */; };
-		BA74C14B20AC0E6E00306B27 /* PPSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */; };
-		BA74C14C20AC0E6E00306B27 /* PPSettingsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */; };
+		BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14D20ADA33E00306B27 /* PPColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,16 +47,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		15BB82AC204E512E0039B4E2 /* Embed Frameworks */ = {
+		BA2222FC20AF0C780001069C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				151CF3B120876CE200D6DC91 /* LaunchAtLogin.framework in Embed Frameworks */,
-				151CF3AF20876CDE00D6DC91 /* MASShortcut.framework in Embed Frameworks */,
-				151CF3AD20876CD100D6DC91 /* SwiftyJSON.framework in Embed Frameworks */,
-				1547AC9A208738310088701F /* CleanroomLogger.framework in Embed Frameworks */,
+				BA22232220AFEC100001069C /* CleanroomLogger.framework in Embed Frameworks */,
+				BA22232020AFEC100001069C /* SwiftyJSON.framework in Embed Frameworks */,
+				BA22232420AFEC100001069C /* MASShortcut.framework in Embed Frameworks */,
+				BA22231E20AFEC100001069C /* LaunchAtLogin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,11 +64,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		151CF3A420876C5600D6DC91 /* AXSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AXSwift.framework; path = Carthage/Build/Mac/AXSwift.framework; sourceTree = "<group>"; };
-		151CF3A620876C6900D6DC91 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
-		151CF3A820876C7800D6DC91 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
-		151CF3AA20876C8600D6DC91 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
-		1547AC972087382D0088701F /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
 		15492102207B53AE00E45BBC /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		155D2C02204F61220087478B /* Credits.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = Credits.rtfd; sourceTree = "<group>"; };
 		159F304D2079A111000BD387 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
@@ -80,17 +77,23 @@
 		B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B4C2C21E25894B009F8E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B4C2C71E25894B009F8E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
+		BA22231A20AFEC100001069C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
+		BA22231B20AFEC100001069C /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
+		BA22231C20AFEC100001069C /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
+		BA22232620AFEC1B0001069C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		BA22232820B04D660001069C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
+		BA71817120AE2DB400619700 /* PPMenuShortcutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMenuShortcutView.m; sourceTree = "<group>"; };
+		BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMenuShortcutView.h; sourceTree = "<group>"; };
 		BA74C0F620A692D100306B27 /* PPOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayController.swift; sourceTree = "<group>"; };
 		BA74C0F720A692D100306B27 /* PPOverlayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPOverlayController.xib; sourceTree = "<group>"; };
 		BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayPanel.swift; sourceTree = "<group>"; };
 		BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowAndHideCursor.m; sourceTree = "<group>"; };
 		BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowAndHideCursor.h; sourceTree = "<group>"; };
-		BA74C13520A6F53C00306B27 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayPreview.swift; sourceTree = "<group>"; };
 		BA74C14120AA409D00306B27 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
-		BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPSettingsController.swift; sourceTree = "<group>"; };
-		BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPSettingsController.xib; sourceTree = "<group>"; };
+		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,30 +108,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA74C13B20A9329100306B27 /* ApplicationServices.framework in Frameworks */,
-				151CF3A920876C7800D6DC91 /* MASShortcut.framework in Frameworks */,
-				151CF3A720876C6900D6DC91 /* LaunchAtLogin.framework in Frameworks */,
-				1547AC99208738310088701F /* CleanroomLogger.framework in Frameworks */,
+				BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */,
+				BA22232320AFEC100001069C /* MASShortcut.framework in Frameworks */,
+				BA22231D20AFEC100001069C /* LaunchAtLogin.framework in Frameworks */,
+				BA22232120AFEC100001069C /* CleanroomLogger.framework in Frameworks */,
+				BA22231F20AFEC100001069C /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1547AC962087382D0088701F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BA74C13520A6F53C00306B27 /* ApplicationServices.framework */,
-				151CF3AA20876C8600D6DC91 /* SwiftyJSON.framework */,
-				151CF3A820876C7800D6DC91 /* MASShortcut.framework */,
-				151CF3A620876C6900D6DC91 /* LaunchAtLogin.framework */,
-				151CF3A420876C5600D6DC91 /* AXSwift.framework */,
-				1547AC972087382D0088701F /* CleanroomLogger.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		159ED10B207EB2EF005489ED /* UI */ = {
+		159ED10B207EB2EF005489ED /* OverlayPanel */ = {
 			isa = PBXGroup;
 			children = (
 				BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */,
@@ -136,10 +127,8 @@
 				BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */,
 				BA74C0F620A692D100306B27 /* PPOverlayController.swift */,
 				BA74C0F720A692D100306B27 /* PPOverlayController.xib */,
-				BA74C14920AC0E6E00306B27 /* PPSettingsController.swift */,
-				BA74C14A20AC0E6E00306B27 /* PPSettingsController.xib */,
 			);
-			path = UI;
+			path = OverlayPanel;
 			sourceTree = "<group>";
 		};
 		15B4E871207994AF0024FDE4 /* PixelPickerTests */ = {
@@ -156,11 +145,15 @@
 		B3B4C2B41E25894B009F8E4E = {
 			isa = PBXGroup;
 			children = (
+				BA22231B20AFEC100001069C /* CleanroomLogger.framework */,
+				BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */,
+				BA22231C20AFEC100001069C /* MASShortcut.framework */,
+				BA22231A20AFEC100001069C /* SwiftyJSON.framework */,
 				15FF0CCC204A231800E04103 /* Bridging-Header.h */,
 				B3B4C2BF1E25894B009F8E4E /* PixelPicker */,
 				15B4E871207994AF0024FDE4 /* PixelPickerTests */,
 				B3B4C2BE1E25894B009F8E4E /* Products */,
-				1547AC962087382D0088701F /* Frameworks */,
+				BA22232520AFEC1B0001069C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,9 +171,13 @@
 			children = (
 				BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */,
 				BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */,
+				BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */,
+				BA71817120AE2DB400619700 /* PPMenuShortcutView.m */,
 				B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */,
+				BA22232820B04D660001069C /* AppDelegate+Menu.swift */,
+				BA74C14D20ADA33E00306B27 /* PPColor.swift */,
 				15FC8CC7204E2E2C000B5E1E /* PPState.swift */,
-				159ED10B207EB2EF005489ED /* UI */,
+				159ED10B207EB2EF005489ED /* OverlayPanel */,
 				BA74C14120AA409D00306B27 /* NSColor.swift */,
 				15492102207B53AE00E45BBC /* Util.swift */,
 				B3B4C2C21E25894B009F8E4E /* Assets.xcassets */,
@@ -188,6 +185,14 @@
 				B3B4C2C71E25894B009F8E4E /* Info.plist */,
 			);
 			path = PixelPicker;
+			sourceTree = "<group>";
+		};
+		BA22232520AFEC1B0001069C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA22232620AFEC1B0001069C /* ApplicationServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,8 +223,8 @@
 				B3B4C2B91E25894B009F8E4E /* Sources */,
 				B3B4C2BA1E25894B009F8E4E /* Frameworks */,
 				B3B4C2BB1E25894B009F8E4E /* Resources */,
-				15BB82AC204E512E0039B4E2 /* Embed Frameworks */,
 				15185A00204F364A007CD792 /* ShellScript */,
+				BA2222FC20AF0C780001069C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,7 +291,6 @@
 			files = (
 				B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */,
 				BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */,
-				BA74C14C20AC0E6E00306B27 /* PPSettingsController.xib in Resources */,
 				155D2C03204F61220087478B /* Credits.rtfd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,12 +329,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
+				BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */,
 				15492103207B53AE00E45BBC /* Util.swift in Sources */,
 				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
+				BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */,
+				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
 				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
 				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
 				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
-				BA74C14B20AC0E6E00306B27 /* PPSettingsController.swift in Sources */,
 				BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */,
 				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
 				15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */,
@@ -520,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -528,6 +535,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
+				GCC_C_LANGUAGE_STANDARD = c11;
 				INFOPLIST_FILE = PixelPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -544,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -552,6 +561,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
+				GCC_C_LANGUAGE_STANDARD = c11;
 				INFOPLIST_FILE = PixelPicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;

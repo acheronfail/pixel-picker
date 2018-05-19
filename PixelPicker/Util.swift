@@ -8,6 +8,12 @@ import CleanroomLogger
 let APP_NAME = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
 let APPLE_INTERFACE_STYLE = "AppleInterfaceStyle"
 
+// Copies the given string to the clipboard.
+func copyToPasteboard(stringValue value: String) {
+    NSPasteboard.general.declareTypes([.string], owner: nil)
+    NSPasteboard.general.setString(value, forType: .string)
+}
+
 // Ensure that the given number is odd.
 func ensureOdd(_ x: CGFloat) -> CGFloat {
     if Int(x) % 2 == 0 { return x + 1 }
@@ -19,9 +25,9 @@ func isHalf(_ x: CGFloat) -> Bool {
     return Int(x * 2) % 2 != 0
 }
 
-// The new Cocoa APIs have a new coordinate system (origin is top-left of the screen)
-// but the Carbon/CoreGraphics APIs use an old coordinate system where the origin is
-// the bottom-left corner *of the primary display*.
+// The Cocoa APIs have a coordinate system (origin is top-left of the screen) but the
+// Carbon/CoreGraphics APIs use an old coordinate system where the origin is the
+// bottom-left corner *of the primary display*.
 // The primary display is always the first item of the NSScreen.screens array.
 func convertToCGCoordinateSystem(_ point: NSPoint) -> CGPoint {
     return CGPoint(x: point.x, y: NSScreen.screens[0].frame.size.height - point.y)
@@ -30,10 +36,6 @@ func convertToCGCoordinateSystem(_ point: NSPoint) -> CGPoint {
 // Returns the screen which contains the mouse cursor.
 func getScreenFromPoint(_ point: NSPoint) -> NSScreen? {
     return NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) }
-}
-
-func appleInterfaceStyleIsDark() -> Bool {
-    return UserDefaults.standard.string(forKey: APPLE_INTERFACE_STYLE) == "Dark"
 }
 
 // A simple helper to run animations with the same context configration.

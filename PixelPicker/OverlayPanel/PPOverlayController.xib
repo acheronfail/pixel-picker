@@ -16,7 +16,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="pjH-5Z-pKq" customClass="AppDelegate" customModule="PixelPicker" customModuleProvider="target">
             <connections>
-                <outlet property="panel" destination="gZA-A3-IZ5" id="1Qb-c0-lxR"/>
+                <outlet property="overlayController" destination="ECQ-9M-Pkg" id="Afq-GW-4JX"/>
             </connections>
         </customObject>
         <customObject id="ECQ-9M-Pkg" customClass="PPOverlayController" customModule="PixelPicker" customModuleProvider="target">
@@ -32,10 +32,10 @@
             </connections>
         </customObject>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gZA-A3-IZ5" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
-            <windowStyleMask key="styleMask" utility="YES"/>
+            <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="132" width="101" height="101"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2138"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
             <view key="contentView" id="acW-WA-gq2" customClass="PPOverlayWrapper" customModule="PixelPicker" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -54,10 +54,9 @@
             <point key="canvasLocation" x="236" y="82"/>
         </window>
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="OMO-LB-w57" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
-            <windowStyleMask key="styleMask" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="132" width="100" height="50"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2138"/>
+            <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
+            <rect key="contentRect" x="926" y="538" width="100" height="50"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
             <view key="contentView" id="HED-rR-FDP">
                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -77,9 +76,9 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-GH-fyd">
-                                    <rect key="frame" x="-2" y="5" width="104" height="17"/>
+                                    <rect key="frame" x="-2" y="5" width="104" height="14"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="IYd-1Y-7cd">
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>

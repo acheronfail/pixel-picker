@@ -13,7 +13,7 @@ void ShowCursor(void);
 void HideCursor(void);
 void LogWarning(void);
 
-// We use a private API to hide the cursor even when the application isn't active.
+// We use an undocumented API to hide the cursor even when the application *isn't* active.
 // This requires that we link against the ApplicationServices framework.
 // See https://stackoverflow.com/a/3939241/5552584
 // and https://web.archive.org/web/20150609013355/http://lists.apple.com:80/archives/carbon-dev/2006/Jan/msg00555.html

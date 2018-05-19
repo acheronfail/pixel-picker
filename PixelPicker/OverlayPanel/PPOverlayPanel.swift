@@ -3,16 +3,8 @@
 //  PixelPicker
 //
 
-var PANEL_SIZE: CGFloat = 200
-var hPANEL_SIZE = PANEL_SIZE / 2
-
-func getPanelSize() -> CGFloat {
-   return PANEL_SIZE
-}
-func setPanelSize(_ newSize: CGFloat) {
-    PANEL_SIZE = newSize
-}
-
+// This class is in charge of managing the panels which are brought to the front
+// (above other apps) without actually activating PixelPicker itself.
 class PPOverlayPanel: NSPanel {
     override var canBecomeKey: Bool {
         get { return true }
@@ -40,17 +32,13 @@ class PPOverlayPanel: NSPanel {
         self.acceptsMouseMovedEvents = true
     }
     
-    // Reset the dimensions of the panel each time it's activated.
-    override func makeKeyAndOrderFront(_ sender: Any?) {
-        super.makeKeyAndOrderFront(sender)
-        setFrame(NSMakeRect(frame.origin.x, frame.origin.y, getPanelSize() + 1, getPanelSize() + 1), display: false)
-    }
-    
-    // ...
-    func activate(withInfoPanel infoPanel: PPOverlayPanel) {
+    // Activates the panel (makes it key window and orders it to the front), and
+    // positions the info panel accordingly.
+    func activate(withSize size: CGFloat, infoPanel: PPOverlayPanel) {
         makeKeyAndOrderFront(self)
+        setFrame(NSMakeRect(frame.origin.x, frame.origin.y, size + 1, size + 1), display: false)
         addChildWindow(infoPanel, ordered: .above)
-        let origin = NSPoint(x: frame.midX + (getPanelSize() / 4), y: frame.midY - (infoPanel.frame.height / 2))
+        let origin = NSPoint(x: frame.midX + (size / 4), y: frame.midY - (infoPanel.frame.height / 2))
         infoPanel.setFrameOrigin(origin)
     }
 }

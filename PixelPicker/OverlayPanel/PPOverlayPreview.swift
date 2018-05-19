@@ -3,8 +3,11 @@
 //  PixelPicker
 //
 
+// This class is in charge of rendering the pixel preview.
+//
+// TODO: draw grid b/w pixels when zoomed?
 class PPOverlayPreview: NSView, CALayerDelegate {
-    
+    // The small pixel-box in the centre of the picker.
     var crosshair: CAShapeLayer = CAShapeLayer()
     
     override var wantsUpdateLayer: Bool {
@@ -24,11 +27,10 @@ class PPOverlayPreview: NSView, CALayerDelegate {
         layer?.addSublayer(crosshair)
     }
     
-    func updateCrosshair(_ nPixels: CGFloat, _ middle: CGFloat, _ color: CGColor) {
-        let squareSize = getPanelSize() / nPixels
-        
-        let pos: CGFloat = (squareSize * middle) - (squareSize / 2)
-        let pixelRect = NSMakeRect(pos, pos, squareSize, squareSize)
+    // Update the crosshair with the correct color, position and size.
+    func updateCrosshair(_ pixelSize: CGFloat, _ middle: CGFloat, _ color: CGColor) {
+        let pos: CGFloat = (pixelSize * middle) - (pixelSize / 2)
+        let pixelRect = NSMakeRect(pos, pos, pixelSize, pixelSize)
         let outerRect = pixelRect.insetBy(dx: -1, dy: -1)
         
         crosshair.path = CGPath(rect: outerRect, transform: nil)

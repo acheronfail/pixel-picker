@@ -3,19 +3,21 @@
 //  PixelPicker
 //
 
-import SwiftyJSON
+import MASShortcut
 import CleanroomLogger
 
+// The app's menu bar item.
 let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 
-    @IBOutlet weak var panel: NSPanel!
-    var panelController: PPOverlayController!
+    // This controller manages the pixel picker itself.
+    @IBOutlet weak var overlayController: PPOverlayController!
     
-    private var contextMenu: NSMenu = NSMenu()
-    private var menuBarItem: NSStatusItem! = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    var contextMenu: NSMenu = NSMenu()
+    var menuBarItem: NSStatusItem! = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
+    // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
         let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
         var logConfigurations: [LogConfiguration] = [
@@ -28,24 +30,15 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         PPState.shared.loadFromDisk()
     }
 
+    // Setup the menubar item and register our activating shortcut.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        panelController = (panel.windowController as? PPOverlayController)!
-
-        contextMenu.addItem(NSMenuItem(title: "Settings", action: #selector(showSettingsWindow), keyEquivalent: ""))
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(NSMenuItem(title: "About", action: #selector(showAboutPanel), keyEquivalent: ""))
-        contextMenu.addItem(NSMenuItem.separator())
-        contextMenu.addItem(NSMenuItem(title: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: ""))
+        contextMenu.delegate = self
 
         menuBarItem.image = ICON
         menuBarItem.action = #selector(onMenuClick)
         menuBarItem.sendAction(on: [.leftMouseUp, .rightMouseUp])
         
-        // TODO: set this from settings window
-        let shortcut = MASShortcut(keyCode: 0, modifierFlags: 1179648)
-        MASShortcutMonitor.shared().register(shortcut, withAction: {
-            self.panelController.show()
-        })
+        registerActivatingShortcut()
 
         Log.info?.message("Sucessfully launched.")
     }
@@ -54,22 +47,37 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         PPState.shared.saveToDisk()
     }
     
-    @objc func showSettingsWindow(_ sender: Any?) {
-        // TODO: make a settings window
+    func registerActivatingShortcut() {
+        if let shortcut = PPState.shared.activatingShortcut {
+            MASShortcutMonitor.shared().register(shortcut, withAction: showPicker)
+        }
+    }
+    
+    func unregisterActivatingShortcut() {
+        MASShortcutMonitor.shared().unregisterShortcut(PPState.shared.activatingShortcut)
     }
 
     @objc func onMenuClick(sender: NSStatusItem) {
+        let leftClickToggles = PPState.shared.defaults.bool(forKey: "leftClickActivates")
+        let pickerEvent: NSEvent.EventType = leftClickToggles ? .leftMouseUp : .rightMouseUp
+        let dropdownEvent: NSEvent.EventType = leftClickToggles ? .rightMouseUp : .leftMouseUp
+        
         let event = NSApp.currentEvent!
-        if event.type == .leftMouseUp {
+        if event.type == dropdownEvent {
+            rebuildContextMenu()
             menuBarItem?.popUpMenu(contextMenu)
-        } else if event.type == .rightMouseUp {
-            Log.debug?.message("right click")
+        } else if event.type == pickerEvent {
+            showPicker()
         }
+    }
+    
+    @objc func showPicker() {
+        overlayController.showPicker()
     }
 
     @objc func showAboutPanel() {
         NSApp.orderFrontStandardAboutPanel()
-        NSApplication.shared.activate(ignoringOtherApps: true)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     @objc func quitApplication() {

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <MASShortcut/Shortcut.h>
 
+#import "PPMenuShortcutView.h"
 #import "ShowAndHideCursor.h"
 
 #endif /* Bridging_Header_h */
