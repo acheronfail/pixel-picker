@@ -114,13 +114,24 @@ class PPOverlayController: NSWindowController {
     override func mouseMoved(with event: NSEvent) {
         if isEnabled {
             let speed: CGFloat = concentrationMode ? 0.1 : 0.5
-            var currentMouseLocation = NSEvent.mouseLocation
-            currentMouseLocation.x = lastMouseLocation.x + (event.deltaX * speed)
-            currentMouseLocation.y = lastMouseLocation.y - (event.deltaY * speed)
+            let currentMouseLocation = NSEvent.mouseLocation
 
-            // TODO: don't allow the mouse to go off screen!!!
-            CGWarpMouseCursorPosition(convertToCGCoordinateSystem(currentMouseLocation))
-            lastMouseLocation = currentMouseLocation
+            let x = lastMouseLocation.x + (event.deltaX * speed)
+            let y = lastMouseLocation.y - (event.deltaY * speed)
+
+            // Ensure the picker doesn't travel off screen.
+            var nextMouseLocation = NSPoint(x: x, y: y)
+            for screen in NSScreen.screens {
+                let outsideCoordinate = coordinateOutsideRect(nextMouseLocation, screen.frame)
+                if NSMouseInRect(currentMouseLocation, screen.frame, false) && outsideCoordinate != .none {
+                    if outsideCoordinate == .x { nextMouseLocation.x = currentMouseLocation.x }
+                    if outsideCoordinate == .y { nextMouseLocation.y = currentMouseLocation.y }
+                    if outsideCoordinate == .both { nextMouseLocation = currentMouseLocation }
+                }
+            }
+
+            CGWarpMouseCursorPosition(convertToCGCoordinateSystem(nextMouseLocation))
+            lastMouseLocation = nextMouseLocation
             updatePreview(aroundPoint: currentMouseLocation)
         }
     }
