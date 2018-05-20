@@ -8,6 +8,8 @@
  * the user clicks on the status bar item.
  */
 
+import LaunchAtLogin
+
 // The modifiers available to use to toggle "concentrationMode".
 let concentrationModifiers: [(String, NSEvent.ModifierFlags)] = [
     ("fn Function", .function),
@@ -39,11 +41,17 @@ extension AppDelegate: NSMenuDelegate {
         buildFloatPrecisionSlider()
         buildShortcutMenuItem()
         
+        let launchAtLoginItem = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
+        launchAtLoginItem.state = LaunchAtLogin.isEnabled ? .on : .off
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
     }
-    
+
+    @objc private func launchAtLogin(_ sender: NSMenuItem) {
+        LaunchAtLogin.isEnabled = !LaunchAtLogin.isEnabled
+    }
+
     // Show the user's recent picks in the menu.
     private func buildRecentPicks() {
         // Recent picks.

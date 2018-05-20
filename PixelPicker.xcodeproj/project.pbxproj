@@ -15,14 +15,6 @@
 		15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC8CC7204E2E2C000B5E1E /* PPState.swift */; };
 		B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */; };
 		B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C2C21E25894B009F8E4E /* Assets.xcassets */; };
-		BA22231D20AFEC100001069C /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */; };
-		BA22231E20AFEC100001069C /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BA22231F20AFEC100001069C /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231A20AFEC100001069C /* SwiftyJSON.framework */; };
-		BA22232020AFEC100001069C /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231A20AFEC100001069C /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BA22232120AFEC100001069C /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231B20AFEC100001069C /* CleanroomLogger.framework */; };
-		BA22232220AFEC100001069C /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231B20AFEC100001069C /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BA22232320AFEC100001069C /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231C20AFEC100001069C /* MASShortcut.framework */; };
-		BA22232420AFEC100001069C /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231C20AFEC100001069C /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22232620AFEC1B0001069C /* ApplicationServices.framework */; };
 		BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22232820B04D660001069C /* AppDelegate+Menu.swift */; };
 		BA22232B20B0E3B50001069C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA22232A20B0E3B50001069C /* README.md */; };
@@ -35,6 +27,14 @@
 		BA74C14220AA409D00306B27 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14120AA409D00306B27 /* NSColor.swift */; };
 		BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */; };
 		BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14D20ADA33E00306B27 /* PPColor.swift */; };
+		BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; };
+		BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; };
+		BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; };
+		BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
+		BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,10 +54,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BA22232220AFEC100001069C /* CleanroomLogger.framework in Embed Frameworks */,
-				BA22232020AFEC100001069C /* SwiftyJSON.framework in Embed Frameworks */,
-				BA22232420AFEC100001069C /* MASShortcut.framework in Embed Frameworks */,
-				BA22231E20AFEC100001069C /* LaunchAtLogin.framework in Embed Frameworks */,
+				BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */,
+				BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */,
+				BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */,
+				BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,10 +78,6 @@
 		B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B4C2C21E25894B009F8E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B4C2C71E25894B009F8E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
-		BA22231A20AFEC100001069C /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
-		BA22231B20AFEC100001069C /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
-		BA22231C20AFEC100001069C /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BA22232620AFEC1B0001069C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BA22232820B04D660001069C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
 		BA22232A20B0E3B50001069C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "/Users/cosmotherly/dev/pixel-picker/README.md"; sourceTree = "<absolute>"; };
@@ -96,6 +92,10 @@
 		BA74C14120AA409D00306B27 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
 		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
+		BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
+		BAA17B7120B14CC000625455 /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
+		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
+		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,11 +110,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */,
+				BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */,
+				BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */,
 				BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */,
-				BA22232320AFEC100001069C /* MASShortcut.framework in Frameworks */,
-				BA22231D20AFEC100001069C /* LaunchAtLogin.framework in Frameworks */,
-				BA22232120AFEC100001069C /* CleanroomLogger.framework in Frameworks */,
-				BA22231F20AFEC100001069C /* SwiftyJSON.framework in Frameworks */,
+				BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,10 +147,10 @@
 		B3B4C2B41E25894B009F8E4E = {
 			isa = PBXGroup;
 			children = (
-				BA22231B20AFEC100001069C /* CleanroomLogger.framework */,
-				BA22231920AFEC0F0001069C /* LaunchAtLogin.framework */,
-				BA22231C20AFEC100001069C /* MASShortcut.framework */,
-				BA22231A20AFEC100001069C /* SwiftyJSON.framework */,
+				BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */,
+				BAA17B7120B14CC000625455 /* CleanroomLogger.framework */,
+				BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */,
+				BAA17B7220B14CC100625455 /* MASShortcut.framework */,
 				15FF0CCC204A231800E04103 /* Bridging-Header.h */,
 				B3B4C2BF1E25894B009F8E4E /* PixelPicker */,
 				15B4E871207994AF0024FDE4 /* PixelPickerTests */,
@@ -226,8 +226,8 @@
 				B3B4C2B91E25894B009F8E4E /* Sources */,
 				B3B4C2BA1E25894B009F8E4E /* Frameworks */,
 				B3B4C2BB1E25894B009F8E4E /* Resources */,
-				15185A00204F364A007CD792 /* ShellScript */,
 				BA2222FC20AF0C780001069C /* Embed Frameworks */,
+				15185A00204F364A007CD792 /* ShellScript */,
 			);
 			buildRules = (
 			);

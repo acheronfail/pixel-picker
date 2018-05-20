@@ -41,10 +41,6 @@ import CleanroomLogger
     
     // Recent colors picks.
     var recentPicks: [PPPickedColor] = []
-    
-    // Whether or not the app should launch after login.
-    // TODO: add menu item for this
-    private var launchAppAtLogin = LaunchAtLogin.isEnabled
 
     private init(atPath url: URL) {
         self.savePath = url
