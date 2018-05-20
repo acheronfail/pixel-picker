@@ -44,8 +44,8 @@ enum Coordinate {
     case x, y, both, none
 }
 func coordinateOutsideRect(_ point: NSPoint, _ rect: NSRect) -> Coordinate {
-    let x = point.x <= rect.origin.x || point.x >= (rect.origin.x + rect.width)
-    let y = point.y <= rect.origin.y || point.y >= (rect.origin.y + rect.height)
+    let x = point.x < rect.origin.x || point.x > (rect.origin.x + rect.width)
+    let y = point.y < rect.origin.y || point.y > (rect.origin.y + rect.height)
     if x && y { return .both }
     if x { return .x }
     if y { return .y }
