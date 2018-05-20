@@ -15,11 +15,7 @@ PixelPicker is like Digital Color Meter, but lives in your menu bar and lets you
 
 ## Installation
 
-Coming soon.
-
-<!--
 Simply download the dmg from the [releases](https://github.com/acheronfail/pixel-picker/releases) tab and drag "Pixel Picker.app" into your `/Applications` folder.
--->
 
 ## Usage
 
