@@ -127,11 +127,11 @@ class PPOverlayController: NSWindowController {
             // Ensure the picker doesn't travel off screen.
             var nextMouseLocation = NSPoint(x: x, y: y)
             for screen in NSScreen.screens {
-                let outsideCoordinate = coordinateOutsideRect(nextMouseLocation, screen.frame)
-                if NSMouseInRect(currentMouseLocation, screen.frame, false) && outsideCoordinate != .none {
-                    if outsideCoordinate == .x { nextMouseLocation.x = currentMouseLocation.x }
-                    if outsideCoordinate == .y { nextMouseLocation.y = currentMouseLocation.y }
-                    if outsideCoordinate == .both { nextMouseLocation = currentMouseLocation }
+                let outlier = Coordinate.isOutsideRect(nextMouseLocation, screen.frame)
+                if NSMouseInRect(currentMouseLocation, screen.frame, false) && outlier != .none {
+                    if outlier == .x { nextMouseLocation.x = currentMouseLocation.x }
+                    if outlier == .y { nextMouseLocation.y = currentMouseLocation.y }
+                    if outlier == .both { nextMouseLocation = currentMouseLocation }
                 }
             }
 
