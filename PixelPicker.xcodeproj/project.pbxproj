@@ -80,7 +80,7 @@
 		B3B4C2C71E25894B009F8E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA22232620AFEC1B0001069C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BA22232820B04D660001069C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
-		BA22232A20B0E3B50001069C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "/Users/cosmotherly/dev/pixel-picker/README.md"; sourceTree = "<absolute>"; };
+		BA22232A20B0E3B50001069C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		BA71817120AE2DB400619700 /* PPMenuShortcutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMenuShortcutView.m; sourceTree = "<group>"; };
 		BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMenuShortcutView.h; sourceTree = "<group>"; };
 		BA74C0F620A692D100306B27 /* PPOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayController.swift; sourceTree = "<group>"; };
