@@ -171,6 +171,28 @@ enum PPColor: String {
         }
     }
     
+    // Returns the PPColor that sits after this one.
+    func next() -> PPColor {
+        return next(withArray: iterateEnum(PPColor.self).map({ $0 }))
+    }
+    
+    // Same as next() but backwards.
+    func previous() -> PPColor {
+        return next(withArray: iterateEnum(PPColor.self).reversed())
+    }
+    
+    // Finds the next element after this element in the given array.
+    // This method should only be passed the result of iterateEnum(PPColor.self).
+    private func next(withArray array: [PPColor]) -> PPColor {
+        var found = false
+        for x in array {
+            if found { return x }
+            if x == self { found = true }
+        }
+
+        return array.first!
+    }
+    
     // A tiny enum that describes which components should be used when formatting.
     private enum Components {
         case rgb

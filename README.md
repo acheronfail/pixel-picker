@@ -30,7 +30,9 @@ After you've installed PixelPicker, it will live in your menu bar. You have many
 * Simply right-click the menu item and the picker will activate
 
 Once you have the picker open, it should be quite straightforward! Move your mouse around the screen and click on the pixel you want.
-You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Concentration Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel! 
+You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Concentration Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel!
+
+Remember, you can press <kbd>space</kbd> (or <kbd>shift</kbd> + <kbd>space</kbd>) to cycle between color formats while the picker is open.
 
 ### Options
 
@@ -46,6 +48,8 @@ PixelPicker provides some neat options:
     * This controls how many digits will come after the decimal point when using float-based color formats.
 * **Picker Shortcut**
     * The global keyboard shortcut to use that will activate Pixel Picker.
+* **Launch at Login**
+    * If this is enabled then PixelPicker will be launched when you log into your computer.
 
 #### Extra Overrides or Hidden Settings
 

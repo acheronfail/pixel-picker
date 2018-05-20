@@ -97,9 +97,13 @@ class PPOverlayController: NSWindowController {
     }
 
     // Close picker immediately when the user presses the escape key.
-    // TODO: press space to cycle between formats.
     override func keyDown(with event: NSEvent) {
         if event.keyCode == kVK_Escape { hidePicker(animate: false) }
+        if event.keyCode == kVK_Space {
+            let format = PPState.shared.chosenFormat
+            PPState.shared.chosenFormat = event.modifierFlags.contains(.shift) ? format.previous() : format.next()
+            updateInfoPanel(lastHighlightedColor, lastHighlightedColor.bestContrastingColor())
+        }
     }
 
     // Enable "concentrationMode" when correct modifier flag is changed.
@@ -148,7 +152,6 @@ class PPOverlayController: NSWindowController {
         }
 
         wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
-        infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
         resizeInfoPanel()
         updatePreview(aroundPoint: NSEvent.mouseLocation)
         HideCursor()
@@ -209,6 +212,7 @@ class PPOverlayController: NSWindowController {
         infoBox.fillColor = color.alphaComponent == 0 ? NSColor.black : color
         infoFormatField.textColor = contrastingColor
         infoDetailField.textColor = contrastingColor
+        infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
         infoDetailField.stringValue = PPState.shared.chosenFormat.asComponentString(withColor: color)
         resizeInfoPanel()
     }
