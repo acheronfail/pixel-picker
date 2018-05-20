@@ -1,6 +1,6 @@
 //
 //  Bridging-Header.h
-//  Apptivator
+//  PixelPicker
 //
 
 #ifndef Bridging_Header_h

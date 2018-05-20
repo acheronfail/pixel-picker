@@ -25,6 +25,7 @@
 		BA22232420AFEC100001069C /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA22231C20AFEC100001069C /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22232620AFEC1B0001069C /* ApplicationServices.framework */; };
 		BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22232820B04D660001069C /* AppDelegate+Menu.swift */; };
+		BA22232B20B0E3B50001069C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA22232A20B0E3B50001069C /* README.md */; };
 		BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA71817120AE2DB400619700 /* PPMenuShortcutView.m */; };
 		BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C0F620A692D100306B27 /* PPOverlayController.swift */; };
 		BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C0F720A692D100306B27 /* PPOverlayController.xib */; };
@@ -42,7 +43,7 @@
 			containerPortal = B3B4C2B51E25894B009F8E4E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B3B4C2BC1E25894B009F8E4E;
-			remoteInfo = Apptivator;
+			remoteInfo = PixelPicker;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -83,6 +84,7 @@
 		BA22231C20AFEC100001069C /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BA22232620AFEC1B0001069C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BA22232820B04D660001069C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
+		BA22232A20B0E3B50001069C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "/Users/cosmotherly/dev/pixel-picker/README.md"; sourceTree = "<absolute>"; };
 		BA71817120AE2DB400619700 /* PPMenuShortcutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMenuShortcutView.m; sourceTree = "<group>"; };
 		BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMenuShortcutView.h; sourceTree = "<group>"; };
 		BA74C0F620A692D100306B27 /* PPOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				BA74C14120AA409D00306B27 /* NSColor.swift */,
 				15492102207B53AE00E45BBC /* Util.swift */,
 				B3B4C2C21E25894B009F8E4E /* Assets.xcassets */,
+				BA22232A20B0E3B50001069C /* README.md */,
 				155D2C02204F61220087478B /* Credits.rtfd */,
 				B3B4C2C71E25894B009F8E4E /* Info.plist */,
 			);
@@ -212,7 +215,7 @@
 				15B4E876207994AF0024FDE4 /* PBXTargetDependency */,
 			);
 			name = PixelPickerTests;
-			productName = ApptivatorTests;
+			productName = PixelPickerTests;
 			productReference = 15B4E870207994AF0024FDE4 /* PixelPickerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -231,7 +234,7 @@
 			dependencies = (
 			);
 			name = PixelPicker;
-			productName = Apptivator;
+			productName = PixelPicker;
 			productReference = B3B4C2BD1E25894B009F8E4E /* PixelPicker.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -291,6 +294,7 @@
 			files = (
 				B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */,
 				BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */,
+				BA22232B20B0E3B50001069C /* README.md in Resources */,
 				155D2C03204F61220087478B /* Credits.rtfd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,10 +375,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = ApptivatorTests/Info.plist;
+				INFOPLIST_FILE = PixelPickerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.ApptivatorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -399,10 +403,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = ApptivatorTests/Info.plist;
+				INFOPLIST_FILE = PixelPickerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.ApptivatorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -465,7 +469,7 @@
 				PRODUCT_MODULE_NAME = PixelPicker;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Apptivator/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				USER_HEADER_SEARCH_PATHS = "Pods/**";
@@ -519,7 +523,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = PixelPicker;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "Apptivator/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				USER_HEADER_SEARCH_PATHS = "Pods/**";

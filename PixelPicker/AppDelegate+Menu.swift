@@ -34,9 +34,9 @@ extension AppDelegate: NSMenuDelegate {
         buildRecentPicks()
         
         contextMenu.addItem(.separator())
-        buildFloatPrecisionSlider()
         buildColorFormatsMenu()
         buildConcentrationMenu()
+        buildFloatPrecisionSlider()
         buildShortcutMenuItem()
         
         contextMenu.addItem(.separator())

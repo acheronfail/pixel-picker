@@ -30,12 +30,13 @@ class PPOverlayController: NSWindowController {
             if isEnabled {
                 panelSize = concentrationMode ? 300 : 150
                 overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
-                if !PPState.shared.paschaModeEnabled { wrapper.layer?.cornerRadius = panelSize / 2 }
+                wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
             }
         }
     }
 
     // The size of the pixel picker.
+    // TODO: use constants rather than hard-coded values.
     private var panelSize: CGFloat = 150
 
     // The app that was last active before the picker was activated. We keep track
@@ -56,11 +57,11 @@ class PPOverlayController: NSWindowController {
             if isEnabled {
                 lastMouseLocation = NSEvent.mouseLocation
                 startMonitoringEvents()
-                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: false as NSNumber))
+                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: 0))
             } else {
                 stopMonitoringEvents()
                 concentrationMode = false
-                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: true as NSNumber))
+                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: 1))
             }
         }
     }
