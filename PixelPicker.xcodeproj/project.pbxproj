@@ -332,18 +332,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
-				BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */,
-				15492103207B53AE00E45BBC /* Util.swift in Sources */,
-				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
-				BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */,
-				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
-				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
-				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
-				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
 				BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */,
-				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
+				BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */,
+				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
+				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
+				BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */,
 				15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */,
+				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
+				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
+				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
+				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
+				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
+				15492103207B53AE00E45BBC /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

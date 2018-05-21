@@ -13,10 +13,14 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
 
     // This controller manages the pixel picker itself.
     @IBOutlet weak var overlayController: PPOverlayController!
-    
-    var contextMenu: NSMenu = NSMenu()
+
+    // The actual menu bar item.
     var menuBarItem: NSStatusItem! = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    
+    // The menu that drops down from the menu bar item.
+    var contextMenu: NSMenu = NSMenu()
+    // When the menu bar is opened, we observe the run loop for changes in modifierFlags.
+    var runLoopObserver: CFRunLoopObserver? = nil
+
     // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
         let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
@@ -37,7 +41,7 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         menuBarItem.image = ICON
         menuBarItem.action = #selector(onMenuClick)
         menuBarItem.sendAction(on: [.leftMouseUp, .rightMouseUp])
-        
+
         registerActivatingShortcut()
 
         Log.info?.message("Sucessfully launched.")
@@ -46,13 +50,13 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
     func applicationWillTerminate(_ aNotification: Notification) {
         PPState.shared.saveToDisk()
     }
-    
+
     func registerActivatingShortcut() {
         if let shortcut = PPState.shared.activatingShortcut {
             MASShortcutMonitor.shared().register(shortcut, withAction: showPicker)
         }
     }
-    
+
     func unregisterActivatingShortcut() {
         MASShortcutMonitor.shared().unregisterShortcut(PPState.shared.activatingShortcut)
     }
@@ -61,7 +65,7 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
         let leftClickToggles = PPState.shared.defaults.bool(forKey: "leftClickActivates")
         let pickerEvent: NSEvent.EventType = leftClickToggles ? .leftMouseUp : .rightMouseUp
         let dropdownEvent: NSEvent.EventType = leftClickToggles ? .rightMouseUp : .leftMouseUp
-        
+
         let event = NSApp.currentEvent!
         if event.type == dropdownEvent {
             rebuildContextMenu()
@@ -70,7 +74,7 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
             showPicker()
         }
     }
-    
+
     @objc func showPicker() {
         overlayController.showPicker()
     }

@@ -20,10 +20,43 @@ let concentrationModifiers: [(String, NSEvent.ModifierFlags)] = [
 ]
 
 extension AppDelegate: NSMenuDelegate {
-    // Unregister/register the activating shortcut when the menu is opened/closed
-    // so it can't be called when setting a new shortcut.
-    func menuWillOpen(_ menu: NSMenu) { unregisterActivatingShortcut() }
-    func menuDidClose(_ menu: NSMenu) { registerActivatingShortcut() }
+    // Unregister the activating shortcut when the menu is opened/closed so it can't be called when
+    // setting a new shortcut. Also start a run loop observer so we know when the modifierFlags have
+    // changed (used to dynamically update the menu).
+    func menuWillOpen(_ menu: NSMenu) {
+        unregisterActivatingShortcut()
+        if runLoopObserver == nil {
+            let activites = CFRunLoopActivity.beforeWaiting.rawValue
+            runLoopObserver = CFRunLoopObserverCreateWithHandler(nil, activites, true, 0, { [unowned self] (_, _) in
+                self.updateMenuItems()
+            })
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), runLoopObserver, CFRunLoopMode.commonModes)
+        }
+    }
+
+    // Re-register the activating shortcut, and remove the run loop observer.
+    func menuDidClose(_ menu: NSMenu) {
+        registerActivatingShortcut()
+        if (runLoopObserver != nil) {
+            CFRunLoopObserverInvalidate(runLoopObserver)
+            runLoopObserver = nil
+        }
+    }
+
+    // Updates the titles of the recently picked colors - if the `option` key is pressed, then
+    // the colors will be in the format they were *when* they were picked, otherwise they'll be
+    // in the currently chosen format.
+    private func updateMenuItems() {
+        // Update recent picks list with correct titles.
+        let alternate = NSEvent.modifierFlags.contains(.option)
+        for item in contextMenu.items {
+            if let pickedColor = item.representedObject as? PPPickedColor {
+                item.title = alternate
+                    ? pickedColor.asString
+                    : PPState.shared.chosenFormat.asString(withColor: pickedColor.color)
+            }
+        }
+    }
 
     // TODO: look into only updating the menu rather than rebuilding it each time.
     // Might not be worth it - it doesn't seem expensive to build it every time it's opened...
@@ -40,12 +73,16 @@ extension AppDelegate: NSMenuDelegate {
         buildConcentrationMenu()
         buildFloatPrecisionSlider()
         buildShortcutMenuItem()
-        
-        let launchAtLoginItem = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
-        launchAtLoginItem.state = LaunchAtLogin.isEnabled ? .on : .off
+        buildLaunchAtLoginItem()
+
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
+    }
+
+    private func buildLaunchAtLoginItem() {
+        let item = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
+        item.state = LaunchAtLogin.isEnabled ? .on : .off
     }
 
     @objc private func launchAtLogin(_ sender: NSMenuItem) {
@@ -54,25 +91,27 @@ extension AppDelegate: NSMenuDelegate {
 
     // Show the user's recent picks in the menu.
     private func buildRecentPicks() {
-        // Recent picks.
-        // TODO: it would be nice to hold the `option` key and have the recent picks show in the
-        // currently chosen format, and when clicked copy in that format.
-        // https://stackoverflow.com/q/11208632/5552584
         if PPState.shared.recentPicks.count > 0 {
             contextMenu.addItem(.separator())
             contextMenu.addItem(withTitle: "Recently Picked", action: nil, keyEquivalent: "")
+            let format = PPState.shared.chosenFormat
             for pickedColor in PPState.shared.recentPicks {
-                // TODO: copy to clipboard when clicked, if alt then in current format
-                let item = contextMenu.addItem(withTitle: pickedColor.asString, action: #selector(copyRecentPick(_:)), keyEquivalent: "")
+                let item = contextMenu.addItem(withTitle: format.asString(withColor: pickedColor.color), action: #selector(copyRecentPick(_:)), keyEquivalent: "")
                 item.representedObject = pickedColor
                 item.image = circleImage(withSize: 12, color: pickedColor.color)
             }
         }
     }
-    
+
+    // Copies the recently picked color (associated with the menu item) to the clipboard.
+    // If the `option` key is pressed, then it copies the color in the same format it was
+    // when it was picked (otherwise, it copies it in the currently chosen format).
     @objc private func copyRecentPick(_ sender: NSMenuItem) {
         if let pickedColor = sender.representedObject as? PPPickedColor {
-            copyToPasteboard(stringValue: pickedColor.asString)
+            let value = NSEvent.modifierFlags.contains(.option)
+                ? pickedColor.asString
+                : PPState.shared.chosenFormat.asString(withColor: pickedColor.color)
+            copyToPasteboard(stringValue: value)
         }
     }
     
@@ -116,13 +155,9 @@ extension AppDelegate: NSMenuDelegate {
         
         // Update state.
         PPState.shared.floatPrecision = newValue
-        
+
         // Update recent picks list with new precision.
-        for item in contextMenu.items {
-            if let pickedColor = item.representedObject as? PPPickedColor {
-                item.title = pickedColor.asString
-            }
-        }
+        updateMenuItems()
     }
     
     // Build a submenu with each case in the PPColor enum.
