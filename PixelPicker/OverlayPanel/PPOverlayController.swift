@@ -19,10 +19,6 @@ class PPOverlayController: NSWindowController {
     @IBOutlet weak var infoFormatField: NSTextField!
     @IBOutlet weak var infoDetailField: NSTextField!
 
-    // The current magnification level of the preview.
-    // TODO: make this somewhat configurable?
-    var magnification: CGFloat = 8.0
-
     // This mode increases the picker's size, increases the magnification and also
     // slows down mouseMove events to make it easier to pick the right pixel.
     var concentrationMode: Bool = false {
@@ -235,6 +231,7 @@ class PPOverlayController: NSWindowController {
         let normalisedPoint = NSPoint(x: round(point.x * 2) / 2, y: round(point.y * 2) / 2)
         if let screenShot = getScreenShot(aroundPoint: normalisedPoint) {
             // Calculate a zoomed rect which will crop the screenshot we took.
+            let magnification = CGFloat(PPState.shared.magnificationLevel)
             let zoomReciprocal: CGFloat = 1.0 / (concentrationMode ? magnification * 2.5 : magnification)
             let currentSize = CGFloat(screenShot.width) + 1
             let origin = floor(currentSize * ((1 - zoomReciprocal) / 2))

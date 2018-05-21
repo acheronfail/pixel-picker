@@ -29,6 +29,9 @@ import CleanroomLogger
     
     // The shortcut that activates the pixel picker.
     var activatingShortcut: MASShortcut?
+
+    // Magnification level of the picker.
+    var magnificationLevel: Int = 8
     
     // Hold this down to enter concentration mode.
     var concentrationModeModifier: NSEvent.ModifierFlags = .control
@@ -100,6 +103,8 @@ import CleanroomLogger
                     }
                 case "chosenFormat":
                     chosenFormat = PPColor(rawValue: value.stringValue) ?? .genericHex
+                case "magnificationLevel":
+                    magnificationLevel = value.int ?? 8
                 case "floatPrecision":
                     let n = value.uInt ?? 3
                     floatPrecision = (n > 0 && n < PPState.maxFloatPrecision) ? n : 3
@@ -137,6 +142,7 @@ import CleanroomLogger
             "paschaModeEnabled": paschaModeEnabled,
             "concentrationModeModifier": concentrationModeModifier.rawValue,
             "activatingShortcut": shortcutData,
+            "magnificationLevel": magnificationLevel,
             "chosenFormat": chosenFormat.rawValue,
             "floatPrecision": floatPrecision,
             "recentPicks": recentPicks.map({ $0.asJSON })

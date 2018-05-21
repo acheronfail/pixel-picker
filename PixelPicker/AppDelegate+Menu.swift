@@ -62,14 +62,15 @@ extension AppDelegate: NSMenuDelegate {
     // Might not be worth it - it doesn't seem expensive to build it every time it's opened...
     func rebuildContextMenu() {
         contextMenu.removeAllItems()
-        
+
         let pickItem = contextMenu.addItem(withTitle: "Pick a pixel!", action: #selector(showPicker), keyEquivalent: "")
         pickItem.image = ICON
-        
+
         buildRecentPicks()
-        
+
         contextMenu.addItem(.separator())
         buildColorFormatsMenu()
+        buildMagnificationItem()
         buildConcentrationMenu()
         buildFloatPrecisionSlider()
         buildShortcutMenuItem()
@@ -78,6 +79,23 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
+    }
+
+    private func buildMagnificationItem() {
+        let submenu = NSMenu()
+        for i in stride(from: 4, through: 24, by: 2) {
+            let item = submenu.addItem(withTitle: "\(i)x", action: #selector(selectMagnification(_:)), keyEquivalent: "")
+            item.representedObject = i
+            item.state = PPState.shared.magnificationLevel == i ? .on : .off
+        }
+        let item = contextMenu.addItem(withTitle: "Magnification", action: nil, keyEquivalent: "")
+        item.submenu = submenu
+    }
+
+    @objc private func selectMagnification(_ sender: NSMenuItem) {
+        if let level = sender.representedObject as? Int {
+            PPState.shared.magnificationLevel = level
+        }
     }
 
     private func buildLaunchAtLoginItem() {
