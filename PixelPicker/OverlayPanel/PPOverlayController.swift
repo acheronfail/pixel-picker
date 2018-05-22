@@ -19,14 +19,16 @@ class PPOverlayController: NSWindowController {
     @IBOutlet weak var infoFormatField: NSTextField!
     @IBOutlet weak var infoDetailField: NSTextField!
 
-    // This mode increases the picker's size, increases the magnification and also
-    // slows down mouseMove events to make it easier to pick the right pixel.
+    // This mode increases the picker's size, increases the magnification and also slows down move
+    // events to make it easier to pick the right pixel. We dissociate the mouse (input) from the
+    // mouse cursor while the concentrationMode is active. This is so we can slow it down.
     var concentrationMode: Bool = false {
         didSet {
             if isEnabled {
                 panelSize = concentrationMode ? 300 : 150
                 overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
                 wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
+                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: concentrationMode ? 0 : 1))
             }
         }
     }
@@ -46,18 +48,14 @@ class PPOverlayController: NSWindowController {
     private var lastHighlightedColor: NSColor = NSColor.black
 
     // Whether or not the picker should be actively updating its preview.
-    // We dissociate the mouse (input) from the mouse cursor while the picker is active.
-    // This is so we can slow down the mouse movement during concentration mode.
     private var isEnabled: Bool = false {
         didSet {
             if isEnabled {
                 lastMouseLocation = NSEvent.mouseLocation
                 startMonitoringEvents()
-                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: 0))
             } else {
                 stopMonitoringEvents()
                 concentrationMode = false
-                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: 1))
             }
         }
     }
@@ -114,24 +112,30 @@ class PPOverlayController: NSWindowController {
     // slow it down to make it easier to pick the correct pixel.
     override func mouseMoved(with event: NSEvent) {
         if isEnabled {
-            let speed: CGFloat = concentrationMode ? 0.1 : 0.5
             let currentMouseLocation = NSEvent.mouseLocation
+            var nextMouseLocation = currentMouseLocation
 
-            let x = lastMouseLocation.x + (event.deltaX * speed)
-            let y = lastMouseLocation.y - (event.deltaY * speed)
+            // Slow down tracking speed when concentration mode is active.
+            if concentrationMode {
+                let speed: CGFloat = concentrationMode ? 0.1 : 0.5
+                let x = lastMouseLocation.x + (event.deltaX * speed)
+                let y = lastMouseLocation.y - (event.deltaY * speed)
 
-            // Ensure the picker doesn't travel off screen.
-            var nextMouseLocation = NSPoint(x: x, y: y)
-            for screen in NSScreen.screens {
-                let outlier = Coordinate.isOutsideRect(nextMouseLocation, screen.frame)
-                if NSMouseInRect(currentMouseLocation, screen.frame, false) && outlier != .none {
-                    if outlier == .x { nextMouseLocation.x = currentMouseLocation.x }
-                    if outlier == .y { nextMouseLocation.y = currentMouseLocation.y }
-                    if outlier == .both { nextMouseLocation = currentMouseLocation }
+                // Ensure the picker doesn't travel off screen.
+                nextMouseLocation = NSPoint(x: x, y: y)
+                for screen in NSScreen.screens {
+                    let outlier = Coordinate.isOutsideRect(nextMouseLocation, screen.frame)
+                    if NSMouseInRect(currentMouseLocation, screen.frame, false) && outlier != .none {
+                        if outlier == .x { nextMouseLocation.x = currentMouseLocation.x }
+                        if outlier == .y { nextMouseLocation.y = currentMouseLocation.y }
+                        if outlier == .both { nextMouseLocation = currentMouseLocation }
+                    }
                 }
+
+                // Since we've disassociated the mouse input with the cursor, we manually move it.
+                CGWarpMouseCursorPosition(convertToCGCoordinateSystem(nextMouseLocation))
             }
 
-            CGWarpMouseCursorPosition(convertToCGCoordinateSystem(nextMouseLocation))
             updatePreview(aroundPoint: nextMouseLocation)
             lastMouseLocation = nextMouseLocation
         }

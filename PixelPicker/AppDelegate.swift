@@ -44,6 +44,12 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
 
         registerActivatingShortcut()
 
+        // Set the CGEventSource.localEventsSuppressionInterval to a small interval (default: 250ms)
+        // otherwise there'll be a delay when we re-associate the mouse input with the mouse cursor
+        // (in the picker) that makes it feel laggy (the suppression interval controls how long
+        // hardware events are suppressed after functions like CGWarpMouseCursorPosition are used.
+        CGEventSource(stateID: CGEventSourceStateID.combinedSessionState)?.localEventsSuppressionInterval = 0.05
+
         Log.info?.message("Sucessfully launched.")
     }
 
