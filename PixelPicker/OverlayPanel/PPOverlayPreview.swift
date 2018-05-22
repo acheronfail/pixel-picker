@@ -31,10 +31,9 @@ class PPOverlayPreview: NSView, CALayerDelegate {
     func updateCrosshair(_ pixelSize: CGFloat, _ middle: CGFloat, _ color: CGColor) {
         let pos: CGFloat = (pixelSize * middle) - (pixelSize / 2)
         let pixelRect = NSMakeRect(pos, pos, pixelSize, pixelSize)
-        let outerRect = pixelRect.insetBy(dx: -1, dy: -1)
         
-        crosshair.path = CGPath(rect: outerRect, transform: nil)
+        crosshair.path = CGPath(rect: pixelRect, transform: nil)
         crosshair.strokeColor = color
-        setNeedsDisplay(outerRect)
+        setNeedsDisplay(pixelRect)
     }
 }
