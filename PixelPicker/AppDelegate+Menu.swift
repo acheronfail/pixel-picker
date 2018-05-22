@@ -113,7 +113,7 @@ extension AppDelegate: NSMenuDelegate {
             contextMenu.addItem(.separator())
             contextMenu.addItem(withTitle: "Recently Picked", action: nil, keyEquivalent: "")
             let format = PPState.shared.chosenFormat
-            for pickedColor in PPState.shared.recentPicks {
+            for pickedColor in PPState.shared.recentPicks.reversed() {
                 let item = contextMenu.addItem(withTitle: format.asString(withColor: pickedColor.color), action: #selector(copyRecentPick(_:)), keyEquivalent: "")
                 item.representedObject = pickedColor
                 item.image = circleImage(withSize: 12, color: pickedColor.color)
