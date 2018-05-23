@@ -251,11 +251,10 @@ class PPOverlayController: NSWindowController {
 
             // Extract the middle pixel color from the zoomed image.
             let bitmap = NSBitmapImageRep(cgImage: zoomedImage)
-            bitmap.colorSpaceName = .calibratedRGB
             if let colorAtPixel = bitmap.colorAt(x: Int(middle), y: Int(middle)) {
                 let contrastingColor = colorAtPixel.bestContrastingColor()
 
-                preview.layer?.contents = NSImage(cgImage: zoomedImage, size: NSSize(width: panelSize, height: panelSize))
+                preview.layer?.contents = zoomedImage
                 preview.updateCrosshair(panelSize / zoomedSize, middle, contrastingColor.cgColor)
                 wrapper.update(contrastingColor.cgColor)
                 updateInfoPanel(colorAtPixel, contrastingColor)

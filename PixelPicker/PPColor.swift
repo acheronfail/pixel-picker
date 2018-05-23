@@ -91,10 +91,10 @@ enum PPColor: String {
         let f = self.insertFloatPrecisionFormatter
         let c = colorInCorrectColorSpace(passedColor)
         switch self {
-        case .genericHex:                return self.formatAsHex(c, "%2X")
+        case .genericHex:                return self.formatAsHex(c, "%06x")
         case .generic8Bit:               return self.formatAs8Bit(c, "%u, %u, %u")
         case .genericDecimal:            return self.formatAsDecimal(c, f("%f, %f, %f"), .rgb)
-        case .cssHex:                    return self.formatAsHex(c, "#%2X")
+        case .cssHex:                    return self.formatAsHex(c, "#%06x")
         case .cssRgb:                    return self.formatAs8Bit(c, "rgb(%u, %u, %u)")
         case .cssRgba:                   return self.formatAs8Bit(c, "rgba(%u, %u, %u, 1)")
         case .cssHsl:                    return self.formatAsHSL(c, "hsl(%u, %u%%, %u%%)")
@@ -119,8 +119,8 @@ enum PPColor: String {
         case .javaRgba:                  return self.formatAs8Bit(c, "new Color(%u, %u, %u, 255)")
         case .androidRgb:                return self.formatAs8Bit(c, "Color.rgb(%u, %u, %u)")
         case .androidArgb:               return self.formatAs8Bit(c, "Color.argb(255, %u, %u, %u)")
-        case .androidXmlRgb:             return self.formatAsHex(c, "<color name=\"color_name\">#%2X</color>")
-        case .androidXmlArgb:            return self.formatAsHex(c, "<color name=\"color_name\">#ff%2X</color>")
+        case .androidXmlRgb:             return self.formatAsHex(c, "<color name=\"color_name\">#%06x</color>")
+        case .androidXmlArgb:            return self.formatAsHex(c, "<color name=\"color_name\">#ff%06x</color>")
         case .cgColorRgb:                return self.formatAsDecimal(c, f("CGColorCreateGenericRGB(%f, %f, %f, 1.000)"), .rgb)
         case .openGlRgb:                 return self.formatAsDecimal(c, f("glColor3f(%f, %f, %f)"), .rgb)
         case .openGlRgba:                return self.formatAsDecimal(c, f("glColor4f(%f, %f, %f, 1.000)"), .rgb)
@@ -136,7 +136,7 @@ enum PPColor: String {
         case .androidXmlRgb:             fallthrough
         case .androidXmlArgb:            fallthrough
         case .cgColorRgb:                fallthrough
-        case .genericHex:                return self.formatAsHex(color, "%2X")
+        case .genericHex:                return self.formatAsHex(color, "%06x")
         // CSS HSL is a unique format.
         case .cssHsl:                    fallthrough
         case .cssHsla:                   return self.formatAsHSL(color, "%u, %u%%, %u%%")
@@ -206,10 +206,10 @@ enum PPColor: String {
     
     // Formats the colors as a hex value, eg: "D3504E".
     private func formatAsHex(_ color: NSColor, _ template: String) -> String {
-        let a = Int(color.redComponent * 255) << 16
-        let b = Int(color.greenComponent * 255) << 8
-        let c = Int(color.blueComponent * 255) << 0
-        return String(format: template, a | b | c)
+        let a = roundf(Float(color.redComponent   * 0xff))
+        let b = roundf(Float(color.greenComponent * 0xff))
+        let c = roundf(Float(color.blueComponent  * 0xff))
+        return String(format: template, (UInt(a) << 16 | UInt(b) << 8 | UInt(c)) & 0xffffff)
     }
     
     // Formats the color as decimal values, eg: "0.145, 0.361, 0.722".
@@ -222,9 +222,9 @@ enum PPColor: String {
     
     // Formats the color as 8-bit values, eg: "158, 198, 117".
     private func formatAs8Bit(_ color: NSColor, _ template: String) -> String {
-        let a = Int(color.redComponent * 255)
-        let b = Int(color.greenComponent * 255)
-        let c = Int(color.blueComponent * 255)
+        let a = Int(color.redComponent   * 0xff)
+        let b = Int(color.greenComponent * 0xff)
+        let c = Int(color.blueComponent  * 0xff)
         return String(format: template, a, b, c)
     }
     
