@@ -68,8 +68,9 @@ extension AppDelegate: NSMenuDelegate {
         }
     }
 
-    // TODO: look into only updating the menu rather than rebuilding it each time.
-    // Might not be worth it - it doesn't seem expensive to build it every time it's opened...
+    // This rebuilds the context menu from scratch. For the sake of simplicity, we re-create the
+    // menu from scratch each time. It's not an expensive operation, and is only called when the
+    // user opens the menu.
     func rebuildContextMenu() {
         contextMenu.removeAllItems()
 
