@@ -31,9 +31,12 @@ import CleanroomLogger
 
     // Magnification level of the picker.
     var magnificationLevel: Int = 8
+
+    // When to draw a grid in the preview.
+    var gridSetting: GridSetting = .inFocusMode
     
-    // Hold this down to enter concentration mode.
-    var concentrationModeModifier: NSEvent.ModifierFlags = .control
+    // Hold this down to enter focus mode.
+    var focusModeModifier: NSEvent.ModifierFlags = .control
     
     // The currently chosen format.
     var chosenFormat: PPColor = .genericHex
@@ -65,7 +68,7 @@ import CleanroomLogger
     
     func resetState() {
         paschaModeEnabled = false
-        concentrationModeModifier = .control
+        focusModeModifier = .control
         activatingShortcut = nil
         chosenFormat = .genericHex
         floatPrecision = 3
@@ -96,8 +99,8 @@ import CleanroomLogger
                 switch key {
                 case "paschaModeEnabled":
                     paschaModeEnabled = value.bool ?? false
-                case "concentrationModeModifier":
-                    concentrationModeModifier = NSEvent.ModifierFlags(rawValue: value.uInt ?? NSEvent.ModifierFlags.control.rawValue)
+                case "focusModeModifier":
+                    focusModeModifier = NSEvent.ModifierFlags(rawValue: value.uInt ?? NSEvent.ModifierFlags.control.rawValue)
                 case "activatingShortcut":
                     if let keyCode = value["keyCode"].uInt, let modifierFlags = value["modifierFlags"].uInt {
                         let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: modifierFlags)
@@ -150,7 +153,7 @@ import CleanroomLogger
         
         let json: JSON = [
             "paschaModeEnabled": paschaModeEnabled,
-            "concentrationModeModifier": concentrationModeModifier.rawValue,
+            "focusModeModifier": focusModeModifier.rawValue,
             "activatingShortcut": shortcutData,
             "magnificationLevel": magnificationLevel,
             "colorSpace": colorSpace ?? "",

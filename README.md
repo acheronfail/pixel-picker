@@ -26,7 +26,7 @@ After you've installed PixelPicker, it will live in your menu bar. You have many
 * Simply right-click the menu item and the picker will activate
 
 Once you have the picker open, it should be quite straightforward! Move your mouse around the screen and click on the pixel you want.
-You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Concentration Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel!
+You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Focus Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel!
 
 Remember, you can press <kbd>space</kbd> (or <kbd>shift</kbd> + <kbd>space</kbd>) to cycle between color formats while the picker is open.
 
@@ -36,10 +36,14 @@ All of PixelPicker's options are in its menubar dropdown. Simply click on the me
 
 PixelPicker provides some neat options:
 
-* **Concentration Modifier**
-    * Choose which modifier activates concentration mode. When concentration mode is active, the picker zooms closer in, and your mouse moves slower to help you pick the right pixel.
 * **Color Format**
     * How should the color be copied when you select it? Examples include CSS Hex: `#aabbcc`, or Java RGB: `new Color(158, 198, 117)`, etc.
+* **Focus Modifier**
+    * Choose which modifier activates focus mode. When focus mode is active, the picker zooms closer in, and your mouse moves slower to help you pick the right pixel.
+* **Color Space**
+    * Computer screens are complex things, and have various different color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
+* **Show Grid**
+    * Whether or not to show a grid around the pixels in the picker's preview.
 * **Float Precision**
     * This controls how many digits will come after the decimal point when using float-based color formats.
 * **Picker Shortcut**

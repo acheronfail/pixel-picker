@@ -10,8 +10,18 @@
 
 import LaunchAtLogin
 
-// The modifiers available to use to toggle "concentrationMode".
-let concentrationModifiers: [(String, NSEvent.ModifierFlags)] = [
+// The settings available for displaying a grid in the picker's preview.
+enum GridSetting {
+    case never, always, inFocusMode
+    static let withNames: [(String, GridSetting)] = [
+        ("Only in Focus Mode", .inFocusMode),
+        ("Always", .always),
+        ("Never", .never)
+    ]
+}
+
+// The modifiers available to use to toggle "focusMode".
+let focusModifiers: [(String, NSEvent.ModifierFlags)] = [
     ("fn Function", .function),
     ("⌘ Command", .command),
     ("⌃ Control", .control),
@@ -69,10 +79,11 @@ extension AppDelegate: NSMenuDelegate {
         buildRecentPicks()
 
         contextMenu.addItem(.separator())
+        buildShowGridMenu()
         buildColorSpaceItem()
         buildColorFormatsMenu()
-        buildMagnificationItem()
-        buildConcentrationMenu()
+        buildMagnificationMenu()
+        buildFocusModeModifierMenu()
         buildFloatPrecisionSlider()
         buildShortcutMenuItem()
         buildLaunchAtLoginItem()
@@ -80,6 +91,25 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
+    }
+
+    // Choose whether to always draw a grid, never draw one, or only draw one when in focus mode.
+    private func buildShowGridMenu() {
+        let submenu = NSMenu()
+        for (title, setting) in GridSetting.withNames {
+            let item = submenu.addItem(withTitle: title, action: #selector(selectGridSetting(_:)), keyEquivalent: "")
+            item.representedObject = setting
+            item.state = PPState.shared.gridSetting == setting ? .on : .off
+        }
+
+        let item = contextMenu.addItem(withTitle: "Show Grid", action: nil, keyEquivalent: "")
+        item.submenu = submenu
+    }
+
+    @objc private func selectGridSetting(_ sender: NSMenuItem) {
+        if let setting = sender.representedObject as? GridSetting {
+            PPState.shared.gridSetting = setting
+        }
     }
 
     // A menu that allows choosing what color space the picker will use.
@@ -106,7 +136,7 @@ extension AppDelegate: NSMenuDelegate {
     }
 
     // A menu which allows the magnification level of the picker to be adjusted.
-    private func buildMagnificationItem() {
+    private func buildMagnificationMenu() {
         let submenu = NSMenu()
         for i in stride(from: 4, through: 24, by: 2) {
             let item = submenu.addItem(withTitle: "\(i)x", action: #selector(selectMagnification(_:)), keyEquivalent: "")
@@ -225,23 +255,23 @@ extension AppDelegate: NSMenuDelegate {
         }
     }
 
-    // Builds and adds the concentration modifier submenu.
-    private func buildConcentrationMenu() {
+    // Builds and adds the focus modifier submenu.
+    private func buildFocusModeModifierMenu() {
         let submenu = NSMenu()
-        for (name, modifier) in concentrationModifiers {
+        for (name, modifier) in focusModifiers {
             let modifierItem = submenu.addItem(withTitle: name, action: #selector(selectModifier(_:)), keyEquivalent: "")
             modifierItem.representedObject = modifier
-            if PPState.shared.concentrationModeModifier == modifier { modifierItem.state = .on }
+            if PPState.shared.focusModeModifier == modifier { modifierItem.state = .on }
         }
 
-        let item = contextMenu.addItem(withTitle: "Concentration Modifier", action: nil, keyEquivalent: "")
+        let item = contextMenu.addItem(withTitle: "Focus Mode Modifier", action: nil, keyEquivalent: "")
         item.submenu = submenu
     }
 
-    // Set the chosen modifier to toggle "concentrationMode".
+    // Set the chosen modifier to toggle "focusMode".
     @objc private func selectModifier(_ sender: NSMenuItem) {
         if let modifier = sender.representedObject as? NSEvent.ModifierFlags {
-            PPState.shared.concentrationModeModifier = modifier
+            PPState.shared.focusModeModifier = modifier
         }
     }
 

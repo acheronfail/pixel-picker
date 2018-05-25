@@ -21,14 +21,14 @@ class PPOverlayController: NSWindowController {
 
     // This mode increases the picker's size, increases the magnification and also slows down move
     // events to make it easier to pick the right pixel. We dissociate the mouse (input) from the
-    // mouse cursor while the concentrationMode is active. This is so we can slow it down.
-    var concentrationMode: Bool = false {
+    // mouse cursor while the focusMode is active. This is so we can slow it down.
+    var focusMode: Bool = false {
         didSet {
             if isEnabled {
-                panelSize = concentrationMode ? PPOverlayController.panelSizeLarge : PPOverlayController.panelSizeNormal
+                panelSize = focusMode ? PPOverlayController.panelSizeLarge : PPOverlayController.panelSizeNormal
                 overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
                 wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
-                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: concentrationMode ? 0 : 1))
+                CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: focusMode ? 0 : 1))
             }
         }
     }
@@ -56,7 +56,7 @@ class PPOverlayController: NSWindowController {
                 startMonitoringEvents()
             } else {
                 stopMonitoringEvents()
-                concentrationMode = false
+                focusMode = false
             }
         }
     }
@@ -106,24 +106,24 @@ class PPOverlayController: NSWindowController {
         }
     }
 
-    // Enable "concentrationMode" when correct modifier flag is changed.
+    // Enable "focusMode" when correct modifier flag is changed.
     override func flagsChanged(with event: NSEvent) {
         if isEnabled {
-            concentrationMode = event.modifierFlags.contains(PPState.shared.concentrationModeModifier)
+            focusMode = event.modifierFlags.contains(PPState.shared.focusModeModifier)
             updatePreview(aroundPoint: lastMouseLocation)
         }
     }
 
-    // Move the picker with the mouse, and if "concentrationMode" is active then
+    // Move the picker with the mouse, and if "focusMode" is active then
     // slow it down to make it easier to pick the correct pixel.
     override func mouseMoved(with event: NSEvent) {
         if isEnabled {
             let currentMouseLocation = NSEvent.mouseLocation
             var nextMouseLocation = currentMouseLocation
 
-            // Slow down tracking speed when concentration mode is active.
-            if concentrationMode {
-                let speed: CGFloat = concentrationMode ? 0.1 : 0.5
+            // Slow down tracking speed when focusMode is active.
+            if focusMode {
+                let speed: CGFloat = focusMode ? 0.1 : 0.5
                 let x = lastMouseLocation.x + (event.deltaX * speed)
                 let y = lastMouseLocation.y - (event.deltaY * speed)
 
@@ -245,7 +245,7 @@ class PPOverlayController: NSWindowController {
 
             // Calculate a zoomed rect which will crop the screenshot we took.
             let magnification = CGFloat(PPState.shared.magnificationLevel)
-            let zoomReciprocal: CGFloat = 1.0 / (concentrationMode ? magnification * 2.5 : magnification)
+            let zoomReciprocal: CGFloat = 1.0 / (focusMode ? magnification * 2.5 : magnification)
             let currentSize = CGFloat(screenShot.width) + 1
             let origin = floor(currentSize * ((1 - zoomReciprocal) / 2))
             let x = origin + (isHalf(normalisedPoint.x) ? 1 : 0)
@@ -256,42 +256,48 @@ class PPOverlayController: NSWindowController {
             let croppedRect = CGRect(x: x, y: y, width: zoomedSize, height: zoomedSize)
             let zoomedImage: CGImage = screenShot.cropping(to: croppedRect)!
             let pixelSize = panelSize / zoomedSize
-            let middlePosition = zoomedSize / 2
 
             // Convert the preview to the correct color space, and update the overlay.
 
             // User has chosen a custom color space.
             if let colorSpace = getChosenColorSpace(point) {
                 if colorSpace == zoomedImage.colorSpace {
-                    return updatePreview(zoomedImage, pixelSize, middlePosition)
+                    return updatePreview(zoomedImage, pixelSize, zoomedSize)
                 } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
-                    return updatePreview(image, pixelSize, middlePosition)
+                    return updatePreview(image, pixelSize, zoomedSize)
                 }
             }
 
             // No custom color space chosen, so use the screen's one.
             if let colorSpace = getScreenColorSpace(point) {
                 if colorSpace == zoomedImage.colorSpace {
-                    return updatePreview(zoomedImage, pixelSize, middlePosition)
+                    return updatePreview(zoomedImage, pixelSize, zoomedSize)
                 } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
-                    return updatePreview(image, pixelSize, middlePosition)
+                    return updatePreview(image, pixelSize, zoomedSize)
                 }
             }
 
             // If that also didn't work, then just return the image in its default color space.
-            return updatePreview(zoomedImage, pixelSize, middlePosition)
+            return updatePreview(zoomedImage, pixelSize, zoomedSize)
         }
     }
 
-    private func updatePreview(_ image: CGImage, _ pixelSize: CGFloat, _ middlePosition: CGFloat) {
+    private func updatePreview(_ image: CGImage, _ pixelSize: CGFloat, _ numberOfPixels: CGFloat) {
+        let middlePosition = numberOfPixels / 2
+
         // Extract the middle pixel color from the prepared image.
         let colorAtPixel = image.colorAt(x: Int(middlePosition), y: Int(middlePosition))
         let contrastingColor = colorAtPixel.bestContrastingColor()
 
-        preview.layer?.contents = image
-        preview.updateCrosshair(pixelSize, middlePosition, contrastingColor.cgColor)
+        // Update picker border and info panel.
         wrapper.update(contrastingColor.cgColor)
         updateInfoPanel(colorAtPixel, contrastingColor)
+
+        // Update the picker preview.
+        preview.layer?.contents = image
+        preview.updateCrosshair(pixelSize, middlePosition, contrastingColor.cgColor)
+        let showGrid = PPState.shared.gridSetting == .always || (focusMode && PPState.shared.gridSetting == .inFocusMode)
+        preview.updateGrid(cellSize: pixelSize, numberOfCells: Int(numberOfPixels), shouldDisplay: showGrid)
 
         // Save color under pixel (used when copied).
         lastHighlightedColor = colorAtPixel
