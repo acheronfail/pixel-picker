@@ -15,7 +15,7 @@ class PPOverlayController: NSWindowController {
 
     // Outlets relating to the picker's info box.
     @IBOutlet weak var infoPanel: PPOverlayPanel!
-    @IBOutlet weak var infoBox: NSBox!
+    @IBOutlet weak var infoWrapper: NSView!
     @IBOutlet weak var infoFormatField: NSTextField!
     @IBOutlet weak var infoDetailField: NSTextField!
 
@@ -25,7 +25,7 @@ class PPOverlayController: NSWindowController {
     var concentrationMode: Bool = false {
         didSet {
             if isEnabled {
-                panelSize = concentrationMode ? 300 : 150
+                panelSize = concentrationMode ? PPOverlayController.panelSizeLarge : PPOverlayController.panelSizeNormal
                 overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
                 wrapper.layer?.cornerRadius = PPState.shared.paschaModeEnabled ? 0 : panelSize / 2
                 CGAssociateMouseAndMouseCursorPosition(boolean_t(truncating: concentrationMode ? 0 : 1))
@@ -33,9 +33,10 @@ class PPOverlayController: NSWindowController {
         }
     }
 
-    // The size of the pixel picker.
-    // TODO: use constants rather than hard-coded values.
-    private var panelSize: CGFloat = 150
+    // The current and different sizes of the pixel picker.
+    private static let panelSizeNormal: CGFloat = 150
+    private static let panelSizeLarge: CGFloat = 300
+    private var panelSize: CGFloat = PPOverlayController.panelSizeNormal
 
     // The app that was last active before the picker was activated. We keep track
     // of this in order to fully restore first responder status after picking a pixel.
@@ -61,6 +62,11 @@ class PPOverlayController: NSWindowController {
     }
 
     override func awakeFromNib() {
+        // Setup the info window.
+        infoWrapper.wantsLayer = true
+        infoWrapper.layer?.cornerRadius = 8
+        infoWrapper.layer?.backgroundColor = NSColor.black.cgColor
+
         // For some reason if we don't listen for events this way we miss the escape key.
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) {
             if self.isEnabled { self.keyDown(with: $0) }
@@ -209,7 +215,7 @@ class PPOverlayController: NSWindowController {
 
     // Updates the info panel with the correct colors and text.
     func updateInfoPanel(_ color: NSColor, _ contrastingColor: NSColor) {
-        infoBox.fillColor = color.alphaComponent == 0 ? NSColor.black : color
+        infoWrapper.layer?.backgroundColor = color.cgColor
         infoFormatField.textColor = contrastingColor
         infoDetailField.textColor = contrastingColor
         infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
@@ -232,8 +238,11 @@ class PPOverlayController: NSWindowController {
             overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
         }
 
+        // Center the mouse in the picker window.
+        overlayPanel.setFrameOrigin(NSPoint(x: point.x - (panelSize / 2), y: point.y - (panelSize / 2)))
         let normalisedPoint = NSPoint(x: round(point.x * 2) / 2, y: round(point.y * 2) / 2)
         if let screenShot = getScreenShot(aroundPoint: normalisedPoint) {
+
             // Calculate a zoomed rect which will crop the screenshot we took.
             let magnification = CGFloat(PPState.shared.magnificationLevel)
             let zoomReciprocal: CGFloat = 1.0 / (concentrationMode ? magnification * 2.5 : magnification)
@@ -244,27 +253,115 @@ class PPOverlayController: NSWindowController {
 
             // Ensure preview size is an odd number (so there's a middle pixel).
             let zoomedSize = floor(ensureOdd(currentSize * zoomReciprocal))
-            let middle = zoomedSize / 2
-
             let croppedRect = CGRect(x: x, y: y, width: zoomedSize, height: zoomedSize)
             let zoomedImage: CGImage = screenShot.cropping(to: croppedRect)!
+            let pixelSize = panelSize / zoomedSize
+            let middlePosition = zoomedSize / 2
 
-            // Extract the middle pixel color from the zoomed image.
-            let bitmap = NSBitmapImageRep(cgImage: zoomedImage)
-            if let colorAtPixel = bitmap.colorAt(x: Int(middle), y: Int(middle)) {
-                let contrastingColor = colorAtPixel.bestContrastingColor()
+            // Convert the preview to the correct color space, and update the overlay.
 
-                preview.layer?.contents = zoomedImage
-                preview.updateCrosshair(panelSize / zoomedSize, middle, contrastingColor.cgColor)
-                wrapper.update(contrastingColor.cgColor)
-                updateInfoPanel(colorAtPixel, contrastingColor)
-
-                // Save color under pixel (used when copied).
-                lastHighlightedColor = colorAtPixel
+            // User has chosen a custom color space.
+            if let colorSpace = getChosenColorSpace(point) {
+                if colorSpace == zoomedImage.colorSpace {
+                    return updatePreview(zoomedImage, pixelSize, middlePosition)
+                } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
+                    return updatePreview(image, pixelSize, middlePosition)
+                }
             }
+
+            // No custom color space chosen, so use the screen's one.
+            if let colorSpace = getScreenColorSpace(point) {
+                if colorSpace == zoomedImage.colorSpace {
+                    return updatePreview(zoomedImage, pixelSize, middlePosition)
+                } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
+                    return updatePreview(image, pixelSize, middlePosition)
+                }
+            }
+
+            // If that also didn't work, then just return the image in its default color space.
+            return updatePreview(zoomedImage, pixelSize, middlePosition)
+        }
+    }
+
+    private func updatePreview(_ image: CGImage, _ pixelSize: CGFloat, _ middlePosition: CGFloat) {
+        // Extract the middle pixel color from the prepared image.
+        let colorAtPixel = image.colorAt(x: Int(middlePosition), y: Int(middlePosition))
+        let contrastingColor = colorAtPixel.bestContrastingColor()
+
+        preview.layer?.contents = image
+        preview.updateCrosshair(pixelSize, middlePosition, contrastingColor.cgColor)
+        wrapper.update(contrastingColor.cgColor)
+        updateInfoPanel(colorAtPixel, contrastingColor)
+
+        // Save color under pixel (used when copied).
+        lastHighlightedColor = colorAtPixel
+    }
+
+    private func getScreenColorSpace(_ point: NSPoint) -> CGColorSpace? {
+        return getScreenFromPoint(point)?.colorSpace?.cgColorSpace
+    }
+
+    // Gets the colorspace in which to display the preview and retreive color values.
+    private func getChosenColorSpace(_ point: NSPoint) -> CGColorSpace? {
+        if let name = PPState.shared.colorSpace, let colorSpace = CGColorSpace(name: name as CFString) {
+            return colorSpace
         }
 
-        // Center the mouse in the picker window.
-        overlayPanel.setFrameOrigin(NSPoint(x: normalisedPoint.x - (panelSize / 2), y: normalisedPoint.y - (panelSize / 2)))
+        return nil
+    }
+}
+
+extension CGImage {
+    // In order to get the color at a given pixel from a CGImage, we need to convert the CGImage's
+    // data to a bitmap and draw it. We do so via a CGContext, and then manually extract the data at
+    // the desired pixel.
+    func colorAt(x: Int, y: Int) -> NSColor {
+        assert(0 <= x && x < self.width)
+        assert(0 <= y && y < self.height)
+
+        let bitmapBytesPerRow = width * 4
+        let bitmapByteCount = bitmapBytesPerRow * Int(self.height)
+
+        // Allocate memory for image data. This is the destination in memory where any drawing to
+        // the bitmap context will be rendered.
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
+        let bitmapData = malloc(bitmapByteCount)
+
+        // Since we manually allocate memeory for the data, we must ensure that the same memory is
+        // freed after we've used it.
+        defer { free(bitmapData) }
+
+        // Create the bitmap context.
+        let context = CGContext(
+            data: bitmapData,
+            width: self.width,
+            height: self.height,
+            bitsPerComponent: 8,
+            bytesPerRow: bitmapBytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: bitmapInfo.rawValue
+        )
+
+        // Extract the pixel data from the right offset.
+        if context != nil {
+            // First, we draw the image data onto the context we created.
+            let rect = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+            context!.draw(self, in: rect)
+
+            // Then we extract the data at the right spot.
+            let data = context!.data!
+            let offset = 4 * (y * width + x)
+
+            let a = CGFloat(data.load(fromByteOffset: offset,     as: UInt8.self)) / 255.0
+            let r = CGFloat(data.load(fromByteOffset: offset + 1, as: UInt8.self)) / 255.0
+            let g = CGFloat(data.load(fromByteOffset: offset + 2, as: UInt8.self)) / 255.0
+            let b = CGFloat(data.load(fromByteOffset: offset + 3, as: UInt8.self)) / 255.0
+            return NSColor(red: r, green: g, blue: b, alpha: a)
+        }
+
+        // Creating the context failed, so return a default color instead.
+        // Hopefully, this should never happen.
+        Log.error?.message("Failed to create CGContext!")
+        return NSColor.black
     }
 }

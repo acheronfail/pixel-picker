@@ -24,7 +24,6 @@ import CleanroomLogger
     let defaults: UserDefaults = UserDefaults.standard
     
     // Whether the picker should be square or not.
-    // TODO: implement shortcut
     var paschaModeEnabled: Bool = false
     
     // The shortcut that activates the pixel picker.
@@ -38,6 +37,11 @@ import CleanroomLogger
     
     // The currently chosen format.
     var chosenFormat: PPColor = .genericHex
+
+    // The name of the chosen color space. If this is nil, then the picker will attempt to get the
+    // color space of the screen the picker is currently on (and if that fails, fall back to the
+    // default color space of the screenshot).
+    var colorSpace: String? = nil
     
     // How precise floats should be when copied.
     var floatPrecision: UInt = 3
@@ -101,6 +105,12 @@ import CleanroomLogger
                             activatingShortcut = shortcut
                         }
                     }
+                case "colorSpace":
+                    // Check for the presence of the color space in our list. If it's found, then we
+                    // can use it (safeguard against bogus input).
+                    if let _ = PPColor.colorSpaceNames.index(where: { $0.1 == value.string }) {
+                        colorSpace = value.string
+                    }
                 case "chosenFormat":
                     chosenFormat = PPColor(rawValue: value.stringValue) ?? .genericHex
                 case "magnificationLevel":
@@ -143,6 +153,7 @@ import CleanroomLogger
             "concentrationModeModifier": concentrationModeModifier.rawValue,
             "activatingShortcut": shortcutData,
             "magnificationLevel": magnificationLevel,
+            "colorSpace": colorSpace ?? "",
             "chosenFormat": chosenFormat.rawValue,
             "floatPrecision": floatPrecision,
             "recentPicks": recentPicks.map({ $0.asJSON })

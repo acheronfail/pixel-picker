@@ -69,6 +69,7 @@ extension AppDelegate: NSMenuDelegate {
         buildRecentPicks()
 
         contextMenu.addItem(.separator())
+        buildColorSpaceItem()
         buildColorFormatsMenu()
         buildMagnificationItem()
         buildConcentrationMenu()
@@ -81,6 +82,30 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
     }
 
+    // A menu that allows choosing what color space the picker will use.
+    private func buildColorSpaceItem() {
+        let submenu = NSMenu()
+
+        let defaultItem = submenu.addItem(withTitle: "Default (infer from screen)", action: #selector(setColorSpace(_:)), keyEquivalent: "")
+        defaultItem.state = PPState.shared.colorSpace == nil ? .on : .off
+        submenu.addItem(.separator())
+        for (title, name) in PPColor.colorSpaceNames {
+            let item = submenu.addItem(withTitle: title, action: #selector(setColorSpace(_:)), keyEquivalent: "")
+            item.representedObject = name
+            item.state = PPState.shared.colorSpace == name ? .on : .off
+        }
+
+        let item = contextMenu.addItem(withTitle: "Color Space", action: nil, keyEquivalent: "")
+        item.submenu = submenu
+    }
+
+    // If the selected color space is nil, then the preview will just infer the color space from
+    // the screen the picker is currently on.
+    @objc private func setColorSpace(_ sender: NSMenuItem) {
+        PPState.shared.colorSpace = sender.representedObject as? String
+    }
+
+    // A menu which allows the magnification level of the picker to be adjusted.
     private func buildMagnificationItem() {
         let submenu = NSMenu()
         for i in stride(from: 4, through: 24, by: 2) {
@@ -98,6 +123,7 @@ extension AppDelegate: NSMenuDelegate {
         }
     }
 
+    // Simple launch app at login menu item.
     private func buildLaunchAtLoginItem() {
         let item = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
         item.state = LaunchAtLogin.isEnabled ? .on : .off
@@ -132,7 +158,7 @@ extension AppDelegate: NSMenuDelegate {
             copyToPasteboard(stringValue: value)
         }
     }
-    
+
     // Simply creates a circle NSImage with the given size and color.
     private func circleImage(withSize size: CGFloat, color: NSColor) -> NSImage {
         let image = NSImage(size: NSSize(width: size, height: size))
@@ -142,7 +168,7 @@ extension AppDelegate: NSMenuDelegate {
         image.unlockFocus()
         return image
     }
-    
+
     // A slider to change the float precision.
     private func buildFloatPrecisionSlider() {
         contextMenu.addItem(withTitle: "Float Precision (\(PPState.shared.floatPrecision))", action: nil, keyEquivalent: "")
@@ -161,23 +187,23 @@ extension AppDelegate: NSMenuDelegate {
         item.view!.autoresizingMask = .width
         item.view!.addSubview(slider)
     }
-    
+
     // Called when the slider is updated.
     @objc private func sliderUpdate(_ sender: NSSlider) {
         let newValue = UInt(sender.intValue)
-        
+
         // Update slider title.
         if let item = contextMenu.item(withTitle: "Float Precision (\(PPState.shared.floatPrecision))") {
             item.title = "Float Precision (\(newValue))"
         }
-        
+
         // Update state.
         PPState.shared.floatPrecision = newValue
 
         // Update recent picks list with new precision.
         updateMenuItems()
     }
-    
+
     // Build a submenu with each case in the PPColor enum.
     // TODO: with Swift 4.2, we shouldn't need to resort to the hacky "iterateEnum" approach.
     private func buildColorFormatsMenu() {
@@ -191,16 +217,14 @@ extension AppDelegate: NSMenuDelegate {
         let item = contextMenu.addItem(withTitle: "Color Format", action: nil, keyEquivalent: "")
         item.submenu = submenu
     }
-    
+
     // Set the selected format as the default.
     @objc private func selectFormat(_ sender: NSMenuItem) {
         if let format = sender.representedObject as? PPColor {
             PPState.shared.chosenFormat = format
-            sender.menu?.items.forEach({ $0.state = .off })
-            sender.state = .on
         }
     }
-    
+
     // Builds and adds the concentration modifier submenu.
     private func buildConcentrationMenu() {
         let submenu = NSMenu()
@@ -213,16 +237,14 @@ extension AppDelegate: NSMenuDelegate {
         let item = contextMenu.addItem(withTitle: "Concentration Modifier", action: nil, keyEquivalent: "")
         item.submenu = submenu
     }
-    
+
     // Set the chosen modifier to toggle "concentrationMode".
     @objc private func selectModifier(_ sender: NSMenuItem) {
         if let modifier = sender.representedObject as? NSEvent.ModifierFlags {
             PPState.shared.concentrationModeModifier = modifier
-            sender.menu?.items.forEach({ $0.state = .off })
-            sender.state = .on
         }
     }
-    
+
     // Builds and adds the MASShortcutView to be used in the menu.
     // Uses a custom view to handle events correctly (since it's inside a NSMenu).
     private func buildShortcutMenuItem() {
@@ -231,7 +253,7 @@ extension AppDelegate: NSMenuDelegate {
         let shortcutView = MASShortcutView()
         shortcutView.shortcutValue = PPState.shared.activatingShortcut
         shortcutView.shortcutValueChange = { PPState.shared.activatingShortcut = $0?.shortcutValue }
-        
+
         let item = contextMenu.addItem(withTitle: "Shortcut", action: nil, keyEquivalent: "")
         item.view = PPMenuShortcutView(shortcut: shortcutView)
     }

@@ -26,6 +26,16 @@ extension NSColor {
         return nil
     }
 
+    // Creates an NSImage with the given size and color.
+    func image(withSize size: NSSize) -> NSImage {
+        let image = NSImage(size: size)
+        image.lockFocus()
+        self.set()
+        NSRect(origin: NSPoint.zero, size: size).fill()
+        image.unlockFocus()
+        return image
+    }
+
     // Returns either black or white, whichever will contrast the most with the given color.
     // See https://stackoverflow.com/a/3943023/5552584
     func bestContrastingColor() -> NSColor {

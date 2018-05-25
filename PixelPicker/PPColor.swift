@@ -5,42 +5,30 @@
 
 import SwiftyJSON
 
-// This allows us to iterate over the raw values of an enum.
-// TODO: use `CaseIterable` when Swift 4.2 comes out
-func iterateEnum<T: Hashable>(_: T.Type) -> AnyIterator<T> {
-    var i = 0
-    return AnyIterator {
-        let next = withUnsafeBytes(of: &i) { $0.load(as: T.self) }
-        if next.hashValue != i { return nil }
-        i += 1
-        return next
-    }
-}
-
 // Each time the user picks a pixel we save it as the format and the color.
 struct PPPickedColor {
     let color: NSColor
     let format: PPColor
-    
+
     init(color: NSColor, format: PPColor) {
         self.color = color
         self.format = format
     }
-    
+
     init?(fromJSON json: JSON) {
         guard
             let formatString = json["format"].string,
             let format = PPColor(rawValue: formatString),
             let color = NSColor.deserialize(fromJson: json["color"])
             else { return nil }
-        
+
         self.init(color: color, format: format)
     }
-    
+
     var asString: String {
         return format.asString(withColor: color)
     }
-    
+
     var asJSON: JSON {
         return [
             "color": NSColor.serialize(self.color),
@@ -170,17 +158,17 @@ enum PPColor: String {
         case .objCUIColorHsb:            return self.formatAsDecimal(color, self.insertFloatPrecisionFormatter("%f, %f, %f"), .rgb)
         }
     }
-    
+
     // Returns the PPColor that sits after this one.
     func next() -> PPColor {
         return next(withArray: iterateEnum(PPColor.self).map({ $0 }))
     }
-    
+
     // Same as next() but backwards.
     func previous() -> PPColor {
         return next(withArray: iterateEnum(PPColor.self).reversed())
     }
-    
+
     // Finds the next element after this element in the given array.
     // This method should only be passed the result of iterateEnum(PPColor.self).
     private func next(withArray array: [PPColor]) -> PPColor {
@@ -192,26 +180,26 @@ enum PPColor: String {
 
         return array.first!
     }
-    
+
     // A tiny enum that describes which components should be used when formatting.
     private enum Components {
         case rgb
         case hsb
     }
-    
+
     // Replaces "%f" with "%.3f" (if "3" is the current precision level).
     private func insertFloatPrecisionFormatter(_ input: String) -> String {
         return input.replacingOccurrences(of: "%f", with: String(format: "%%.%uf", PPState.shared.floatPrecision))
     }
-    
+
     // Formats the colors as a hex value, eg: "D3504E".
     private func formatAsHex(_ color: NSColor, _ template: String) -> String {
-        let a = roundf(Float(color.redComponent   * 0xff))
-        let b = roundf(Float(color.greenComponent * 0xff))
-        let c = roundf(Float(color.blueComponent  * 0xff))
-        return String(format: template, (UInt(a) << 16 | UInt(b) << 8 | UInt(c)) & 0xffffff)
+        let r = min(Int(color.redComponent   * 0x100), 0x0ff) << 16
+        let g = min(Int(color.greenComponent * 0x100), 0x0ff) << 8
+        let b = min(Int(color.blueComponent  * 0x100), 0x0ff) << 0
+        return String(format: template, (r | g | b))
     }
-    
+
     // Formats the color as decimal values, eg: "0.145, 0.361, 0.722".
     private func formatAsDecimal(_ color: NSColor, _ template: String, _ cmp: Components) -> String {
         let a = cmp == .rgb ? color.redComponent   : color.hueComponent
@@ -219,23 +207,23 @@ enum PPColor: String {
         let c = cmp == .rgb ? color.blueComponent  : color.brightnessComponent
         return String(format: template, a, b, c)
     }
-    
+
     // Formats the color as 8-bit values, eg: "158, 198, 117".
     private func formatAs8Bit(_ color: NSColor, _ template: String) -> String {
-        let a = Int(color.redComponent   * 0xff)
-        let b = Int(color.greenComponent * 0xff)
-        let c = Int(color.blueComponent  * 0xff)
-        return String(format: template, a, b, c)
+        let r = min(Int(color.redComponent   * 0x100), 0x0ff)
+        let g = min(Int(color.greenComponent * 0x100), 0x0ff)
+        let b = min(Int(color.blueComponent  * 0x100), 0x0ff)
+        return String(format: template, r, g, b)
     }
-    
+
     // Special formatter since CSS uses a unique style here, eg: "35, 79%, 47%".
     private func formatAsHSL(_ color: NSColor, _ template: String) -> String {
-        let a = Int(color.hueComponent * 360)
-        let b = Int(color.saturationComponent * 100)
-        let c = Int(color.brightnessComponent * 100)
-        return String(format: template, a, b, c)
+        let h = min(Int(color.hueComponent * 360), 359)
+        let s = Int(color.saturationComponent * 100)
+        let b = Int(color.brightnessComponent * 100)
+        return String(format: template, h, s, b)
     }
-    
+
     // Returns a new color in the correct colorspace for the format.
     private func colorInCorrectColorSpace(_ color: NSColor) -> NSColor {
         switch self {
@@ -253,4 +241,29 @@ enum PPColor: String {
             return color
         }
     }
+
+    // Available CGColorSpaces that can be chosen.
+    // NOTE: the commented out color spaces don't work at all on my screens, they may work for other
+    // screens, but here they're left out since they're probably not common/necessary. If you're
+    // reading this and you want to use them, make an issue on GitHub and then we can test them.
+    static let colorSpaceNames = [
+        // ("Generic CMYK",           CGColorSpace.genericCMYK as String),
+        ("Generic XYZ",            CGColorSpace.genericXYZ as String),
+        ("Generic RGB Linear",     CGColorSpace.genericRGBLinear as String),
+        // ("Generic Gray Gamma 2.2", CGColorSpace.genericGrayGamma2_2 as String),
+        ("ACESCG Linear",          CGColorSpace.acescgLinear as String),
+        ("Adobe RGB 1998",         CGColorSpace.adobeRGB1998 as String),
+        ("DCIP3",                  CGColorSpace.dcip3 as String),
+        ("Display P3",             CGColorSpace.displayP3 as String),
+        // ("Linear Gray",            CGColorSpace.linearGray as String),
+        ("Linear sRGB",            CGColorSpace.linearSRGB as String),
+        // ("Extended Linear Gray",   CGColorSpace.extendedLinearGray as String),
+        ("Extended Linear sRGB",   CGColorSpace.extendedLinearSRGB as String),
+        // ("Extended Gray",          CGColorSpace.extendedGray as String),
+        ("Extended sRGB",          CGColorSpace.extendedSRGB as String),
+        ("ITUR 2020",              CGColorSpace.itur_2020 as String),
+        ("ITUR 709",               CGColorSpace.itur_709 as String),
+        ("ROMM RGB",               CGColorSpace.rommrgb as String),
+        ("sRGB",                   CGColorSpace.sRGB as String)
+    ]
 }

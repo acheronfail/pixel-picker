@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,10 +20,10 @@
         </customObject>
         <customObject id="ECQ-9M-Pkg" customClass="PPOverlayController" customModule="PixelPicker" customModuleProvider="target">
             <connections>
-                <outlet property="infoBox" destination="rpe-Xh-gaO" id="BYW-qP-HLd"/>
                 <outlet property="infoDetailField" destination="Re2-GH-fyd" id="K03-75-cf9"/>
                 <outlet property="infoFormatField" destination="1fa-UE-yMM" id="Nan-fO-kbu"/>
                 <outlet property="infoPanel" destination="OMO-LB-w57" id="GGj-Y6-LfU"/>
+                <outlet property="infoWrapper" destination="HED-rR-FDP" id="21H-Tc-c4W"/>
                 <outlet property="overlayPanel" destination="gZA-A3-IZ5" id="DUd-MU-oD4"/>
                 <outlet property="preview" destination="oj3-ml-2qo" id="xLc-pu-U90"/>
                 <outlet property="window" destination="gZA-A3-IZ5" id="GLv-sO-WxM"/>
@@ -35,7 +34,7 @@
             <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="132" width="101" height="101"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="acW-WA-gq2" customClass="PPOverlayWrapper" customModule="PixelPicker" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -56,50 +55,35 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="OMO-LB-w57" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
             <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
             <rect key="contentRect" x="926" y="538" width="100" height="50"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <view key="contentView" id="HED-rR-FDP">
                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="rpe-Xh-gaO">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                        <view key="contentView" id="g1f-dN-SYl">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1fa-UE-yMM">
-                                    <rect key="frame" x="-2" y="28" width="104" height="17"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="RkG-Wy-Shq">
-                                        <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-GH-fyd">
-                                    <rect key="frame" x="-2" y="5" width="104" height="14"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="IYd-1Y-7cd">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="1fa-UE-yMM" firstAttribute="top" secondItem="g1f-dN-SYl" secondAttribute="top" constant="5" id="OMX-Uf-gxc"/>
-                                <constraint firstAttribute="trailing" secondItem="1fa-UE-yMM" secondAttribute="trailing" id="YWA-wF-wWD"/>
-                                <constraint firstItem="Re2-GH-fyd" firstAttribute="leading" secondItem="g1f-dN-SYl" secondAttribute="leading" id="def-Ev-ONx"/>
-                                <constraint firstItem="1fa-UE-yMM" firstAttribute="leading" secondItem="g1f-dN-SYl" secondAttribute="leading" id="j0J-F5-ipt"/>
-                                <constraint firstAttribute="bottom" secondItem="Re2-GH-fyd" secondAttribute="bottom" constant="5" id="ktF-UW-gVI"/>
-                                <constraint firstAttribute="trailing" secondItem="Re2-GH-fyd" secondAttribute="trailing" id="t9s-4R-bFb"/>
-                            </constraints>
-                        </view>
-                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1fa-UE-yMM">
+                        <rect key="frame" x="-2" y="25" width="104" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="RkG-Wy-Shq">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-GH-fyd">
+                        <rect key="frame" x="-2" y="8" width="104" height="14"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="IYd-1Y-7cd">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="rpe-Xh-gaO" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="Buc-en-Way"/>
-                    <constraint firstItem="rpe-Xh-gaO" firstAttribute="top" secondItem="HED-rR-FDP" secondAttribute="top" id="NrK-e2-suw"/>
-                    <constraint firstAttribute="bottom" secondItem="rpe-Xh-gaO" secondAttribute="bottom" id="WSu-Ro-a4K"/>
-                    <constraint firstAttribute="trailing" secondItem="rpe-Xh-gaO" secondAttribute="trailing" id="myM-UI-QfA"/>
+                    <constraint firstItem="1fa-UE-yMM" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="23z-pW-nAx"/>
+                    <constraint firstItem="1fa-UE-yMM" firstAttribute="top" secondItem="HED-rR-FDP" secondAttribute="top" constant="8" id="G1j-j5-iWY"/>
+                    <constraint firstItem="Re2-GH-fyd" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="aZf-QY-Lpd"/>
+                    <constraint firstAttribute="bottom" secondItem="Re2-GH-fyd" secondAttribute="bottom" constant="8" id="amm-jV-oWa"/>
+                    <constraint firstAttribute="trailing" secondItem="1fa-UE-yMM" secondAttribute="trailing" id="flM-Te-2qj"/>
+                    <constraint firstAttribute="trailing" secondItem="Re2-GH-fyd" secondAttribute="trailing" id="jWO-5f-uxW"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="236" y="230"/>
