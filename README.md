@@ -4,13 +4,13 @@ PixelPicker is like Digital Color Meter, but lives in your menu bar and lets you
 
 ### Features
 
-* Pick *any* pixel on your screen with ease
-* Different magnification levels
-* Multiple color export formats
-* Multi-monitor support
-* Supports different color spaces
-* Global keyboard shortcut activation
-* Customisable preview
+* 📸 Pick *any* pixel on your screen with ease
+* 🔎 Different magnification levels
+* ✏ Multiple color export formats 
+* 🖥 Multi-monitor support
+* 🎨 Supports different color spaces 
+* ⌨️ Global keyboard shortcut activation
+* 🌄 Customisable preview
 * ✨
 
 ![demo of pixel-picker](./Resources/demo.png)
@@ -38,21 +38,21 @@ All of PixelPicker's options are in its menubar dropdown. Simply click on the me
 
 PixelPicker provides some neat options:
 
-* **Show Grid**
+* 🔳 **Show Grid** 🔲
     * Whether or not to show a grid around the pixels in the picker's preview.
-* **Color Space**
-    * Computer screens are complex things, and have various different color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
-* **Color Format**
+* 🎨 **Color Space** 🖍
+    * Computer screens are complex things, and have various color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
+* ✏️ **Color Format** 🖋
     * How should the color be copied when you select it? Examples include CSS Hex: `#aabbcc`, or Java RGB: `new Color(158, 198, 117)`, etc.
-* **Magnification**
+* 🔍 **Magnification** 🔎
 	- How far in should the preview zoom/how big should each pixel be?
-* **Focus Modifier**
+* 🙇‍♂️ **Focus Modifier** 🙇‍♀️
     * Choose which modifier activates focus mode. When focus mode is active, the picker zooms even closer in, and your mouse moves slower to help you pick the right pixel.
-* **Float Precision**
+* 🔢 **Float Precision** 🔢
     * This controls how many digits will come after the decimal point when using float-based color formats.
-* **Picker Shortcut**
+* ⌨️ **Picker Shortcut** ⌨️
     * The global keyboard shortcut to use that will activate Pixel Picker.
-* **Launch at Login**
+* 🚀 **Launch at Login** 💻
     * If this is enabled then PixelPicker will be launched when you log into your computer.
 
 #### Extra Overrides or Hidden Settings
