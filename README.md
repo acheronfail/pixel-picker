@@ -5,10 +5,12 @@ PixelPicker is like Digital Color Meter, but lives in your menu bar and lets you
 ### Features
 
 * Pick *any* pixel on your screen with ease
-* Different zoom levels
+* Different magnification levels
 * Multiple color export formats
 * Multi-monitor support
-* Global keyboard shortcuts
+* Supports different color spaces
+* Global keyboard shortcut activation
+* Customisable preview
 * ✨
 
 ![demo of pixel-picker](./Resources/demo.png)
@@ -28,7 +30,7 @@ After you've installed PixelPicker, it will live in your menu bar. You have many
 Once you have the picker open, it should be quite straightforward! Move your mouse around the screen and click on the pixel you want.
 You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Focus Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel!
 
-Remember, you can press <kbd>space</kbd> (or <kbd>shift</kbd> + <kbd>space</kbd>) to cycle between color formats while the picker is open.
+**ProTip:** Remember, you can press <kbd>space</kbd> (or <kbd>shift</kbd> + <kbd>space</kbd>) to cycle between color formats while the picker is open.
 
 ### Options
 
@@ -36,14 +38,16 @@ All of PixelPicker's options are in its menubar dropdown. Simply click on the me
 
 PixelPicker provides some neat options:
 
-* **Color Format**
-    * How should the color be copied when you select it? Examples include CSS Hex: `#aabbcc`, or Java RGB: `new Color(158, 198, 117)`, etc.
-* **Focus Modifier**
-    * Choose which modifier activates focus mode. When focus mode is active, the picker zooms closer in, and your mouse moves slower to help you pick the right pixel.
-* **Color Space**
-    * Computer screens are complex things, and have various different color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
 * **Show Grid**
     * Whether or not to show a grid around the pixels in the picker's preview.
+* **Color Space**
+    * Computer screens are complex things, and have various different color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
+* **Color Format**
+    * How should the color be copied when you select it? Examples include CSS Hex: `#aabbcc`, or Java RGB: `new Color(158, 198, 117)`, etc.
+* **Magnification**
+	- How far in should the preview zoom/how big should each pixel be?
+* **Focus Modifier**
+    * Choose which modifier activates focus mode. When focus mode is active, the picker zooms even closer in, and your mouse moves slower to help you pick the right pixel.
 * **Float Precision**
     * This controls how many digits will come after the decimal point when using float-based color formats.
 * **Picker Shortcut**
@@ -53,7 +57,7 @@ PixelPicker provides some neat options:
 
 #### Extra Overrides or Hidden Settings
 
-PixelPicker has some experimental overrides that can be toggled via the Terminal (`defaults write ...`, etc). Look under the "Experimental Overrides" section at `PixelPicker` -> `About` for more information.
+In some releases PixelPicker might have some experimental overrides that can be toggled via the Terminal (`defaults write ...`, etc). Look under the "Experimental Overrides" section at `PixelPicker` -> `About` for more information.
 
 ## Questions/Concerns
 
