@@ -24,14 +24,15 @@ class PPOverlayPreview: NSView, CALayerDelegate {
         layer?.contentsGravity = kCAGravityResizeAspectFill
         layer?.delegate = self
 
+        // Add the grid shape layers to the view.
+        grid.strokeColor = NSColor.gray.cgColor
+        grid.fillColor = nil
+        layer?.addSublayer(grid)
+
         // Prepare crosshair shape layers.
         crosshair.strokeColor = NSColor.black.cgColor
         crosshair.fillColor = nil
         layer?.addSublayer(crosshair)
-
-        grid.strokeColor = NSColor.gray.cgColor
-        grid.fillColor = nil
-        layer?.addSublayer(grid)
     }
 
     // Update the crosshair with the correct color, position and size.
