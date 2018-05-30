@@ -18,14 +18,14 @@ void LogWarning(void);
 // See:  https://stackoverflow.com/a/3939241/5552584
 // Also: https://github.com/asmagill/hammerspoon_asm.undocumented/blob/master/cursor/CGSConnection.h
 
-/// Every application is given a singular connection ID through which it can receieve and manipulate
-/// values, state, notifications, events, etc. in the Window Server.
+// Every application is given a singular connection ID through which it can receieve and manipulate
+// values, state, notifications, events, etc. in the Window Server.
 typedef int CGSConnectionID;
 
-/// Associates a value for the given key on the given connection.
+// Associates a value for the given key on the given connection.
 CGError CGSSetConnectionProperty(CGSConnectionID cid, CGSConnectionID targetCID, CFStringRef key, CFTypeRef value);
 
-/// Both of these methods get the default connection for this process.
+// Gets the default connection for this process. `CGSMainConnectionID` is just a more modern name.
 CGSConnectionID _CGSDefaultConnection(void);
 CGSConnectionID CGSMainConnectionID(void);
 
