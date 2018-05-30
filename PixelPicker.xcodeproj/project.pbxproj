@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15349DB820BAE3F70071CAA1 /* NSBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */; };
 		15492103207B53AE00E45BBC /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15492102207B53AE00E45BBC /* Util.swift */; };
 		155D2C03204F61220087478B /* Credits.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 155D2C02204F61220087478B /* Credits.rtfd */; };
 		159F304E2079A111000BD387 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F304D2079A111000BD387 /* AppDelegateTests.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPath.swift; sourceTree = "<group>"; };
 		15492102207B53AE00E45BBC /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		155D2C02204F61220087478B /* Credits.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = Credits.rtfd; sourceTree = "<group>"; };
 		159F304D2079A111000BD387 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				BA74C14D20ADA33E00306B27 /* PPColor.swift */,
 				15FC8CC7204E2E2C000B5E1E /* PPState.swift */,
 				159ED10B207EB2EF005489ED /* OverlayPanel */,
+				15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */,
 				BA74C14120AA409D00306B27 /* NSColor.swift */,
 				15492102207B53AE00E45BBC /* Util.swift */,
 				B3B4C2C21E25894B009F8E4E /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */,
+				15349DB820BAE3F70071CAA1 /* NSBezierPath.swift in Sources */,
 				BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */,
 				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
 				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
