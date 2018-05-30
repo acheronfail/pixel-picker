@@ -31,7 +31,8 @@ void HideCursor() {
     #endif
 
     CFStringRef propertyString = CFStringCreateWithCString(NULL, "SetsCursorInBackground", kCFStringEncodingUTF8);
-    CGSSetConnectionProperty(_CGSDefaultConnection(), _CGSDefaultConnection(), propertyString, kCFBooleanTrue);
+    CGSConnectionID cid = _CGSDefaultConnection();
+    CGSSetConnectionProperty(cid, cid, propertyString, kCFBooleanTrue);
     CFRelease(propertyString);
 
     CGDisplayHideCursor(kCGDirectMainDisplay);

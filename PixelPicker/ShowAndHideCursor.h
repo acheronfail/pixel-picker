@@ -15,10 +15,18 @@ void LogWarning(void);
 
 // We use an undocumented API to hide the cursor even when the application *isn't* active.
 // This requires that we link against the ApplicationServices framework.
-// See https://stackoverflow.com/a/3939241/5552584
-// and https://web.archive.org/web/20150609013355/http://lists.apple.com:80/archives/carbon-dev/2006/Jan/msg00555.html
-// and http://doomlaser.com/cursorcerer-hide-your-cursor-at-will/
-void CGSSetConnectionProperty(int a, int b, CFStringRef c, CFBooleanRef d);
-int _CGSDefaultConnection(void);
+// See:  https://stackoverflow.com/a/3939241/5552584
+// Also: https://github.com/asmagill/hammerspoon_asm.undocumented/blob/master/cursor/CGSConnection.h
+
+/// Every application is given a singular connection ID through which it can receieve and manipulate
+/// values, state, notifications, events, etc. in the Window Server.
+typedef int CGSConnectionID;
+
+/// Associates a value for the given key on the given connection.
+CGError CGSSetConnectionProperty(CGSConnectionID cid, CGSConnectionID targetCID, CFStringRef key, CFTypeRef value);
+
+/// Both of these methods get the default connection for this process.
+CGSConnectionID _CGSDefaultConnection(void);
+CGSConnectionID CGSMainConnectionID(void);
 
 #endif /* ShowAndHideCursor_h */
