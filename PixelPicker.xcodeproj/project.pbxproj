@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15349DB820BAE3F70071CAA1 /* NSBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */; };
 		15492103207B53AE00E45BBC /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15492102207B53AE00E45BBC /* Util.swift */; };
+		15493F6720BE6E0F007B2BA5 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15493F6620BE6E0F007B2BA5 /* CGImage.swift */; };
 		155D2C03204F61220087478B /* Credits.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 155D2C02204F61220087478B /* Credits.rtfd */; };
 		159F304E2079A111000BD387 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F304D2079A111000BD387 /* AppDelegateTests.swift */; };
 		159F30522079A147000BD387 /* PPStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F30512079A147000BD387 /* PPStateTests.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPath.swift; sourceTree = "<group>"; };
 		15492102207B53AE00E45BBC /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		15493F6620BE6E0F007B2BA5 /* CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImage.swift; sourceTree = "<group>"; };
 		155D2C02204F61220087478B /* Credits.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = Credits.rtfd; sourceTree = "<group>"; };
 		159F304D2079A111000BD387 /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
 		159F30512079A147000BD387 /* PPStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPStateTests.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		B3B4C2BF1E25894B009F8E4E /* PixelPicker */ = {
 			isa = PBXGroup;
 			children = (
+				15493F6620BE6E0F007B2BA5 /* CGImage.swift */,
 				BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */,
 				BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */,
 				BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */,
@@ -346,6 +349,7 @@
 				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
 				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
 				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
+				15493F6720BE6E0F007B2BA5 /* CGImage.swift in Sources */,
 				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
 				15492103207B53AE00E45BBC /* Util.swift in Sources */,
 			);
