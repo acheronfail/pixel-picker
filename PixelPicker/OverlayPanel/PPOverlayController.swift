@@ -236,6 +236,10 @@ class PPOverlayController: NSWindowController {
         // Ensure the overlayPanel is always the key window.
         if !overlayPanel.isKeyWindow {
             overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
+            // Reset the cursor state to ensure it's hidden (the foremost application changes then
+            // WindowServer resets our "SetsCursorInBackground" magic).
+            ShowCursor()
+            HideCursor()
         }
 
         // Center the mouse in the picker window.
