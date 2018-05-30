@@ -27,10 +27,10 @@ After you've installed PixelPicker, it will live in your menu bar. You have many
 * Select the "Pick a Pixel" item in the dropdown menu to activate the picker
 * Simply right-click the menu item and the picker will activate
 
-Once you have the picker open, it should be quite straightforward! Move your mouse around the screen and click on the pixel you want.
+Once you have the picker open, it should be quite straightforward! Move your mouse around the screen and click (or press <kbd>space</kbd> on the pixel you want.
 You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to another key) while the picker is open, and the picker will enter "Focus Mode". This will zoom the pixel preview even further, and will slow down the picker's movement to make it easier to pick that hard-to-get pixel!
 
-**ProTip:** Remember, you can press <kbd>space</kbd> (or <kbd>shift</kbd> + <kbd>space</kbd>) to cycle between color formats while the picker is open.
+**ProTip:** Remember, you can use the left or right arrow keys to cycle between color formats while the picker is open.
 
 ### Options
 

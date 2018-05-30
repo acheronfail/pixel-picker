@@ -90,19 +90,28 @@ class PPOverlayController: NSWindowController {
     // When the user clicks, animate the cursor out, save the picked color and copy it.
     override func mouseDown(with event: NSEvent) {
         hidePicker(animate: true)
-
-        let pickedColor = PPPickedColor(color: lastHighlightedColor, format: PPState.shared.chosenFormat)
-        PPState.shared.addRecentPick(pickedColor)
-        copyToPasteboard(stringValue: pickedColor.asString)
+        pickColor()
     }
 
-    // Close picker immediately when the user presses the escape key.
+    // Listen to key events.
     override func keyDown(with event: NSEvent) {
-        if event.keyCode == kVK_Escape { hidePicker(animate: false) }
-        if event.keyCode == kVK_Space {
-            let format = PPState.shared.chosenFormat
-            PPState.shared.chosenFormat = event.modifierFlags.contains(.shift) ? format.previous() : format.next()
+        switch Int(event.keyCode) {
+        // Close immediately on escape.
+        case kVK_Escape:
+            hidePicker(animate: false)
+        // Act as if the user clicked on space.
+        case kVK_Space:
+            hidePicker(animate: true)
+            pickColor()
+        // Cycle between formats when the user presses the left or right arrow keys.
+        case kVK_LeftArrow:
+            PPState.shared.chosenFormat = PPState.shared.chosenFormat.previous()
             updateInfoPanel(lastHighlightedColor, lastHighlightedColor.bestContrastingColor())
+        case kVK_RightArrow:
+            PPState.shared.chosenFormat = PPState.shared.chosenFormat.next()
+            updateInfoPanel(lastHighlightedColor, lastHighlightedColor.bestContrastingColor())
+        default:
+            break
         }
     }
 
@@ -145,6 +154,12 @@ class PPOverlayController: NSWindowController {
             updatePreview(aroundPoint: nextMouseLocation)
             lastMouseLocation = nextMouseLocation
         }
+    }
+
+    func pickColor() {
+        let pickedColor = PPPickedColor(color: lastHighlightedColor, format: PPState.shared.chosenFormat)
+        PPState.shared.addRecentPick(pickedColor)
+        copyToPasteboard(stringValue: pickedColor.asString)
     }
 
     // Show the picker, save the previously active application, and hide the cursor.
