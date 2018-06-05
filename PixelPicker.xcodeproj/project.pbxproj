@@ -256,13 +256,14 @@
 				TargetAttributes = {
 					15B4E86F207994AF0024FDE4 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B3B4C2BC1E25894B009F8E4E;
 					};
 					B3B4C2BC1E25894B009F8E4E = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = UNR5C68RPX;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -389,7 +390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelPicker.app/Contents/MacOS/PixelPicker";
 			};
 			name = Debug;
@@ -417,7 +418,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelPicker.app/Contents/MacOS/PixelPicker";
 			};
 			name = Release;
@@ -559,8 +560,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -585,8 +585,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

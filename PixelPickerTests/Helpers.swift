@@ -4,4 +4,3 @@
 //
 
 import XCTest
-@testable import PixelPicker

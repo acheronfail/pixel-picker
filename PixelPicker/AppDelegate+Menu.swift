@@ -236,10 +236,9 @@ extension AppDelegate: NSMenuDelegate {
     }
 
     // Build a submenu with each case in the PPColor enum.
-    // TODO: with Swift 4.2, we shouldn't need to resort to the hacky "iterateEnum" approach.
     private func buildColorFormatsMenu() {
         let submenu = NSMenu()
-        for format in iterateEnum(PPColor.self) {
+        for format in PPColor.allCases {
             let formatItem = submenu.addItem(withTitle: format.rawValue, action: #selector(selectFormat(_:)), keyEquivalent: "")
             formatItem.representedObject = format
             if PPState.shared.chosenFormat == format { formatItem.state = .on }

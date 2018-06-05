@@ -20,8 +20,8 @@ class PPOverlayPreview: NSView, CALayerDelegate {
     override func awakeFromNib() {
         // Make layers contents resize to fill, and disable antialiasing.
         wantsLayer = true
-        layer?.magnificationFilter = kCAFilterNearest
-        layer?.contentsGravity = kCAGravityResizeAspectFill
+        layer?.magnificationFilter = .nearest
+        layer?.contentsGravity = .resizeAspectFill
         layer?.delegate = self
 
         // Add the grid shape layers to the view.

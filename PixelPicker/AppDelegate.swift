@@ -7,7 +7,7 @@ import MASShortcut
 import CleanroomLogger
 
 // The app's menu bar item.
-let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(rawValue: "icon")))
+let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(stringLiteral: "icon")))
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 

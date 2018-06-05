@@ -39,7 +39,7 @@ struct PPPickedColor {
 
 // This enum is responsible for each of the color formats PixelPicker supports,
 // as well as being responsible for formatting them as strings, etc.
-enum PPColor: String {
+enum PPColor: String, CaseIterable {
     case genericHex                = "Generic Hex"
     case generic8Bit               = "Generic 8-Bit"
     case genericDecimal            = "Generic Decimal"
@@ -161,16 +161,15 @@ enum PPColor: String {
 
     // Returns the PPColor that sits after this one.
     func next() -> PPColor {
-        return next(withArray: iterateEnum(PPColor.self).map({ $0 }))
+        return next(withArray: PPColor.allCases)
     }
 
     // Same as next() but backwards.
     func previous() -> PPColor {
-        return next(withArray: iterateEnum(PPColor.self).reversed())
+        return next(withArray: PPColor.allCases.reversed())
     }
 
-    // Finds the next element after this element in the given array.
-    // This method should only be passed the result of iterateEnum(PPColor.self).
+    // Finds the next PPColor after this one in the list of PPColors.
     private func next(withArray array: [PPColor]) -> PPColor {
         var found = false
         for x in array {

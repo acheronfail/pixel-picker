@@ -4,6 +4,5 @@
 //
 
 import XCTest
-@testable import PixelPicker
 
 class AppDelegateTests: XCTestCase {}

@@ -8,18 +8,6 @@ import CleanroomLogger
 let APP_NAME = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
 let APPLE_INTERFACE_STYLE = "AppleInterfaceStyle"
 
-// This allows us to iterate over the raw values of an enum.
-// TODO: use `CaseIterable` when Swift 4.2 comes out
-func iterateEnum<T: Hashable>(_: T.Type) -> AnyIterator<T> {
-    var i = 0
-    return AnyIterator {
-        let next = withUnsafeBytes(of: &i) { $0.load(as: T.self) }
-        if next.hashValue != i { return nil }
-        i += 1
-        return next
-    }
-}
-
 // Copies the given string to the clipboard.
 func copyToPasteboard(stringValue value: String) {
     NSPasteboard.general.declareTypes([.string], owner: nil)
@@ -68,7 +56,7 @@ enum Coordinate {
 func runAnimation(_ f: (NSAnimationContext) -> Void, done: (() -> Void)?) {
     NSAnimationContext.runAnimationGroup({ context in
         context.duration = 0.5
-        context.timingFunction = .init(name: kCAMediaTimingFunctionEaseInEaseOut)
+        context.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
         context.allowsImplicitAnimation = true
         f(context)
     }, completionHandler: done)
