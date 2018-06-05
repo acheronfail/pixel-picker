@@ -6,6 +6,9 @@
 #import "PPMenuShortcutView.h"
 #import "PixelPicker-Swift.h"
 
+// The trailing end of the cancel button in the MASShortcutView (within the NSMenuItem).
+CGFloat cancelBoundary = 15;
+
 // In order to have a MASShortcutView inside our menubar dropdown menu, we need to
 // perform some hacks. Basically, we catch all the key and mouse events, and then
 // use those to manually control the shortcut view (the MASShortcutView doesn't work
@@ -42,6 +45,21 @@
         [shortcutView setFrame: self.frame];
     }
     return self;
+}
+
+-(void)drawRect:(NSRect)dirtyRect
+{
+    [super drawRect:dirtyRect];
+
+    // Draw a border around the view.
+    // Currently we don't use any of MASShortcut's custom drawing styles since they don't draw
+    // nicely with macOS 10.14's new dark interface style.
+    CGFloat xInset = 20;
+    CGFloat yInset = 1;
+    NSRect borderRect = NSMakeRect(self.frame.origin.x + xInset, self.frame.origin.y + yInset, self.frame.size.width - xInset - cancelBoundary, self.frame.size.height - (yInset * 2));
+    NSBezierPath *border = [NSBezierPath bezierPathWithRoundedRect:borderRect xRadius:3 yRadius:3];
+    [[[NSColor scrollBarColor] colorWithAlphaComponent:0.5] set];
+    [border stroke];
 }
 
 // This is called when the NSMenu is opened, so it's a good time to register our
@@ -95,7 +113,7 @@
     // End of the MASShortcutView.
     CGFloat end = start + shortcutView.frame.size.width;
     // Start of the cancel button in the MASShortcutView.
-    CGFloat cancelStart = end - 20;
+    CGFloat cancelStart = end - cancelBoundary;
 
     if (shortcutView.shortcutValue != nil) {
         if (point.x >= start && point.x <= cancelStart) {

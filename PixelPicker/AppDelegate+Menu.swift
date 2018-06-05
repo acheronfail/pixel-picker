@@ -281,6 +281,7 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.addItem(withTitle: "Picker Shortcut", action: nil, keyEquivalent: "")
 
         let shortcutView = MASShortcutView()
+        shortcutView.style = .flat
         shortcutView.shortcutValue = PPState.shared.activatingShortcut
         shortcutView.shortcutValueChange = { PPState.shared.activatingShortcut = $0?.shortcutValue }
 
