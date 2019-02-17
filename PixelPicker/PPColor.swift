@@ -48,6 +48,7 @@ enum PPColor: String, CaseIterable {
     case cssRgba                   = "CSS RGBA"
     case cssHsl                    = "CSS HSL"
     case cssHsla                   = "CSS HSLA"
+    case dart                      = "Dart / Flutter"
     case swiftNSColorRgb           = "Swift NSColor RGB"
     case swiftNSColorDeviceRgb     = "Swift NSColor Device RGB"
     case swiftNSColorCalibratedRgb = "Swift NSColor Calibrated RGB"
@@ -87,6 +88,7 @@ enum PPColor: String, CaseIterable {
         case .cssRgba:                   return self.formatAs8Bit(c, "rgba(%u, %u, %u, 1)")
         case .cssHsl:                    return self.formatAsHSL(c, "hsl(%u, %u%%, %u%%)")
         case .cssHsla:                   return self.formatAsHSL(c, "hsla(%u, %u%%, %u%%, 1)")
+        case .dart:                      return self.formatAsHex(c, "ff%06x", prefix: "const Color(0x", suffix: ")")
         case .swiftNSColorRgb:           return self.formatAsDecimal(c, f("NSColor(red: %f, green: %f, blue: %f, alpha: 1.000)"), .rgb)
         case .swiftNSColorDeviceRgb:     return self.formatAsDecimal(c, f("NSColor(deviceRed: %f, green: %f, blue: %f, alpha: 1.000)"), .rgb)
         case .swiftNSColorCalibratedRgb: return self.formatAsDecimal(c, f("NSColor(calibratedRed: %f, green: %f, blue: %f, alpha: 1.000)"), .rgb)
@@ -107,8 +109,8 @@ enum PPColor: String, CaseIterable {
         case .javaRgba:                  return self.formatAs8Bit(c, "new Color(%u, %u, %u, 255)")
         case .androidRgb:                return self.formatAs8Bit(c, "Color.rgb(%u, %u, %u)")
         case .androidArgb:               return self.formatAs8Bit(c, "Color.argb(255, %u, %u, %u)")
-        case .androidXmlRgb:             return self.formatAsHex(c, "<color name=\"color_name\">#%06x</color>")
-        case .androidXmlArgb:            return self.formatAsHex(c, "<color name=\"color_name\">#ff%06x</color>")
+        case .androidXmlRgb:             return self.formatAsHex(c, "#%06x", prefix: "<color name=\"color_name\">", suffix: "</color>")
+        case .androidXmlArgb:            return self.formatAsHex(c, "#ff%06x", prefix: "<color name=\"color_name\">", suffix: "</color>")
         case .cgColorRgb:                return self.formatAsDecimal(c, f("CGColorCreateGenericRGB(%f, %f, %f, 1.000)"), .rgb)
         case .openGlRgb:                 return self.formatAsDecimal(c, f("glColor3f(%f, %f, %f)"), .rgb)
         case .openGlRgba:                return self.formatAsDecimal(c, f("glColor4f(%f, %f, %f, 1.000)"), .rgb)
@@ -121,6 +123,7 @@ enum PPColor: String, CaseIterable {
         switch self {
         // Hexadecimal-like formats.
         case .cssHex:                    fallthrough
+        case .dart:                      fallthrough
         case .androidXmlRgb:             fallthrough
         case .androidXmlArgb:            fallthrough
         case .cgColorRgb:                fallthrough
@@ -192,11 +195,12 @@ enum PPColor: String, CaseIterable {
     }
 
     // Formats the colors as a hex value, eg: "D3504E".
-    private func formatAsHex(_ color: NSColor, _ template: String) -> String {
+    private func formatAsHex(_ color: NSColor, _ template: String, prefix: String = "", suffix: String = "") -> String {
         let r = min(Int(color.redComponent   * 0x100), 0x0ff) << 16
         let g = min(Int(color.greenComponent * 0x100), 0x0ff) << 8
         let b = min(Int(color.blueComponent  * 0x100), 0x0ff) << 0
-        return String(format: template, (r | g | b))
+        let result = String(format: template, (r | g | b))
+        return prefix + (PPState.shared.useUppercase ? result.uppercased() : result) + suffix
     }
 
     // Formats the color as decimal values, eg: "0.145, 0.361, 0.722".
