@@ -26,6 +26,9 @@ import CleanroomLogger
     // Whether the picker should be square or not.
     var paschaModeEnabled: Bool = false
     
+    // Whether the color format should be uppercased or not.
+    var useUppercase: Bool = false
+    
     // The shortcut that activates the pixel picker.
     var activatingShortcut: MASShortcut?
 
@@ -68,6 +71,7 @@ import CleanroomLogger
     
     func resetState() {
         paschaModeEnabled = false
+        useUppercase = false
         focusModeModifier = .control
         activatingShortcut = nil
         chosenFormat = .genericHex
@@ -99,6 +103,8 @@ import CleanroomLogger
                 switch key {
                 case "paschaModeEnabled":
                     paschaModeEnabled = value.bool ?? false
+                case "useUppercase":
+                    useUppercase = value.bool ?? false
                 case "focusModeModifier":
                     focusModeModifier = NSEvent.ModifierFlags(rawValue: value.uInt ?? NSEvent.ModifierFlags.control.rawValue)
                 case "activatingShortcut":
@@ -153,6 +159,7 @@ import CleanroomLogger
         
         let json: JSON = [
             "paschaModeEnabled": paschaModeEnabled,
+            "useUppercase": useUppercase,
             "focusModeModifier": focusModeModifier.rawValue,
             "activatingShortcut": shortcutData,
             "magnificationLevel": magnificationLevel,
