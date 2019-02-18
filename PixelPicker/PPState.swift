@@ -30,7 +30,7 @@ import CleanroomLogger
     var useUppercase: Bool = false
     
     // The chosen icon for the status item (the icon in the menu bar).
-    var statusItemImageName: String = "default"
+    var statusItemImageName: String = "icon-default"
 
     // The shortcut that activates the pixel picker.
     var activatingShortcut: MASShortcut?
