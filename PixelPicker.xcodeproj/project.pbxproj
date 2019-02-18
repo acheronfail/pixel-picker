@@ -37,6 +37,7 @@
 		BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
 		BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAB6F14F221ABB3500EA11D4 /* ShowAndHideCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		BAA17B7120B14CC000625455 /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
 		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
+		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				15493F6620BE6E0F007B2BA5 /* CGImage.swift */,
 				BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */,
 				BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */,
+				BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */,
 				BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */,
 				BA71817120AE2DB400619700 /* PPMenuShortcutView.m */,
 				B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */,
@@ -348,6 +351,7 @@
 				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
 				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
 				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
+				BAB6F14F221ABB3500EA11D4 /* ShowAndHideCursor.swift in Sources */,
 				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
 				15493F6720BE6E0F007B2BA5 /* CGImage.swift in Sources */,
 				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
