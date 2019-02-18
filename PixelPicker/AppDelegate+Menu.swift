@@ -157,14 +157,14 @@ extension AppDelegate: NSMenuDelegate {
 
     // Format hex colors to uppercase.
     private func buildUseUppercaseItem() {
-        let item = contextMenu.addItem(withTitle: "Use uppercase Hex Format", action: #selector(setUseUppercase(_:)), keyEquivalent: "")
+        let item = contextMenu.addItem(withTitle: "Uppercase Hex Digits", action: #selector(setUseUppercase(_:)), keyEquivalent: "")
         item.state = PPState.shared.useUppercase ? .on : .off
     }
-    
+
     @objc private func setUseUppercase(_ sender: NSMenuItem) {
         PPState.shared.useUppercase = sender.state != .on
     }
-    
+
     // Simple launch app at login menu item.
     private func buildLaunchAtLoginItem() {
         let item = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
