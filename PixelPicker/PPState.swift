@@ -29,6 +29,9 @@ import CleanroomLogger
     // Whether the color format should be uppercased or not.
     var useUppercase: Bool = false
     
+    // The chosen icon for the status item (the icon in the menu bar).
+    var statusItemImageName: String = "icon-default"
+
     // The shortcut that activates the pixel picker.
     var activatingShortcut: MASShortcut?
 
@@ -65,6 +68,15 @@ import CleanroomLogger
         recentPicks.append(color)
     }
     
+    // Returns the chosen image for the Status Item in the menu bar.
+    func statusItemImage(withName name: String) -> NSImage? {
+        if let img = NSImage(named: NSImage.Name(stringLiteral: name)) {
+            return setupMenuBarIcon(img)
+        }
+
+        return setupMenuBarIcon(NSImage(named: NSImage.Name(stringLiteral: "icon-default")))
+    }
+
     /**
      * Below are methods related to saving/loading state from disk.
      */
@@ -72,6 +84,7 @@ import CleanroomLogger
     func resetState() {
         paschaModeEnabled = false
         useUppercase = false
+        statusItemImageName = "icon-default"
         focusModeModifier = .control
         activatingShortcut = nil
         chosenFormat = .genericHex
@@ -105,6 +118,8 @@ import CleanroomLogger
                     paschaModeEnabled = value.bool ?? false
                 case "useUppercase":
                     useUppercase = value.bool ?? false
+                case "statusItemImageName":
+                    statusItemImageName = value.string ?? "icon-default"
                 case "focusModeModifier":
                     focusModeModifier = NSEvent.ModifierFlags(rawValue: value.uInt ?? NSEvent.ModifierFlags.control.rawValue)
                 case "activatingShortcut":
@@ -160,6 +175,7 @@ import CleanroomLogger
         let json: JSON = [
             "paschaModeEnabled": paschaModeEnabled,
             "useUppercase": useUppercase,
+            "statusItemImageName": statusItemImageName,
             "focusModeModifier": focusModeModifier.rawValue,
             "activatingShortcut": shortcutData,
             "magnificationLevel": magnificationLevel,
