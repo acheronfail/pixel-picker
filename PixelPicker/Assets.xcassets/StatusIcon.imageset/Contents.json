@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "picker@2.png",
+      "filename" : "picker@1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "picker@3.png",
+      "filename" : "picker@2.png",
       "scale" : "2x"
     }
   ],
