@@ -1,12 +1,12 @@
 # LaunchAtLogin
 
-> Add "Launch at Login" functionality to your sandboxed macOS app in seconds
+> Add "Launch at Login" functionality to your macOS app in seconds
 
 It's usually quite a [convoluted and error-prone process](before-after.md) to add this. **No more!**
 
-It's App Store compatible and used in my [Lungo](https://blog.sindresorhus.com/lungo-b364a6c2745f) and [Battery Indicator](https://sindresorhus.com/battery-indicator) app.
+This package works with both sandboxed and non-sandboxed apps and it's App Store compatible and used in my [Lungo](https://blog.sindresorhus.com/lungo-b364a6c2745f) and [Battery Indicator](https://sindresorhus.com/battery-indicator) apps.
 
-You might also find my [`create-dmg`](https://github.com/sindresorhus/create-dmg) project useful.
+*You might also find my [`create-dmg`](https://github.com/sindresorhus/create-dmg) project useful if you're publishing your app outside the App Store.*
 
 
 ## Requirements
@@ -42,13 +42,13 @@ Add a new ["Run Script Phase"](http://stackoverflow.com/a/39633955/64949) below 
 Carthage:
 
 ```sh
-./Carthage/Build/Mac/LaunchAtLogin.framework/Resources/copy-helper.sh
+"${PROJECT_DIR}/Carthage/Build/Mac/LaunchAtLogin.framework/Resources/copy-helper.sh"
 ```
 
 CocoaPods:
 
 ```sh
-./Pods/LaunchAtLogin/LaunchAtLogin/copy-helper.sh
+"${PROJECT_DIR}/Pods/LaunchAtLogin/LaunchAtLogin/copy-helper.sh"
 ```
 
 Use it in your app:
