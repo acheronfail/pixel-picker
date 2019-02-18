@@ -6,9 +6,6 @@
 import MASShortcut
 import CleanroomLogger
 
-// The app's menu bar item.
-let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(stringLiteral: "icon")))
-
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 
     // This controller manages the pixel picker itself.
@@ -38,7 +35,7 @@ let ICON = setupMenuBarIcon(NSImage(named: NSImage.Name(stringLiteral: "icon")))
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         contextMenu.delegate = self
 
-        menuBarItem.image = ICON
+        menuBarItem.image = PPState.shared.statusItemImage(withName: PPState.shared.statusItemImageName)
         menuBarItem.action = #selector(onMenuClick)
         menuBarItem.sendAction(on: [.leftMouseUp, .rightMouseUp])
 

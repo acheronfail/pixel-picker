@@ -29,6 +29,15 @@ let focusModifiers: [(String, NSEvent.ModifierFlags)] = [
     ("⇧ Shift ", .shift)
 ]
 
+// The available status item images that the user may pick from.
+let statusItemImages: [(String, String)] =  [
+    ("Magnifying Glass (Default)", "icon-default"),
+    ("Palette", "icon-palette"),
+    ("Dropper", "icon-dropper"),
+    ("Magnifying Glass Dropper", "icon-mag-dropper"),
+    ("Magnifying Glass Dropper Flat", "icon-mag-dropper-flat")
+]
+
 extension AppDelegate: NSMenuDelegate {
     // Unregister the activating shortcut when the menu is opened/closed so it can't be called when
     // setting a new shortcut. Also start a run loop observer so we know when the modifierFlags have
@@ -75,11 +84,12 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.removeAllItems()
 
         let pickItem = contextMenu.addItem(withTitle: "Pick a pixel!", action: #selector(showPicker), keyEquivalent: "")
-        pickItem.image = ICON
+        pickItem.image = PPState.shared.statusItemImage(withName: PPState.shared.statusItemImageName)
 
         buildRecentPicks()
 
         contextMenu.addItem(.separator())
+        buildAppIconMenu()
         buildShowGridMenu()
         buildColorSpaceItem()
         buildColorFormatsMenu()
@@ -93,6 +103,27 @@ extension AppDelegate: NSMenuDelegate {
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
+    }
+
+    // Choose the status item icon.
+    private func buildAppIconMenu() {
+        let submenu = NSMenu()
+        for (name, imageName) in statusItemImages {
+            let item = submenu.addItem(withTitle: name, action: #selector(selectAppIcon(_:)), keyEquivalent: "")
+            item.representedObject = imageName
+            item.state = PPState.shared.statusItemImageName == imageName ? .on : .off
+            item.image = PPState.shared.statusItemImage(withName: imageName)
+        }
+
+        let item = contextMenu.addItem(withTitle: "App Icon", action: nil, keyEquivalent: "")
+        item.submenu = submenu
+    }
+
+    @objc private func selectAppIcon(_ sender: NSMenuItem) {
+        if let imageName = sender.representedObject as? String {
+            menuBarItem.image = PPState.shared.statusItemImage(withName: imageName)
+            PPState.shared.statusItemImageName = imageName
+        }
     }
 
     // Choose whether to always draw a grid, never draw one, or only draw one when in focus mode.
