@@ -1,6 +1,6 @@
 //
 //  NSColor.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 import SwiftyJSON

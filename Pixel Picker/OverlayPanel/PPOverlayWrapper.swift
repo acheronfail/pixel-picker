@@ -1,6 +1,6 @@
 //
 //  PPOverlayWrapper.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 // This class is basically the content view of the overlay panel.

@@ -1,6 +1,6 @@
 //
 //  Bridging-Header.h
-//  PixelPicker
+//  Pixel Picker
 //
 
 #ifndef Bridging_Header_h

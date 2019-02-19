@@ -1,6 +1,6 @@
 //
 //  CarbonEventInterceptor.h
-//  PixelPicker
+//  Pixel Picker
 //
 
 #ifndef CarbonEventInterceptor_h

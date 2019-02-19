@@ -1,6 +1,6 @@
 //
 //  PPOverlayPreview.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 // This class is in charge of rendering the pixel preview.

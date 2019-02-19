@@ -1,6 +1,6 @@
 //
 //  AppDelegate+Menu.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 /**

@@ -1,6 +1,6 @@
 //
 //  ShowAndHideCursor.h
-//  PixelPicker
+//  Pixel Picker
 //
 
 #ifndef ShowAndHideCursor_h

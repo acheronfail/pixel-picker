@@ -1,6 +1,6 @@
 //
 //  PPOverlayPanel.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 // This class is in charge of managing the panels which are brought to the front

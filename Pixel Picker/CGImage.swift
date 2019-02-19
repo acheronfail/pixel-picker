@@ -1,6 +1,6 @@
 //
 //  CGImage.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 import CleanroomLogger

@@ -1,6 +1,6 @@
-![PixelPicker Banner](./Resources/banner.png)
+![Pixel Picker Banner](./Resources/banner.png)
 
-PixelPicker is like Digital Color Meter, but lives in your menu bar and lets you get the color of any pixel easily. Just hit your shortcut, up comes a magnifying glass, and away you go!
+Pixel Picker is like Digital Color Meter, but lives in your menu bar and lets you get the color of any pixel easily. Just hit your shortcut, up comes a magnifying glass, and away you go!
 
 ### Features
 
@@ -29,7 +29,7 @@ Simply download the dmg from the [releases](https://github.com/acheronfail/pixel
 
 ## Usage
 
-After you've installed PixelPicker, it will live in your menu bar. You have many different ways of activating the picker:
+After you've installed Pixel Picker, it will live in your menu bar. You have many different ways of activating the picker:
 
 * Configure a keyboard shortcut in the dropdown menu and press that to activate the picker
 * Select the "Pick a Pixel" item in the dropdown menu to activate the picker
@@ -42,14 +42,14 @@ You can also hold down the <kbd>control (⌃)</kbd> key (this can be changed to 
 
 ### Options
 
-All of PixelPicker's options are in its menubar dropdown. Simply click on the menu bar item, and you can configure the picker right there in your menu.
+All of Pixel Picker's options are in its menubar dropdown. Simply click on the menu bar item, and you can configure the picker right there in your menu.
 
-PixelPicker provides some neat options:
+Pixel Picker provides some neat options:
 
 * 🔳 **Show Grid**
     * Whether or not to show a grid around the pixels in the picker's preview.
 * 🎨 **Color Space**
-    * Computer screens are complex things, and have various color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and PixelPicker will try and use that instead (compatibility depends on your computer's screen/monitor).
+    * Computer screens are complex things, and have various color spaces. You can either leave this setting as its default (it will choose the default color space of your screen) or you can specify a specific color space and Pixel Picker will try and use that instead (compatibility depends on your computer's screen/monitor).
 * ✏️ **Color Format**
     * How should the color be copied when you select it? Examples include CSS Hex: `#aabbcc`, or Java RGB: `new Color(158, 198, 117)`, etc.
 * 🔍 **Magnification**
@@ -61,11 +61,11 @@ PixelPicker provides some neat options:
 * ⌨️ **Picker Shortcut**
     * The global keyboard shortcut to use that will activate Pixel Picker.
 * 🚀 **Launch at Login**
-    * If this is enabled then PixelPicker will be launched when you log into your computer.
+    * If this is enabled then Pixel Picker will be launched when you log into your computer.
 
 #### Extra Overrides or Hidden Settings
 
-In some releases PixelPicker might have some experimental overrides that can be toggled via the Terminal (`defaults write ...`, etc). Look under the "Experimental Overrides" section at `PixelPicker` -> `About` for more information.
+In some releases Pixel Picker might have some experimental overrides that can be toggled via the Terminal (`defaults write ...`, etc). Look under the "Experimental Overrides" section at `Pixel Picker` -> `About` for more information.
 
 ## Questions/Concerns
 
@@ -75,7 +75,7 @@ None yet!
 
 #### Setting up the project
 
-PixelPicker uses `carthage` to manage its dependencies (you can install it with `brew`). To build PixelPicker on your machine:
+Pixel Picker uses `carthage` to manage its dependencies (you can install it with `brew`). To build Pixel Picker on your machine:
 
 ```bash
 # Clone the repository
@@ -83,7 +83,7 @@ git clone git@github.com:acheronfail/pixel-picker && cd pixel-picker
 # Install dependencies with carthage
 carthage update --platform macos
 # Open the project
-open PixelPicker.xcodeproj
+open "Pixel Picker.xcodeproj"
 ```
 
 Once you've opened the Xcode project, it should be enough to make your changes and then just hit the build/run button and go from there.

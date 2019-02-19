@@ -1,6 +1,6 @@
 //
 //  CarbonEventInterceptor.m
-//  PixelPicker
+//  Pixel Picker
 //
 
 #import "PPMenuShortcutView.h"

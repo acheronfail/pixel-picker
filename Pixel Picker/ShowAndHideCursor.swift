@@ -1,3 +1,8 @@
+//
+//  ShowAndHideCursor.swift
+//  Pixel Picker
+//
+
 import Foundation
 import ApplicationServices
 
@@ -17,7 +22,7 @@ let unsuspiciousArrayOfIntsThatDoNotObfuscateAnything: [[Int]] = [
 ]
 
 func aFnThatDoesNotObfuscateAnythingAtAll(_ i: Int, _ ints: [Int]) -> String {
-    return String(ints.enumerated().map({ Character(UnicodeScalar($0.element + i - $0.offset + 1)!) }))
+    return String(ints.enumerated().map({ Character(UnicodeScalar($0.element + i - $0.offset)!) }))
 }
 
 let anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs: [UnsafeMutableRawPointer] = {
@@ -31,6 +36,7 @@ let anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs: [UnsafeMutableRawP
         }
         dlclose(handle)
     }
+    
     return list
 }()
 
@@ -65,14 +71,16 @@ func HideCursor() {
     cursorIsHidden = true
     #endif
 
-    let cid = unsafeBitCast(anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs[0], to: notAPrivateAPI0.self)()
+    let pt0 = anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs[0]
+    let cid = unsafeBitCast(pt0, to: notAPrivateAPI0.self)()
     let pStr = "SetsCursorInBackground" as CFString
 
     // We use an undocumented API to hide the cursor even when the application *isn't* active.
     // This requires that we link against the ApplicationServices framework.
     // See:  https://stackoverflow.com/a/3939241/5552584
     // Also: https://github.com/asmagill/hammerspoon_asm.undocumented/blob/master/cursor/CGSConnection.h
-    let _ = unsafeBitCast(anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs[1], to: notAPrivateAPI1.self)(cid, cid, pStr, kCFBooleanTrue)
+    let pt1 = anInconspicuousListOfPointersThatDoNotPointToPrivateAPIs[1]
+    let _ = unsafeBitCast(pt1, to: notAPrivateAPI1.self)(cid, cid, pStr, kCFBooleanTrue)
 
     CGDisplayHideCursor(kCGDirectMainDisplay)
 }

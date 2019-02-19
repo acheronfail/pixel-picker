@@ -1,6 +1,6 @@
 //
 //  NSBezierPath.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 // Extend NSBezierPath to allow easy conversion to a CGPath.

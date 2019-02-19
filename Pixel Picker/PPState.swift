@@ -1,6 +1,6 @@
 //
 //  PPState.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 import SwiftyJSON

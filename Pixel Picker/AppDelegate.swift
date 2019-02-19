@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 import MASShortcut
@@ -24,9 +24,11 @@ import CleanroomLogger
         var logConfigurations: [LogConfiguration] = [
             RotatingLogFileConfiguration(minimumSeverity: minimumSeverity, daysToKeep: 7, directoryPath: defaultLogPath().path)
         ]
+
         #if DEBUG
         logConfigurations.append(XcodeLogConfiguration(minimumSeverity: .debug))
         #endif
+
         Log.enable(configuration: logConfigurations)
         PPState.shared.loadFromDisk()
     }

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B3B4C2BC1E25894B009F8E4E"
-               BuildableName = "PixelPicker.app"
-               BlueprintName = "PixelPicker"
-               ReferencedContainer = "container:PixelPicker.xcodeproj">
+               BuildableName = "Pixel Picker.app"
+               BlueprintName = "Pixel Picker"
+               ReferencedContainer = "container:Pixel Picker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "15B4E86F207994AF0024FDE4"
-               BuildableName = "PixelPickerTests.xctest"
-               BlueprintName = "PixelPickerTests"
-               ReferencedContainer = "container:PixelPicker.xcodeproj">
+               BuildableName = "Pixel PickerTests.xctest"
+               BlueprintName = "Pixel PickerTests"
+               ReferencedContainer = "container:Pixel Picker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B3B4C2BC1E25894B009F8E4E"
-            BuildableName = "PixelPicker.app"
-            BlueprintName = "PixelPicker"
-            ReferencedContainer = "container:PixelPicker.xcodeproj">
+            BuildableName = "Pixel Picker.app"
+            BlueprintName = "Pixel Picker"
+            ReferencedContainer = "container:Pixel Picker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <EnvironmentVariables>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B3B4C2BC1E25894B009F8E4E"
-            BuildableName = "PixelPicker.app"
-            BlueprintName = "PixelPicker"
-            ReferencedContainer = "container:PixelPicker.xcodeproj">
+            BuildableName = "Pixel Picker.app"
+            BlueprintName = "Pixel Picker"
+            ReferencedContainer = "container:Pixel Picker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,9 +98,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B3B4C2BC1E25894B009F8E4E"
-            BuildableName = "PixelPicker.app"
-            BlueprintName = "PixelPicker"
-            ReferencedContainer = "container:PixelPicker.xcodeproj">
+            BuildableName = "Pixel Picker.app"
+            BlueprintName = "Pixel Picker"
+            ReferencedContainer = "container:Pixel Picker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

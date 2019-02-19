@@ -1,6 +1,6 @@
 //
 //  PPColor.swift
-//  PixelPicker
+//  Pixel Picker
 //
 
 import SwiftyJSON
