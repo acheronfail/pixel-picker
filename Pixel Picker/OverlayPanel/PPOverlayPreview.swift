@@ -37,7 +37,7 @@ class PPOverlayPreview: NSView, CALayerDelegate {
 
     // Update the crosshair with the correct color, position and size.
     func updateCrosshair(_ pixelSize: CGFloat, _ middle: CGFloat, _ color: CGColor) {
-        let pos: CGFloat = (pixelSize * middle) - (pixelSize / 2)
+        let pos: CGFloat = (pixelSize * middle) - (pixelSize / 2) + 0.5
         let pixelRect = NSMakeRect(pos, pos, pixelSize, pixelSize)
         
         crosshair.path = CGPath(rect: pixelRect, transform: nil)
@@ -58,11 +58,11 @@ class PPOverlayPreview: NSView, CALayerDelegate {
         lastNumberOfCells = n
 
         let path = NSBezierPath()
-        let start = CGFloat(0)
-        let end = CGFloat(n) * size
+        let start = CGFloat(0) + 0.5
+        let end = CGFloat(n) * size + 0.5
 
         for i in 1..<n {
-            let pos = CGFloat(i) * size
+            let pos = CGFloat(i) * size + 0.5
             path.move(to: NSPoint(x: pos, y: start))
             path.line(to: NSPoint(x: pos, y: end))
             path.move(to: NSPoint(x: start, y: pos))
