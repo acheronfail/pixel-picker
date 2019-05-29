@@ -1,6 +1,6 @@
-//  AppDelegate.swift
+//  SwiftyJSON.h
 //
-//  Copyright (c) 2014 - 2016 Pinglin Tang
+//  Copyright (c) 2014 - 2017 Ruoyu Fu, Pinglin Tang
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,31 +20,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import UIKit
-import SwiftyJSON
+@import Foundation;
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+//! Project version number for SwiftyJSON.
+FOUNDATION_EXPORT double SwiftyJSONVersionNumber;
 
-    var window: UIWindow?
+//! Project version string for SwiftyJSON.
+FOUNDATION_EXPORT const unsigned char SwiftyJSONVersionString[];
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        let navigationController = self.window?.rootViewController as! UINavigationController
-        let viewController = navigationController.topViewController as! ViewController
-
-        if let file = Bundle.main.path(forResource: "SwiftyJSONTests", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: file))
-                let json = try JSON(data: data)
-                viewController.json = json
-            } catch {
-                viewController.json = JSON.null
-            }
-        } else {
-            viewController.json = JSON.null
-        }
-
-        return true
-    }
-}
