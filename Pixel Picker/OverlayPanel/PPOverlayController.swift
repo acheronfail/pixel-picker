@@ -110,9 +110,39 @@ class PPOverlayController: NSWindowController {
         case kVK_RightArrow:
             PPState.shared.chosenFormat = PPState.shared.chosenFormat.next()
             updateInfoPanel(lastHighlightedColor, lastHighlightedColor.bestContrastingColor())
+        case kVK_ANSI_K:
+            moveByPixel(dx: 0.0, dy: 1.0)
+            // Move up
+            break
+        case kVK_ANSI_J:
+            moveByPixel(dx: 0.0, dy: -1.0)
+            // Move down
+            break
+        case kVK_ANSI_H:
+            moveByPixel(dx: -1.0, dy: 0.0)
+            // Move left
+            break
+        case kVK_ANSI_L:
+            moveByPixel(dx: 1.0, dy: 0.0)
+            // Move right
+            break
         default:
             break
         }
+    }
+
+    func moveByPixel(dx: CGFloat, dy: CGFloat) {
+        var mouseLoc = lastMouseLocation
+        let currentScreen = getScreenWithMouse()
+        guard let screenFrame = currentScreen?.frame, let screenScale = currentScreen?.backingScaleFactor else {
+            return
+        }
+        mouseLoc.x += dx / screenScale
+        mouseLoc.y += dy / screenScale
+        lastMouseLocation = mouseLoc
+        updatePreview(aroundPoint: mouseLoc)
+        mouseLoc.y = screenFrame.maxY - mouseLoc.y
+        CGDisplayMoveCursorToPoint(0, mouseLoc)
     }
 
     // Enable "focusMode" when correct modifier flag is changed.
@@ -226,6 +256,15 @@ class PPOverlayController: NSWindowController {
         var rect = infoPanel.frame
         rect.size.width = max(infoFormatField.intrinsicContentSize.width, infoDetailField.intrinsicContentSize.width) + 40
         infoPanel.setFrame(rect, display: false)
+    }
+
+    // Get the screen that current has displayed the mouse.
+    func getScreenWithMouse() -> NSScreen? {
+        let mouseLocation = NSEvent.mouseLocation
+        let screens = NSScreen.screens
+        let screenWithMouse = (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
+
+        return screenWithMouse
     }
 
     // Updates the info panel with the correct colors and text.
