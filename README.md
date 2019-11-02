@@ -6,9 +6,9 @@ PixelPicker is like Digital Color Meter, but lives in your menu bar and lets you
 
 * 📸 Pick *any* pixel on your screen with ease
 * 🔎 Different magnification levels
-* ✏ Multiple color export formats 
+* ✏ Multiple color export formats
 * 🖥 Multi-monitor support
-* 🎨 Supports different color spaces 
+* 🎨 Supports different color spaces
 * ⌨️ Global keyboard shortcut activation
 * 🌄 Customisable preview
 * ✨
@@ -50,7 +50,7 @@ PixelPicker provides some neat options:
     * Choose which modifier activates focus mode. When focus mode is active, the picker zooms even closer in, and your mouse moves slower to help you pick the right pixel.
 * 🔢 **Float Precision**
     * This controls how many digits will come after the decimal point when using float-based color formats.
-* ⌨️ **Picker Shortcut** 
+* ⌨️ **Picker Shortcut**
     * The global keyboard shortcut to use that will activate Pixel Picker.
 * 🚀 **Launch at Login**
     * If this is enabled then PixelPicker will be launched when you log into your computer.
@@ -91,4 +91,4 @@ The process to create build artefacts for this app is extremely simple:
 
 ## License
 
-[MIT](./LICENSE)
+[GPLv3](./LICENSE)
