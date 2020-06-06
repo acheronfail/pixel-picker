@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,6 +19,8 @@
         </customObject>
         <customObject id="ECQ-9M-Pkg" customClass="PPOverlayController" customModule="PixelPicker" customModuleProvider="target">
             <connections>
+                <outlet property="infoContrastField" destination="iRx-oZ-llC" id="gxr-6f-BkE"/>
+                <outlet property="infoContrastView" destination="dIL-Oc-RkF" id="8ya-Ai-pt6"/>
                 <outlet property="infoDetailField" destination="Re2-GH-fyd" id="K03-75-cf9"/>
                 <outlet property="infoFormatField" destination="1fa-UE-yMM" id="Nan-fO-kbu"/>
                 <outlet property="infoPanel" destination="OMO-LB-w57" id="GGj-Y6-LfU"/>
@@ -30,11 +31,11 @@
                 <outlet property="wrapper" destination="acW-WA-gq2" id="Mpu-0H-rtC"/>
             </connections>
         </customObject>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gZA-A3-IZ5" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="gZA-A3-IZ5" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
             <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="132" width="101" height="101"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="acW-WA-gq2" customClass="PPOverlayWrapper" customModule="PixelPicker" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -52,38 +53,70 @@
             </view>
             <point key="canvasLocation" x="236" y="82"/>
         </window>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="OMO-LB-w57" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="OMO-LB-w57" customClass="PPOverlayPanel" customModule="PixelPicker" customModuleProvider="target">
             <windowStyleMask key="styleMask" utility="YES" nonactivatingPanel="YES"/>
             <rect key="contentRect" x="926" y="538" width="100" height="50"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
-            <view key="contentView" id="HED-rR-FDP">
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" misplaced="YES" id="HED-rR-FDP">
                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1fa-UE-yMM">
-                        <rect key="frame" x="-2" y="25" width="104" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="RkG-Wy-Shq">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-GH-fyd">
-                        <rect key="frame" x="-2" y="8" width="104" height="14"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="IYd-1Y-7cd">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                    <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvI-6B-Cz3">
+                        <rect key="frame" x="0.0" y="8" width="163" height="56"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1fa-UE-yMM">
+                                <rect key="frame" x="61" y="40" width="41" height="16"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="RkG-Wy-Shq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Re2-GH-fyd">
+                                <rect key="frame" x="63" y="22" width="37" height="14"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="IYd-1Y-7cd">
+                                    <font key="font" metaFont="label" size="11"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="dIL-Oc-RkF">
+                                <rect key="frame" x="0.0" y="0.0" width="163" height="18"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iRx-oZ-llC">
+                                        <rect key="frame" x="2" y="2" width="159" height="14"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="WGV-Vi-VsP">
+                                            <font key="font" metaFont="label" size="11"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iRx-oZ-llC" secondAttribute="trailing" constant="4" id="N7S-Bx-3p1"/>
+                                    <constraint firstAttribute="bottom" secondItem="iRx-oZ-llC" secondAttribute="bottom" constant="2" id="cN6-Qx-Meg"/>
+                                    <constraint firstItem="iRx-oZ-llC" firstAttribute="leading" secondItem="dIL-Oc-RkF" secondAttribute="leading" constant="4" id="pS4-Xb-76o"/>
+                                    <constraint firstItem="iRx-oZ-llC" firstAttribute="top" secondItem="dIL-Oc-RkF" secondAttribute="top" constant="2" id="xNR-KQ-YT8"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1fa-UE-yMM" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="23z-pW-nAx"/>
-                    <constraint firstItem="1fa-UE-yMM" firstAttribute="top" secondItem="HED-rR-FDP" secondAttribute="top" constant="8" id="G1j-j5-iWY"/>
-                    <constraint firstItem="Re2-GH-fyd" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="aZf-QY-Lpd"/>
-                    <constraint firstAttribute="bottom" secondItem="Re2-GH-fyd" secondAttribute="bottom" constant="8" id="amm-jV-oWa"/>
-                    <constraint firstAttribute="trailing" secondItem="1fa-UE-yMM" secondAttribute="trailing" id="flM-Te-2qj"/>
-                    <constraint firstAttribute="trailing" secondItem="Re2-GH-fyd" secondAttribute="trailing" id="jWO-5f-uxW"/>
+                    <constraint firstItem="GvI-6B-Cz3" firstAttribute="leading" secondItem="HED-rR-FDP" secondAttribute="leading" id="3zK-14-Xf5"/>
+                    <constraint firstAttribute="bottom" secondItem="GvI-6B-Cz3" secondAttribute="bottom" constant="8" id="apf-V6-NGV"/>
+                    <constraint firstItem="GvI-6B-Cz3" firstAttribute="top" secondItem="HED-rR-FDP" secondAttribute="top" constant="8" id="dK9-Wq-zGV"/>
+                    <constraint firstAttribute="trailing" secondItem="GvI-6B-Cz3" secondAttribute="trailing" id="mj1-AT-sJL"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="236" y="230"/>

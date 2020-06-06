@@ -18,6 +18,8 @@ class PPOverlayController: NSWindowController {
     @IBOutlet weak var infoWrapper: NSView!
     @IBOutlet weak var infoFormatField: NSTextField!
     @IBOutlet weak var infoDetailField: NSTextField!
+    @IBOutlet weak var infoContrastView: NSView!
+    @IBOutlet weak var infoContrastField: NSTextField!
 
     // This mode increases the picker's size, increases the magnification and also slows down move
     // events to make it easier to pick the right pixel. We dissociate the mouse (input) from the
@@ -66,6 +68,8 @@ class PPOverlayController: NSWindowController {
         infoWrapper.wantsLayer = true
         infoWrapper.layer?.cornerRadius = 8
         infoWrapper.layer?.backgroundColor = NSColor.black.cgColor
+        infoContrastView.wantsLayer = true
+        infoContrastView.layer?.cornerRadius = 3
 
         // For some reason if we don't listen for events this way we miss the escape key.
         NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) {
@@ -274,6 +278,19 @@ class PPOverlayController: NSWindowController {
         infoDetailField.textColor = contrastingColor
         infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
         infoDetailField.stringValue = PPState.shared.chosenFormat.asComponentString(withColor: color)
+        
+        if let previousPick = PPState.shared.recentPicks.last, PPState.shared.showWCAGLevel {
+            infoContrastView.isHidden = false
+            
+            let wcagLevel = WCAGLevel(contrastRatio: color.contrastRatio(to: previousPick.color))
+            infoContrastField.stringValue = wcagLevel.rawValue
+            
+            infoContrastView.layer?.backgroundColor = previousPick.color.cgColor
+            infoContrastField.textColor = previousPick.color.bestContrastingColor()
+        } else {
+            infoContrastView.isHidden = true
+        }
+        
         resizeInfoPanel()
     }
 
