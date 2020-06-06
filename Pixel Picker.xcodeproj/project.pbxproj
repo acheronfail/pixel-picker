@@ -38,6 +38,7 @@
 		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
 		BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAB6F14F221ABB3500EA11D4 /* ShowAndHideCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */; };
+		D62EACF22465996700686344 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EACF12465996700686344 /* WCAG.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
+		D62EACF12465996700686344 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 				15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */,
 				BA74C14120AA409D00306B27 /* NSColor.swift */,
 				15492102207B53AE00E45BBC /* Util.swift */,
+				D62EACF12465996700686344 /* WCAG.swift */,
 				B3B4C2C21E25894B009F8E4E /* Assets.xcassets */,
 				BA22232A20B0E3B50001069C /* README.md */,
 				155D2C02204F61220087478B /* Credits.rtfd */,
@@ -349,6 +352,7 @@
 				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
 				BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */,
 				15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */,
+				D62EACF22465996700686344 /* WCAG.swift in Sources */,
 				BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */,
 				BA74C14020AA390400306B27 /* PPOverlayPreview.swift in Sources */,
 				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
