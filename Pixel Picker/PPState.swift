@@ -29,6 +29,9 @@ import CleanroomLogger
     // Whether the color format should be uppercased or not.
     var useUppercase: Bool = false
     
+    // Whether to display the WCAG contrast level when picking a color.
+    var showWCAGLevel: Bool = false
+    
     // The chosen icon for the status item (the icon in the menu bar).
     var statusItemImageName: String = "icon-default"
 
@@ -84,6 +87,7 @@ import CleanroomLogger
     func resetState() {
         paschaModeEnabled = false
         useUppercase = false
+        showWCAGLevel = false
         statusItemImageName = "icon-default"
         focusModeModifier = .control
         activatingShortcut = nil
@@ -118,6 +122,8 @@ import CleanroomLogger
                     paschaModeEnabled = value.bool ?? false
                 case "useUppercase":
                     useUppercase = value.bool ?? false
+                case "showWCAGLevel":
+                    showWCAGLevel = value.bool ?? false
                 case "statusItemImageName":
                     statusItemImageName = value.string ?? "icon-default"
                 case "focusModeModifier":
@@ -175,6 +181,7 @@ import CleanroomLogger
         let json: JSON = [
             "paschaModeEnabled": paschaModeEnabled,
             "useUppercase": useUppercase,
+            "showWCAGLevel": showWCAGLevel,
             "statusItemImageName": statusItemImageName,
             "focusModeModifier": focusModeModifier.rawValue,
             "activatingShortcut": shortcutData,
