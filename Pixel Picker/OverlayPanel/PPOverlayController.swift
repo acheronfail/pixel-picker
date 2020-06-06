@@ -279,9 +279,11 @@ class PPOverlayController: NSWindowController {
         infoFormatField.stringValue = PPState.shared.chosenFormat.rawValue
         infoDetailField.stringValue = PPState.shared.chosenFormat.asComponentString(withColor: color)
         
+        // Show contrast level if it's enabled and a color has previously been picked.
         if let previousPick = PPState.shared.recentPicks.last, PPState.shared.showWCAGLevel {
             infoContrastView.isHidden = false
             
+            // Calculate constrast ratio between current and previously picked color.
             let wcagLevel = WCAGLevel(contrastRatio: color.contrastRatio(to: previousPick.color))
             infoContrastField.stringValue = wcagLevel.rawValue
             
