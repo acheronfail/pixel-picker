@@ -11,6 +11,7 @@ Pixel Picker is like Digital Color Meter, but lives in your menu bar and lets yo
 * 🎨 Supports different color spaces
 * ⌨️ Global keyboard shortcut activation
 * 🌄 Customisable preview
+* 🌓 WCAG contrast level checker
 * ✨
 
 ![demo of pixel-picker](./Resources/demo.png)
@@ -63,6 +64,8 @@ Pixel Picker provides some neat options:
     * The global keyboard shortcut to use that will activate Pixel Picker.
 * 🚀 **Launch at Login**
     * If this is enabled then Pixel Picker will be launched when you log into your computer.
+* 🌓 **WCAG Constrast Level**
+    * If enabled, will compare the current and last picked color and show the [WCAG constrast level](https://www.w3.org/TR/WCAG20/): Fail, OK, AA, or AAA.
 
 #### Extra Overrides or Hidden Settings
 
