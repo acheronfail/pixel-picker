@@ -50,4 +50,31 @@ extension NSColor {
         let L = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
         return L > 0.197 ? NSColor.black : NSColor.white
     }
+    
+    // Calculates the contrast ratio of this color and another one, according to the W3C "Web Content Accessibility Guidelines (WCAG) 2.0" Recommendation (https://www.w3.org/TR/WCAG20/).
+    // Adopted from: https://gist.github.com/ngquerol/23d6d5ebd051e18682badafa37e48442
+    public func contrastRatio(to color: NSColor) -> CGFloat {
+        let luminance1 = relativeLuminance,
+            luminance2 = color.relativeLuminance
+
+        if luminance1 < luminance2 {
+            return (luminance2 + 0.05) / (luminance1 + 0.05)
+        } else {
+            return (luminance1 + 0.05) / (luminance2 + 0.05)
+        }
+    }
+    
+    // Calculates the relative brightness of a color, according to the W3C "Web Content Accessibility Guidelines (WCAG) 2.0" Recommendation (https://www.w3.org/TR/WCAG20/).
+    // Adopted from: https://gist.github.com/ngquerol/23d6d5ebd051e18682badafa37e48442
+    public var relativeLuminance: CGFloat {
+        let f = { (component: CGFloat) -> CGFloat in
+            return component <= 0.03928 ? component / 12.92 : pow((component + 0.055) / 1.055, 2.4)
+        }
+        
+        let red = f(redComponent)
+        let green = f(greenComponent)
+        let blue = f(blueComponent)
+
+        return red * 0.2126 + green * 0.7152 + blue * 0.0722
+    }
 }

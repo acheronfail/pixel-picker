@@ -99,6 +99,7 @@ extension AppDelegate: NSMenuDelegate {
         buildShortcutMenuItem()
         buildUseUppercaseItem()
         buildLaunchAtLoginItem()
+        buildShowWCAGItem()
 
         contextMenu.addItem(.separator())
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
@@ -200,6 +201,15 @@ extension AppDelegate: NSMenuDelegate {
     private func buildLaunchAtLoginItem() {
         let item = contextMenu.addItem(withTitle: "Launch \(APP_NAME) at Login", action: #selector(launchAtLogin(_:)), keyEquivalent: "")
         item.state = LaunchAtLogin.isEnabled ? .on : .off
+    }
+    
+    private func buildShowWCAGItem() {
+        let item = contextMenu.addItem(withTitle: "Show WCAG contrast level", action: #selector(setShowWCAG(_:)), keyEquivalent: "")
+        item.state = PPState.shared.showWCAGLevel ? .on : .off
+    }
+    
+    @objc private func setShowWCAG(_ sender: NSMenuItem) {
+        PPState.shared.showWCAGLevel = sender.state != .on
     }
 
     @objc private func launchAtLogin(_ sender: NSMenuItem) {
