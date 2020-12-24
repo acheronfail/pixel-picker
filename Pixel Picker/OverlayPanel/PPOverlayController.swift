@@ -322,7 +322,7 @@ class PPOverlayController: NSWindowController {
 
             // Calculate a zoomed rect which will crop the screenshot we took.
             let magnification = CGFloat(PPState.shared.magnificationLevel)
-            let zoomReciprocal: CGFloat = 1.0 / (focusMode ? magnification * 2.5 : magnification)
+            let zoomReciprocal: CGFloat = 1.0 / (focusMode ? magnification * 2.0 : magnification)
             let currentSize = CGFloat(screenShot.width) + 1
             let origin = floor(currentSize * ((1 - zoomReciprocal) / 2))
             let x = origin + (isHalf(normalisedPoint.x) ? 1 : 0)
