@@ -222,9 +222,9 @@ enum PPColor: String, CaseIterable {
     // Special formatter since CSS uses a unique style here, eg: "35, 79%, 47%".
     private func formatAsHSL(_ color: NSColor, _ template: String) -> String {
         let h = min(Int(color.hueComponent * 360), 359)
-        let s = Int(color.saturationComponent * 100)
-        let b = Int(color.brightnessComponent * 100)
-        return String(format: template, h, s, b)
+        let s = Int(color.hslSaturationComponent * 100)
+        let l = Int(color.lightnessComponent * 100)
+        return String(format: template, h, s, l)
     }
 
     // Returns a new color in the correct colorspace for the format.
