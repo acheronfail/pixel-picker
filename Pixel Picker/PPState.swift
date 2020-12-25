@@ -6,7 +6,7 @@
 import SwiftyJSON
 import MASShortcut
 import LaunchAtLogin
-import CleanroomLogger
+//import CleanroomLogger
 
 // This state class is responsible for saving/loading application state and keeping
 // track of the active state and user configuration.
@@ -105,10 +105,10 @@ import CleanroomLogger
             try loadFromString(jsonString)
         } catch {
             // Ignore error when there's no file.
-            let err = error as NSError
-            if err.domain != NSCocoaErrorDomain && err.code != CocoaError.fileReadNoSuchFile.rawValue {
-                Log.error?.message("Unexpected error loading application state from disk: \(error)")
-            }
+//            let err = error as NSError
+//            if err.domain != NSCocoaErrorDomain && err.code != CocoaError.fileReadNoSuchFile.rawValue {
+//                Log.error?.message("Unexpected error loading application state from disk: \(error)")
+//            }
         }
     }
 
@@ -151,11 +151,12 @@ import CleanroomLogger
                 case "recentPicks":
                     recentPicks = deserializeRecentPicks(fromJSON: value)
                 default:
-                    Log.warning?.message("unknown key '\(key)' encountered in json")
+                    continue
+//                    Log.warning?.message("unknown key '\(key)' encountered in json")
                 }
             }
 
-            Log.info?.message("Loaded config from disk")
+//            Log.info?.message("Loaded config from disk")
         }
     }
     
@@ -196,12 +197,12 @@ import CleanroomLogger
                 let configDir = savePath.deletingLastPathComponent()
                 try FileManager.default.createDirectory(atPath: configDir.path, withIntermediateDirectories: true, attributes: nil)
                 try jsonString.write(to: savePath, atomically: false, encoding: .utf8)
-                Log.info?.message("Saved config to disk")
+//                Log.info?.message("Saved config to disk")
             } else {
-                Log.error?.message("Could not serialise config")
+//                Log.error?.message("Could not serialise config")
             }
         } catch {
-            Log.error?.message("Unexpected error saving application state to disk: \(error)")
+//            Log.error?.message("Unexpected error saving application state to disk: \(error)")
         }
     }
 }

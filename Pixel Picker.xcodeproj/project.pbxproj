@@ -31,8 +31,6 @@
 		BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14D20ADA33E00306B27 /* PPColor.swift */; };
 		BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; };
 		BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; };
-		BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; };
 		BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
@@ -59,7 +57,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */,
-				BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */,
 				BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */,
 				BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */,
 			);
@@ -99,7 +96,6 @@
 		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
 		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
 		BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
-		BAA17B7120B14CC000625455 /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
 		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
@@ -120,7 +116,6 @@
 			files = (
 				BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */,
 				BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */,
-				BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */,
 				BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */,
 				BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */,
 			);
@@ -156,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */,
-				BAA17B7120B14CC000625455 /* CleanroomLogger.framework */,
 				BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */,
 				BAA17B7220B14CC100625455 /* MASShortcut.framework */,
 				15FF0CCC204A231800E04103 /* Bridging-Header.h */,

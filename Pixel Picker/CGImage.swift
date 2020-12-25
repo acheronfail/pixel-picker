@@ -3,7 +3,7 @@
 //  Pixel Picker
 //
 
-import CleanroomLogger
+//import CleanroomLogger
 
 extension CGImage {
     // In order to get the color at a given pixel from a CGImage, we need to convert the CGImage's
@@ -55,7 +55,7 @@ extension CGImage {
 
         // Creating the context failed, so return a default color instead.
         // Hopefully, this should never happen.
-        Log.error?.message("Failed to create CGContext!")
+//        Log.error?.message("Failed to create CGContext!")
         return NSColor.black
     }
 }

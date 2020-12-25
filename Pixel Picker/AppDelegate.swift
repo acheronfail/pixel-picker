@@ -4,7 +4,7 @@
 //
 
 import MASShortcut
-import CleanroomLogger
+//import CleanroomLogger
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -20,16 +20,16 @@ import CleanroomLogger
 
     // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
-        let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
-        var logConfigurations: [LogConfiguration] = [
-            RotatingLogFileConfiguration(minimumSeverity: minimumSeverity, daysToKeep: 7, directoryPath: defaultLogPath().path)
-        ]
-
-        #if DEBUG
-        logConfigurations.append(XcodeLogConfiguration(minimumSeverity: .debug))
-        #endif
-
-        Log.enable(configuration: logConfigurations)
+//        let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
+//        var logConfigurations: [LogConfiguration] = [
+//            RotatingLogFileConfiguration(minimumSeverity: minimumSeverity, daysToKeep: 7, directoryPath: defaultLogPath().path)
+//        ]
+//
+//        #if DEBUG
+//        logConfigurations.append(XcodeLogConfiguration(minimumSeverity: .debug))
+//        #endif
+//
+//        Log.enable(configuration: logConfigurations)
         PPState.shared.loadFromDisk()
     }
 
@@ -49,7 +49,7 @@ import CleanroomLogger
         // hardware events are suppressed after functions like CGWarpMouseCursorPosition are used.
         CGEventSource(stateID: CGEventSourceStateID.combinedSessionState)?.localEventsSuppressionInterval = 0.05
 
-        Log.info?.message("Sucessfully launched.")
+//        Log.info?.message("Sucessfully launched.")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

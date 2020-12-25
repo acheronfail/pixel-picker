@@ -3,7 +3,7 @@
 //  Pixel Picker
 //
 
-import CleanroomLogger
+//import CleanroomLogger
 
 let APP_NAME = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
 let APPLE_INTERFACE_STYLE = "AppleInterfaceStyle"
@@ -82,10 +82,10 @@ func defaultLogPath() -> URL {
     do {
         try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
     } catch {
-        Log.error?.message("Unexpected error creating log directory: \(error)")
+//        Log.error?.message("Unexpected error creating log directory: \(error)")
     }
 
-    Log.info?.message("Default Log Path: \(url.path)")
+//    Log.info?.message("Default Log Path: \(url.path)")
     return url
 }
 
@@ -98,6 +98,6 @@ func defaultConfigurationPath() -> URL {
         url = URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Preferences/\(APP_NAME)/configuration.json")
     }
 
-    Log.info?.message("Default Config Path: \(url.path)")
+//    Log.info?.message("Default Config Path: \(url.path)")
     return url
 }
