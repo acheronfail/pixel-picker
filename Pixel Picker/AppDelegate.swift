@@ -4,7 +4,7 @@
 //
 
 import MASShortcut
-//import CleanroomLogger
+import CocoaLumberjackSwift
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -20,16 +20,16 @@ import MASShortcut
 
     // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
-//        let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
-//        var logConfigurations: [LogConfiguration] = [
-//            RotatingLogFileConfiguration(minimumSeverity: minimumSeverity, daysToKeep: 7, directoryPath: defaultLogPath().path)
-//        ]
-//
-//        #if DEBUG
-//        logConfigurations.append(XcodeLogConfiguration(minimumSeverity: .debug))
-//        #endif
-//
-//        Log.enable(configuration: logConfigurations)
+        DDLog.add(DDOSLogger.sharedInstance) // Uses os_log
+        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+        dynamicLogLevel = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
+        #if DEBUG
+        dynamicLogLevel = .debug
+        #endif
+        fileLogger.rollingFrequency = 60 * 60 * 24 * 7 // 7 days
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 3
+        DDLog.add(fileLogger)
+
         PPState.shared.loadFromDisk()
     }
 
