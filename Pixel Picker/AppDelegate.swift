@@ -49,7 +49,7 @@ import CocoaLumberjackSwift
         // hardware events are suppressed after functions like CGWarpMouseCursorPosition are used.
         CGEventSource(stateID: CGEventSourceStateID.combinedSessionState)?.localEventsSuppressionInterval = 0.05
 
-//        Log.info?.message("Sucessfully launched.")
+        DDLogInfo("Sucessfully launched.")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
