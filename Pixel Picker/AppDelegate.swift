@@ -4,7 +4,7 @@
 //
 
 import MASShortcut
-import CleanroomLogger
+import CocoaLumberjackSwift
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -20,16 +20,16 @@ import CleanroomLogger
 
     // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
-        let minimumSeverity: LogSeverity = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
-        var logConfigurations: [LogConfiguration] = [
-            RotatingLogFileConfiguration(minimumSeverity: minimumSeverity, daysToKeep: 7, directoryPath: defaultLogPath().path)
-        ]
-
+        DDLog.add(DDOSLogger.sharedInstance) // Uses os_log
+        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+        dynamicLogLevel = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
         #if DEBUG
-        logConfigurations.append(XcodeLogConfiguration(minimumSeverity: .debug))
+        dynamicLogLevel = .debug
         #endif
+        fileLogger.rollingFrequency = 60 * 60 * 24 * 7 // 7 days
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 3
+        DDLog.add(fileLogger)
 
-        Log.enable(configuration: logConfigurations)
         PPState.shared.loadFromDisk()
     }
 
@@ -49,7 +49,7 @@ import CleanroomLogger
         // hardware events are suppressed after functions like CGWarpMouseCursorPosition are used.
         CGEventSource(stateID: CGEventSourceStateID.combinedSessionState)?.localEventsSuppressionInterval = 0.05
 
-        Log.info?.message("Sucessfully launched.")
+        DDLogInfo("Sucessfully launched.")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -15,6 +15,10 @@
 		159F30522079A147000BD387 /* PPStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F30512079A147000BD387 /* PPStateTests.swift */; };
 		15A8D9722083624600D55A9B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A8D9712083624600D55A9B /* Helpers.swift */; };
 		15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC8CC7204E2E2C000B5E1E /* PPState.swift */; };
+		3ABC22F6259AE926005D9E87 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */; };
+		3ABC22F7259AE926005D9E87 /* CocoaLumberjackSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3ABC22FA259AEA98005D9E87 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */; };
+		3ABC22FB259AEA98005D9E87 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */; };
 		B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C2C21E25894B009F8E4E /* Assets.xcassets */; };
 		BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22232620AFEC1B0001069C /* ApplicationServices.framework */; };
@@ -31,8 +35,6 @@
 		BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14D20ADA33E00306B27 /* PPColor.swift */; };
 		BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; };
 		BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; };
-		BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7120B14CC000625455 /* CleanroomLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; };
 		BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
@@ -59,9 +61,10 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */,
-				BAA17B7820B14CC100625455 /* CleanroomLogger.framework in Embed Frameworks */,
 				BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */,
+				3ABC22FB259AEA98005D9E87 /* CocoaLumberjack.framework in Embed Frameworks */,
 				BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */,
+				3ABC22F7259AE926005D9E87 /* CocoaLumberjackSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,9 @@
 		15B4E874207994AF0024FDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15FC8CC7204E2E2C000B5E1E /* PPState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPState.swift; sourceTree = "<group>"; };
 		15FF0CCC204A231800E04103 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Pixel Picker/Bridging-Header.h"; sourceTree = "<group>"; };
+		3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/Mac/CocoaLumberjack.framework; sourceTree = "<group>"; };
+		3ABC22F3259AE904005D9E87 /* CocoaLumberjackSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaLumberjackSwift.framework.dSYM; path = Carthage/Build/Mac/CocoaLumberjackSwift.framework.dSYM; sourceTree = "<group>"; };
+		3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/Mac/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		B3B4C2BD1E25894B009F8E4E /* Pixel Picker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pixel Picker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B4C2C21E25894B009F8E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,7 +105,6 @@
 		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
 		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
 		BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
-		BAA17B7120B14CC000625455 /* CleanroomLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CleanroomLogger.framework; path = Carthage/Build/Mac/CleanroomLogger.framework; sourceTree = "<group>"; };
 		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
@@ -120,8 +125,9 @@
 			files = (
 				BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */,
 				BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */,
-				BAA17B7720B14CC100625455 /* CleanroomLogger.framework in Frameworks */,
+				3ABC22F6259AE926005D9E87 /* CocoaLumberjackSwift.framework in Frameworks */,
 				BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */,
+				3ABC22FA259AEA98005D9E87 /* CocoaLumberjack.framework in Frameworks */,
 				BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */,
-				BAA17B7120B14CC000625455 /* CleanroomLogger.framework */,
 				BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */,
 				BAA17B7220B14CC100625455 /* MASShortcut.framework */,
 				15FF0CCC204A231800E04103 /* Bridging-Header.h */,
@@ -205,6 +210,9 @@
 		BA22232520AFEC1B0001069C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */,
+				3ABC22F3259AE904005D9E87 /* CocoaLumberjackSwift.framework.dSYM */,
+				3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */,
 				BA22232620AFEC1B0001069C /* ApplicationServices.framework */,
 			);
 			name = Frameworks;

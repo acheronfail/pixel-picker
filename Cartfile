@@ -9,4 +9,4 @@ github "SwiftyJSON/SwiftyJSON"
 github "sindresorhus/LaunchAtLogin"
 
 # Used for advanced logging features.
-github "emaloney/CleanroomLogger" ~> 6.0.0
+github "CocoaLumberjack/CocoaLumberjack"

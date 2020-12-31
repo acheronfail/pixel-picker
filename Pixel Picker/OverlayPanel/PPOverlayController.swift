@@ -3,7 +3,7 @@
 //  Pixel Picker
 //
 
-import CleanroomLogger
+import CocoaLumberjackSwift
 
 // This is the controller for the actual pixel picker itself.
 class PPOverlayController: NSWindowController {
