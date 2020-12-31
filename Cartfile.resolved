@@ -1,4 +1,4 @@
+github "CocoaLumberjack/CocoaLumberjack" "3.7.0"
 github "SwiftyJSON/SwiftyJSON" "5.0.0"
 github "acheronfail/MASShortcut" "2.3.6-custom"
-github "emaloney/CleanroomLogger" "6.0.2"
 github "sindresorhus/LaunchAtLogin" "v4.0.0"
