@@ -21,7 +21,7 @@ Pixel Picker is like Digital Color Meter, but lives in your menu bar and lets yo
 #### Via Homebrew:
 
 ```bash
-brew cask install pixel-picker
+brew install --cask pixel-picker
 ```
 
 #### Via GitHub Releases
