@@ -168,11 +168,14 @@ extension AppDelegate: NSMenuDelegate {
     @objc private func setColorSpace(_ sender: NSMenuItem) {
         PPState.shared.colorSpace = sender.representedObject as? String
     }
+    
+    static let MIN_MAGNIFICATION = 4
+    static let MAX_MAGNIFICATION = 24
 
     // A menu which allows the magnification level of the picker to be adjusted.
     private func buildMagnificationMenu() {
         let submenu = NSMenu()
-        for i in stride(from: 4, through: 24, by: 2) {
+        for i in stride(from: AppDelegate.MIN_MAGNIFICATION, through: AppDelegate.MAX_MAGNIFICATION, by: 2) {
             let item = submenu.addItem(withTitle: "\(i)x", action: #selector(selectMagnification(_:)), keyEquivalent: "")
             item.representedObject = i
             item.state = PPState.shared.magnificationLevel == i ? .on : .off

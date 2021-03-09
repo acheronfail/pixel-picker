@@ -79,6 +79,13 @@ import CocoaLumberjackSwift
 
         return setupMenuBarIcon(NSImage(named: NSImage.Name(stringLiteral: "icon-default")))
     }
+    
+    func changeMagnification(_ n: Int) {
+        let level = magnificationLevel + n
+        if AppDelegate.MIN_MAGNIFICATION <= level && level <= AppDelegate.MAX_MAGNIFICATION {
+            magnificationLevel = level
+        }
+    }
 
     /**
      * Below are methods related to saving/loading state from disk.

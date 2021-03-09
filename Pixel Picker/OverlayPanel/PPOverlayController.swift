@@ -114,22 +114,33 @@ class PPOverlayController: NSWindowController {
         case kVK_RightArrow:
             PPState.shared.chosenFormat = PPState.shared.chosenFormat.next()
             updateInfoPanel(lastHighlightedColor, lastHighlightedColor.bestContrastingColor())
+        // Move up
         case kVK_ANSI_K:
             moveByPixel(dx: 0.0, dy: 1.0)
-            // Move up
             break
+        // Move down
         case kVK_ANSI_J:
             moveByPixel(dx: 0.0, dy: -1.0)
-            // Move down
             break
+        // Move left
         case kVK_ANSI_H:
             moveByPixel(dx: -1.0, dy: 0.0)
-            // Move left
             break
+        // Move right
         case kVK_ANSI_L:
             moveByPixel(dx: 1.0, dy: 0.0)
-            // Move right
             break
+        // Adjust magnification with `+` or `-` and `[` or `]`
+        case kVK_ANSI_Minus:
+            fallthrough
+        case kVK_ANSI_LeftBracket:
+            PPState.shared.changeMagnification(-2)
+            moveByPixel(dx: 0, dy: 0)
+        case kVK_ANSI_Equal:
+            fallthrough
+        case kVK_ANSI_RightBracket:
+            PPState.shared.changeMagnification(2)
+            moveByPixel(dx: 0, dy: 0)
         default:
             break
         }
