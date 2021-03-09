@@ -75,11 +75,6 @@ CGFloat cancelBoundary = 15;
     
     NSWindow *carbonWindow = [self window];
     if (carbonWindow != nil) {
-        if (![carbonWindow.className isEqualToString:@"NSCarbonMenuWindow"]) {
-            NSLog(@"PPMenuShortcutView is designed to work with NSCarbonMenuWindow.");
-            return;
-        }
-
         EventTargetRef target = GetApplicationEventTarget();
         if (!target) {
             NSLog(@"GetEventDispatcherTarget() failed.");
