@@ -1,4 +1,4 @@
-github "CocoaLumberjack/CocoaLumberjack" "3.7.0"
-github "SwiftyJSON/SwiftyJSON" "5.0.0"
+github "CocoaLumberjack/CocoaLumberjack" "3.7.2"
+github "SwiftyJSON/SwiftyJSON" "5.0.1"
 github "acheronfail/MASShortcut" "2.3.6-custom"
-github "sindresorhus/LaunchAtLogin" "v4.0.0"
+github "sindresorhus/LaunchAtLogin" "v4.2.0"
