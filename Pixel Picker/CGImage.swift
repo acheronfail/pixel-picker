@@ -23,7 +23,11 @@ extension CGImage {
 
         // Since we manually allocate memeory for the data, we must ensure that the same memory is
         // freed after we've used it.
-        defer { free(bitmapData) }
+        defer {
+            if let ptr = bitmapData {
+                free(ptr)
+            }
+        }
 
         // Create the bitmap context.
         let context = CGContext(
