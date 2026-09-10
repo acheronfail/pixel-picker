@@ -81,13 +81,7 @@ final class AppDelegateTests: XCTestCase {
     }
 
     func testFocusedShortcutEditorRecordsQueuedKeyboardInput() throws {
-        // Avoid asking IconServices for the app icon on the hosted CI runner.
-        let icon = NSImage(size: NSSize(width: 32, height: 32), flipped: false) { rect in
-            NSColor.gray.setFill()
-            NSBezierPath(rect: rect).fill()
-            return true
-        }
-        let alert = makePickerShortcutEditor(shortcut: nil, icon: icon)
+        let alert = makePickerShortcutEditor(shortcut: nil)
         let recorder = try XCTUnwrap(alert.accessoryView as? MASShortcutView)
         alert.window.makeKeyAndOrderFront(nil)
         recorder.isRecording = true

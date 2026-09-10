@@ -11,13 +11,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [macos-26, macos-26-intel]
+        runner: [macos-26, macos-15-intel]
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # macOS 26 Intel stalls in ibtool and the modal shortcut test.
+      - name: Select Xcode 26.3 on Intel
+        if: matrix.runner == 'macos-15-intel'
+        run: echo 'DEVELOPER_DIR=/Applications/Xcode_26.3.app/Contents/Developer' >> "$GITHUB_ENV"
       - name: Test on native architecture
         run: ./scripts/test.sh
       - name: Build universal preview

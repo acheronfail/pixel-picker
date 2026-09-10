@@ -371,12 +371,11 @@ extension AppDelegate: NSMenuDelegate {
 }
 
 // Build the focused shortcut editor.
-func makePickerShortcutEditor(shortcut: MASShortcut?, icon: NSImage? = nil) -> NSAlert {
+func makePickerShortcutEditor(shortcut: MASShortcut?) -> NSAlert {
     let recorder = MASShortcutView(frame: NSRect(x: 0, y: 0, width: 280, height: 25))
     recorder.style = .texturedRect
     recorder.shortcutValue = shortcut
     let alert = NSAlert()
-    if let icon = icon { alert.icon = icon }
     alert.messageText = "Picker Shortcut"
     alert.informativeText = "Press your shortcut, then click Done."
     alert.accessoryView = recorder
