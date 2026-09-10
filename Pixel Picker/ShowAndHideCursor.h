@@ -6,6 +6,7 @@
 #ifndef ShowAndHideCursor_h
 #define ShowAndHideCursor_h
 
+#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
 // Unfortunately `kCGDirectMainDisplay` is unavailable in Swift.

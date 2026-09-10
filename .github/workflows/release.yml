@@ -1,0 +1,60 @@
+name: Draft release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag, e.g. v1.7.0 (draft only)'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: draft-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: macos-26
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Validate tag
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          persist-credentials: false
+      - name: Test
+        run: ./scripts/test.sh
+      - name: Build signed universal release
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          MACOS_CODE_SIGN_P12_BASE64: ${{ secrets.MACOS_CODE_SIGN_P12_BASE64 }}
+          MACOS_CODE_SIGN_P12_PASSWORD: ${{ secrets.MACOS_CODE_SIGN_P12_PASSWORD }}
+        run: ./scripts/with-code-signing-identity.sh ./scripts/build.sh "$RELEASE_TAG"
+      - name: Generate and verify signed Sparkle feed
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+          SPARKLE_PRIVATE_ED_KEY: ${{ secrets.SPARKLE_PRIVATE_ED_KEY }}
+        run: ./scripts/generate-appcast.sh "$RELEASE_TAG"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: PixelPicker-${{ inputs.tag }}-universal
+          path: |
+            dist/*-universal.zip
+            dist/*-universal.dmg
+            dist/*-SHA256SUMS.txt
+            dist/appcast.xml
+          if-no-files-found: error
+      - name: Create draft only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          # gh release create fails if a release already exists; never edit or publish one.
+          gh release create "$RELEASE_TAG" dist/*-universal.zip dist/*-universal.dmg dist/*-SHA256SUMS.txt dist/appcast.xml \
+            --draft --verify-tag --title "Pixel Picker $RELEASE_TAG" --generate-notes

@@ -77,29 +77,38 @@ None yet!
 
 ## Developing
 
-#### Setting up the project
+Pixel Picker builds as a universal macOS app (`arm64` and `x86_64`) with Xcode 26
+or later and requires **macOS 14 Sonoma or later**. ScreenCaptureKit replaces the
+removed legacy screen-capture API, and Launch at Login uses ServiceManagement.
 
-Pixel Picker uses `carthage` to manage its dependencies (you can install it with `brew`). To build Pixel Picker on your machine:
+Dependencies are pinned in the Xcode project's `Package.resolved` and resolved
+with Swift Package Manager. Carthage is no longer required; the old tracked
+`Carthage/Checkouts` tree is retained as historical source and is not built.
+The upstream MASShortcut package replaces the old custom fork (its custom
+`allowAnyShortcut` option was unused by Pixel Picker).
 
 ```bash
-# Clone the repository
-git clone git@github.com:acheronfail/pixel-picker && cd pixel-picker
-# Install dependencies with carthage
-carthage update --platform macos
-# Open the project
+./scripts/test.sh
+./scripts/build.sh
 open "Pixel Picker.xcodeproj"
 ```
 
-Once you've opened the Xcode project, it should be enough to make your changes and then just hit the build/run button and go from there.
+The test scheme uses a dedicated `Testing` configuration with the
+`PIXEL_PICKER_TESTING` compilation condition. Test-only startup and temporary
+settings paths are compiled separately from normal Debug and Release builds;
+no runtime environment variable controls this behavior.
 
-#### Creating a DMG
+The build script archives for both architectures, verifies every bundled Mach-O
+binary and the app signature, then creates a ZIP, DMG, and checksum manifest in
+`dist/`. Local builds use ad-hoc signatures and do not alter the macOS keychain.
 
-The process to create build artefacts for this app is extremely simple:
+The Build GitHub Action runs tests natively on Apple silicon and Intel, then
+builds universal preview artifacts on both. The manually triggered Draft release
+workflow signs packages and the Sparkle feed and creates **only a draft release**.
+It never publishes a release or modifies an existing release.
 
-1. Archive a build in Xcode (`Products` -> `Archive`)
-2. Export the app
-3. Run [`create-dmg`](https://github.com/sindresorhus/create-dmg)
-4. 🎉
+See [RELEASING.md](RELEASING.md) for one-time key generation, `gh secret set`
+commands, the public-key plist update, and draft-only testing instructions.
 
 ## License
 

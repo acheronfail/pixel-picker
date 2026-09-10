@@ -30,6 +30,14 @@
 	<string>Copyright © 2018 acheronfail</string>
 	<key>NSMainNibFile</key>
 	<string>PPOverlayController</string>
+	<key>SUFeedURL</key>
+	<string>https://github.com/acheronfail/pixel-picker/releases/latest/download/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>jNTQq6/Zs5tYoVURP9wyakLdtn3AknNQFXRKmeIrA+A=</string>
+	<key>SURequireSignedFeed</key>
+	<true/>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

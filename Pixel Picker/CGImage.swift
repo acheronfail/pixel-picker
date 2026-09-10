@@ -63,4 +63,38 @@ extension CGImage {
         
         return NSColor.black
     }
+
+    // Crop on integer physical-pixel boundaries, with transparent padding offscreen.
+    // Unlike a ScreenCaptureKit sourceRect, this never resamples the display raster.
+    func pixelRegion(centeredAt point: CGPoint, size: Int) -> CGImage? {
+        let requested = CGRect(
+            x: Int(floor(point.x)) - size / 2,
+            y: Int(floor(point.y)) - size / 2,
+            width: size,
+            height: size
+        )
+        let visible = requested.intersection(CGRect(x: 0, y: 0, width: width, height: height))
+        guard !visible.isEmpty, let cropped = cropping(to: visible) else { return nil }
+        if visible == requested { return cropped }
+        guard let context = CGContext(
+            data: nil,
+            width: size,
+            height: size,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: colorSpace ?? CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+
+        context.interpolationQuality = .none
+        context.setShouldAntialias(false)
+        let destination = CGRect(
+            x: visible.minX - requested.minX,
+            y: requested.maxY - visible.maxY,
+            width: visible.width,
+            height: visible.height
+        )
+        context.draw(cropped, in: destination)
+        return context.makeImage()
+    }
 }

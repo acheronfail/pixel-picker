@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15349DB820BAE3F70071CAA1 /* NSBezierPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */; };
 		15492103207B53AE00E45BBC /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15492102207B53AE00E45BBC /* Util.swift */; };
 		15493F6720BE6E0F007B2BA5 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15493F6620BE6E0F007B2BA5 /* CGImage.swift */; };
 		155D2C03204F61220087478B /* Credits.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 155D2C02204F61220087478B /* Credits.rtfd */; };
@@ -15,16 +14,11 @@
 		159F30522079A147000BD387 /* PPStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F30512079A147000BD387 /* PPStateTests.swift */; };
 		15A8D9722083624600D55A9B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A8D9712083624600D55A9B /* Helpers.swift */; };
 		15FC8CC8204E2E2C000B5E1E /* PPState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC8CC7204E2E2C000B5E1E /* PPState.swift */; };
-		3ABC22F6259AE926005D9E87 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */; };
-		3ABC22F7259AE926005D9E87 /* CocoaLumberjackSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3ABC22FA259AEA98005D9E87 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */; };
-		3ABC22FB259AEA98005D9E87 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */; };
 		B3B4C2C31E25894B009F8E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C2C21E25894B009F8E4E /* Assets.xcassets */; };
 		BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA22232620AFEC1B0001069C /* ApplicationServices.framework */; };
 		BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22232820B04D660001069C /* AppDelegate+Menu.swift */; };
 		BA22232B20B0E3B50001069C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA22232A20B0E3B50001069C /* README.md */; };
-		BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA71817120AE2DB400619700 /* PPMenuShortcutView.m */; };
 		BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C0F620A692D100306B27 /* PPOverlayController.swift */; };
 		BA74C0F920A692D100306B27 /* PPOverlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA74C0F720A692D100306B27 /* PPOverlayController.xib */; };
 		BA74C13120A6E95900306B27 /* PPOverlayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */; };
@@ -33,14 +27,13 @@
 		BA74C14220AA409D00306B27 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14120AA409D00306B27 /* NSColor.swift */; };
 		BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */; };
 		BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74C14D20ADA33E00306B27 /* PPColor.swift */; };
-		BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; };
-		BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; };
-		BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7220B14CC100625455 /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; };
-		BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAB6F14F221ABB3500EA11D4 /* ShowAndHideCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */; };
 		D62EACF22465996700686344 /* WCAG.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62EACF12465996700686344 /* WCAG.swift */; };
+		D20000000000000000000000 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000000 /* SwiftyJSON */; };
+		D20000000000000000000001 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000001 /* LaunchAtLogin */; };
+		D20000000000000000000002 /* MASShortcut in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000002 /* MASShortcut */; };
+		D20000000000000000000003 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000003 /* Sparkle */; };
+		D20000000000000000000004 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000004 /* CocoaLumberjackSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,11 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BAA17B7D20B14CEB00625455 /* SwiftyJSON.framework in Embed Frameworks */,
-				BAA17B7A20B14CC100625455 /* MASShortcut.framework in Embed Frameworks */,
-				3ABC22FB259AEA98005D9E87 /* CocoaLumberjack.framework in Embed Frameworks */,
-				BAA17B7420B14CC100625455 /* LaunchAtLogin.framework in Embed Frameworks */,
-				3ABC22F7259AE926005D9E87 /* CocoaLumberjackSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,7 +60,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSBezierPath.swift; sourceTree = "<group>"; };
 		15492102207B53AE00E45BBC /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		15493F6620BE6E0F007B2BA5 /* CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImage.swift; sourceTree = "<group>"; };
 		155D2C02204F61220087478B /* Credits.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = Credits.rtfd; sourceTree = "<group>"; };
@@ -83,9 +70,6 @@
 		15B4E874207994AF0024FDE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15FC8CC7204E2E2C000B5E1E /* PPState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPState.swift; sourceTree = "<group>"; };
 		15FF0CCC204A231800E04103 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Pixel Picker/Bridging-Header.h"; sourceTree = "<group>"; };
-		3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/Mac/CocoaLumberjack.framework; sourceTree = "<group>"; };
-		3ABC22F3259AE904005D9E87 /* CocoaLumberjackSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaLumberjackSwift.framework.dSYM; path = Carthage/Build/Mac/CocoaLumberjackSwift.framework.dSYM; sourceTree = "<group>"; };
-		3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Carthage/Build/Mac/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		B3B4C2BD1E25894B009F8E4E /* Pixel Picker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pixel Picker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B4C2C21E25894B009F8E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,8 +77,6 @@
 		BA22232620AFEC1B0001069C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		BA22232820B04D660001069C /* AppDelegate+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Menu.swift"; sourceTree = "<group>"; };
 		BA22232A20B0E3B50001069C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		BA71817120AE2DB400619700 /* PPMenuShortcutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PPMenuShortcutView.m; sourceTree = "<group>"; };
-		BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PPMenuShortcutView.h; sourceTree = "<group>"; };
 		BA74C0F620A692D100306B27 /* PPOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayController.swift; sourceTree = "<group>"; };
 		BA74C0F720A692D100306B27 /* PPOverlayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPOverlayController.xib; sourceTree = "<group>"; };
 		BA74C13020A6E95900306B27 /* PPOverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayPanel.swift; sourceTree = "<group>"; };
@@ -104,9 +86,6 @@
 		BA74C14120AA409D00306B27 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPOverlayWrapper.swift; sourceTree = "<group>"; };
 		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
-		BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LaunchAtLogin.framework; path = Carthage/Build/Mac/LaunchAtLogin.framework; sourceTree = "<group>"; };
-		BAA17B7220B14CC100625455 /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
-		BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
 		D62EACF12465996700686344 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,12 +102,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAA17B7920B14CC100625455 /* MASShortcut.framework in Frameworks */,
-				BAA17B7320B14CC100625455 /* LaunchAtLogin.framework in Frameworks */,
-				3ABC22F6259AE926005D9E87 /* CocoaLumberjackSwift.framework in Frameworks */,
+				D20000000000000000000000 /* SwiftyJSON in Frameworks */,
+				D20000000000000000000001 /* LaunchAtLogin in Frameworks */,
+				D20000000000000000000002 /* MASShortcut in Frameworks */,
+				D20000000000000000000003 /* Sparkle in Frameworks */,
+				D20000000000000000000004 /* CocoaLumberjackSwift in Frameworks */,
+
 				BA22232720AFEC1B0001069C /* ApplicationServices.framework in Frameworks */,
-				3ABC22FA259AEA98005D9E87 /* CocoaLumberjack.framework in Frameworks */,
-				BAA17B7C20B14CEB00625455 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,9 +141,6 @@
 		B3B4C2B41E25894B009F8E4E = {
 			isa = PBXGroup;
 			children = (
-				BAA17B7B20B14CEB00625455 /* SwiftyJSON.framework */,
-				BAA17B6F20B14CC000625455 /* LaunchAtLogin.framework */,
-				BAA17B7220B14CC100625455 /* MASShortcut.framework */,
 				15FF0CCC204A231800E04103 /* Bridging-Header.h */,
 				B3B4C2BF1E25894B009F8E4E /* Pixel Picker */,
 				15B4E871207994AF0024FDE4 /* Pixel PickerTests */,
@@ -188,14 +165,11 @@
 				BA74C13420A6F1BE00306B27 /* ShowAndHideCursor.h */,
 				BA74C13220A6F16C00306B27 /* ShowAndHideCursor.m */,
 				BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */,
-				BA71817320AE2DCC00619700 /* PPMenuShortcutView.h */,
-				BA71817120AE2DB400619700 /* PPMenuShortcutView.m */,
 				B3B4C2C01E25894B009F8E4E /* AppDelegate.swift */,
 				BA22232820B04D660001069C /* AppDelegate+Menu.swift */,
 				BA74C14D20ADA33E00306B27 /* PPColor.swift */,
 				15FC8CC7204E2E2C000B5E1E /* PPState.swift */,
 				159ED10B207EB2EF005489ED /* OverlayPanel */,
-				15349DB720BAE3F70071CAA1 /* NSBezierPath.swift */,
 				BA74C14120AA409D00306B27 /* NSColor.swift */,
 				15492102207B53AE00E45BBC /* Util.swift */,
 				D62EACF12465996700686344 /* WCAG.swift */,
@@ -210,9 +184,6 @@
 		BA22232520AFEC1B0001069C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3ABC22F5259AE926005D9E87 /* CocoaLumberjackSwift.framework */,
-				3ABC22F3259AE904005D9E87 /* CocoaLumberjackSwift.framework.dSYM */,
-				3ABC22EF259AE627005D9E87 /* CocoaLumberjack.framework */,
 				BA22232620AFEC1B0001069C /* ApplicationServices.framework */,
 			);
 			name = Frameworks;
@@ -247,11 +218,17 @@
 				B3B4C2BA1E25894B009F8E4E /* Frameworks */,
 				B3B4C2BB1E25894B009F8E4E /* Resources */,
 				BA2222FC20AF0C780001069C /* Embed Frameworks */,
-				15185A00204F364A007CD792 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			packageProductDependencies = (
+				D10000000000000000000000 /* SwiftyJSON */,
+				D10000000000000000000001 /* LaunchAtLogin */,
+				D10000000000000000000002 /* MASShortcut */,
+				D10000000000000000000003 /* Sparkle */,
+				D10000000000000000000004 /* CocoaLumberjackSwift */,
 			);
 			name = "Pixel Picker";
 			productName = PixelPicker;
@@ -292,6 +269,13 @@
 			mainGroup = B3B4C2B41E25894B009F8E4E;
 			productRefGroup = B3B4C2BE1E25894B009F8E4E /* Products */;
 			projectDirPath = "";
+			packageReferences = (
+				D00000000000000000000000 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				D00000000000000000000001 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				D00000000000000000000002 /* XCRemoteSwiftPackageReference "MASShortcut" */,
+				D00000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */,
+				D00000000000000000000004 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+			);
 			projectRoot = "";
 			targets = (
 				B3B4C2BC1E25894B009F8E4E /* Pixel Picker */,
@@ -321,21 +305,7 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		15185A00204F364A007CD792 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Carthage/Build/Mac/LaunchAtLogin.framework/Resources/copy-helper.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
+
 
 /* Begin PBXSourcesBuildPhase section */
 		15B4E86C207994AF0024FDE4 /* Sources */ = {
@@ -353,8 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA74C13320A6F16C00306B27 /* ShowAndHideCursor.m in Sources */,
-				15349DB820BAE3F70071CAA1 /* NSBezierPath.swift in Sources */,
-				BA71817220AE2DB400619700 /* PPMenuShortcutView.m in Sources */,
 				B3B4C2C11E25894B009F8E4E /* AppDelegate.swift in Sources */,
 				BA22232920B04D660001069C /* AppDelegate+Menu.swift in Sources */,
 				BA74C14E20ADA33E00306B27 /* PPColor.swift in Sources */,
@@ -385,28 +353,29 @@
 		15B4E878207994AF0024FDE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Pixel PickerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker.tests";
+				PRODUCT_MODULE_NAME = PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pixel Picker.app/Contents/MacOS/Pixel Picker";
 			};
 			name = Debug;
@@ -414,28 +383,29 @@
 		15B4E879207994AF0024FDE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Pixel PickerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.acheronfail.PixelPickerTests;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker.tests";
+				PRODUCT_MODULE_NAME = PixelPickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pixel Picker.app/Contents/MacOS/Pixel Picker";
 			};
 			name = Release;
@@ -443,6 +413,7 @@
 		B3B4C2C81E25894B009F8E4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -490,22 +461,21 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = PixelPicker;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				USER_HEADER_SEARCH_PATHS = "Pods/**";
 			};
 			name = Debug;
 		};
 		B3B4C2C91E25894B009F8E4E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -547,80 +517,271 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = PixelPicker;
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "PixelPicker/Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				USER_HEADER_SEARCH_PATHS = "Pods/**";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
 		B3B4C2CB1E25894B009F8E4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				INFOPLIST_FILE = "Pixel Picker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.acheronfail.pixel-picker";
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker";
 				PRODUCT_MODULE_NAME = PixelPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		B3B4C2CC1E25894B009F8E4E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				INFOPLIST_FILE = "Pixel Picker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.acheronfail.pixel-picker";
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker";
 				PRODUCT_MODULE_NAME = PixelPicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
+		D30000000000000000000000 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Pixel PickerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker.tests";
+				PRODUCT_MODULE_NAME = PixelPickerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pixel Picker.app/Contents/MacOS/Pixel Picker";
+			};
+			name = Testing;
+		};
+		D30000000000000000000001 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = PixelPicker;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG PIXEL_PICKER_TESTING";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Testing;
+		};
+		D30000000000000000000002 /* Testing */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				INFOPLIST_FILE = "Pixel Picker/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.6.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "fail.acheron.pixel-picker";
+				PRODUCT_MODULE_NAME = PixelPicker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pixel Picker/Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Testing;
+		};
 /* End XCBuildConfiguration section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D00000000000000000000000 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.2;
+			};
+		};
+		D00000000000000000000001 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.0;
+			};
+		};
+		D00000000000000000000002 /* XCRemoteSwiftPackageReference "MASShortcut" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/shpakovski/MASShortcut.git";
+			requirement = {
+				kind = revision;
+				revision = 6f2603c6b6cc18f64a799e5d2c9d3bbc467c413a;
+			};
+		};
+		D00000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.9.6;
+			};
+		};
+		D00000000000000000000004 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D10000000000000000000000 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D00000000000000000000000 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		D10000000000000000000001 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D00000000000000000000001 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+		D10000000000000000000002 /* MASShortcut */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D00000000000000000000002 /* XCRemoteSwiftPackageReference "MASShortcut" */;
+			productName = MASShortcut;
+		};
+		D10000000000000000000003 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D00000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+		D10000000000000000000004 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D00000000000000000000004 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCConfigurationList section */
 		15B4E877207994AF0024FDE4 /* Build configuration list for PBXNativeTarget "Pixel PickerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				15B4E878207994AF0024FDE4 /* Debug */,
+				D30000000000000000000000 /* Testing */,
 				15B4E879207994AF0024FDE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -630,6 +791,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B4C2C81E25894B009F8E4E /* Debug */,
+				D30000000000000000000001 /* Testing */,
 				B3B4C2C91E25894B009F8E4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -639,6 +801,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B4C2CB1E25894B009F8E4E /* Debug */,
+				D30000000000000000000002 /* Testing */,
 				B3B4C2CC1E25894B009F8E4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

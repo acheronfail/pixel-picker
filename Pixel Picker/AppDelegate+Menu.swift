@@ -9,6 +9,7 @@
  */
 
 import LaunchAtLogin
+import Sparkle
 
 // The settings available for displaying a grid in the picker's preview.
 enum GridSetting {
@@ -85,6 +86,7 @@ extension AppDelegate: NSMenuDelegate {
 
         let pickItem = contextMenu.addItem(withTitle: "Pick a pixel!", action: #selector(showPicker), keyEquivalent: "")
         pickItem.image = PPState.shared.statusItemImage(withName: PPState.shared.statusItemImageName)
+        buildShortcutMenuItem()
 
         buildRecentPicks()
 
@@ -96,12 +98,16 @@ extension AppDelegate: NSMenuDelegate {
         buildMagnificationMenu()
         buildFocusModeModifierMenu()
         buildFloatPrecisionSlider()
-        buildShortcutMenuItem()
         buildUseUppercaseItem()
         buildLaunchAtLoginItem()
         buildShowWCAGItem()
 
         contextMenu.addItem(.separator())
+        if let updaterController = updaterController {
+            let item = contextMenu.addItem(withTitle: "Check for Updates…",
+                action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)), keyEquivalent: "")
+            item.target = updaterController
+        }
         contextMenu.addItem(withTitle: "About", action: #selector(showAboutPanel), keyEquivalent: "")
         contextMenu.addItem(withTitle: "Quit \(APP_NAME)", action: #selector(quitApplication), keyEquivalent: "")
     }
@@ -330,17 +336,51 @@ extension AppDelegate: NSMenuDelegate {
         }
     }
 
-    // Builds and adds the MASShortcutView to be used in the menu.
-    // Uses a custom view to handle events correctly (since it's inside a NSMenu).
+    // Show the current shortcut and open its editor.
     private func buildShortcutMenuItem() {
-        contextMenu.addItem(withTitle: "Picker Shortcut", action: nil, keyEquivalent: "")
-
-        let shortcutView = MASShortcutView()
-        shortcutView.style = .flat
-        shortcutView.shortcutValue = PPState.shared.activatingShortcut
-        shortcutView.shortcutValueChange = { PPState.shared.activatingShortcut = $0?.shortcutValue }
-
-        let item = contextMenu.addItem(withTitle: "Shortcut", action: nil, keyEquivalent: "")
-        item.view = PPMenuShortcutView(shortcut: shortcutView)
+        let shortcut = PPState.shared.activatingShortcut
+        let item = contextMenu.addItem(withTitle: "Picker Shortcut…",
+            action: #selector(editPickerShortcut),
+            keyEquivalent: shortcut?.keyCodeStringForKeyEquivalent ?? "")
+        item.keyEquivalentModifierMask = shortcut?.modifierFlags ?? []
+        item.target = self
     }
+
+    // Record in a key window because menu views do not reliably receive keyboard events.
+    @objc private func editPickerShortcut() {
+        unregisterActivatingShortcut()
+        let alert = makePickerShortcutEditor(shortcut: PPState.shared.activatingShortcut)
+        let recorder = alert.accessoryView as! MASShortcutView
+        defer {
+            recorder.isRecording = false
+            registerActivatingShortcut()
+        }
+        NSApp.activate(ignoringOtherApps: true)
+        // The modal window must exist and be key before recording begins.
+        alert.window.makeKeyAndOrderFront(nil)
+        recorder.isRecording = true
+        switch alert.runModal() {
+        case .alertFirstButtonReturn:
+            PPState.shared.activatingShortcut = recorder.shortcutValue
+        case .alertThirdButtonReturn:
+            PPState.shared.activatingShortcut = nil
+        default:
+            break
+        }
+    }
+}
+
+// Build the focused shortcut editor.
+func makePickerShortcutEditor(shortcut: MASShortcut?) -> NSAlert {
+    let recorder = MASShortcutView(frame: NSRect(x: 0, y: 0, width: 280, height: 25))
+    recorder.style = .texturedRect
+    recorder.shortcutValue = shortcut
+    let alert = NSAlert()
+    alert.messageText = "Picker Shortcut"
+    alert.informativeText = "Press your shortcut, then click Done."
+    alert.accessoryView = recorder
+    alert.addButton(withTitle: "Done")
+    alert.addButton(withTitle: "Cancel")
+    alert.addButton(withTitle: "Clear Shortcut")
+    return alert
 }

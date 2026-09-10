@@ -1,0 +1,34 @@
+name: Build
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-26, macos-26-intel]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Test on native architecture
+        run: ./scripts/test.sh
+      - name: Build universal preview
+        run: ./scripts/build.sh
+      - name: Verify Sparkle tooling with public test vectors
+        run: python3 scripts/test-release-tools.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: PixelPicker-universal-${{ matrix.runner }}
+          path: |
+            dist/*-universal.zip
+            dist/*-universal.dmg
+            dist/*-SHA256SUMS.txt
+          if-no-files-found: error

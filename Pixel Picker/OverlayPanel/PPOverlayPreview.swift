@@ -21,6 +21,7 @@ class PPOverlayPreview: NSView, CALayerDelegate {
         // Make layers contents resize to fill, and disable antialiasing.
         wantsLayer = true
         layer?.magnificationFilter = .nearest
+        layer?.minificationFilter = .nearest
         layer?.contentsGravity = .resizeAspectFill
         layer?.delegate = self
 

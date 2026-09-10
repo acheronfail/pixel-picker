@@ -14,20 +14,8 @@ func copyToPasteboard(stringValue value: String) {
     NSPasteboard.general.setString(value, forType: .string)
 }
 
-// Ensure that the given number is odd.
-func ensureOdd(_ x: CGFloat) -> CGFloat {
-    if Int(x) % 2 == 0 { return x + 1 }
-    return x
-}
-
-// Checks whether a float roughly ends in ".5".
-func isHalf(_ x: CGFloat) -> Bool {
-    return Int(x * 2) % 2 != 0
-}
-
-// The Cocoa APIs have a coordinate system (origin is top-left of the screen) but the
-// Carbon/CoreGraphics APIs use an old coordinate system where the origin is the
-// bottom-left corner *of the primary display*.
+// Cocoa coordinates start at the bottom-left of the primary screen.
+// CoreGraphics display coordinates start at its top-left.
 // The primary display is always the first item of the NSScreen.screens array.
 func convertToCGCoordinateSystem(_ point: NSPoint) -> CGPoint {
     return CGPoint(x: point.x, y: NSScreen.screens[0].frame.size.height - point.y)
@@ -72,11 +60,11 @@ func setupMenuBarIcon(_ image: NSImage?) -> NSImage? {
 // When running tests, use a temporary logging path.
 func defaultLogPath() -> URL {
     var url: URL
-    if ProcessInfo.processInfo.environment["TEST"] != nil {
-        url = URL(fileURLWithPath: "\(NSTemporaryDirectory())\(APP_NAME)-\(UUID().uuidString)-logs/")
-    } else {
-        url = URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Preferences/\(APP_NAME)/logs")
-    }
+    #if PIXEL_PICKER_TESTING
+    url = URL(fileURLWithPath: "\(NSTemporaryDirectory())\(APP_NAME)-\(UUID().uuidString)-logs/")
+    #else
+    url = URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Preferences/\(APP_NAME)/logs")
+    #endif
 
     // Create directory if it doesn't already exist.
     do {
@@ -91,12 +79,21 @@ func defaultLogPath() -> URL {
 // When running tests, use a temporary config file.
 func defaultConfigurationPath() -> URL {
     var url: URL
-    if ProcessInfo.processInfo.environment["TEST"] != nil {
-        url = URL(fileURLWithPath: "\(NSTemporaryDirectory())\(APP_NAME)-\(UUID().uuidString).json")
-    } else {
-        url = URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Preferences/\(APP_NAME)/configuration.json")
-    }
+    #if PIXEL_PICKER_TESTING
+    url = URL(fileURLWithPath: "\(NSTemporaryDirectory())\(APP_NAME)-\(UUID().uuidString).json")
+    #else
+    url = URL(fileURLWithPath: "\(NSHomeDirectory())/Library/Preferences/\(APP_NAME)/configuration.json")
+    #endif
 
     DDLogInfo("Default Config Path: \(url.path)")
     return url
+}
+
+// Keep an odd number of physical pixels with the pointer pixel in the middle.
+func pixelPreviewRect(imageWidth: Int, imageHeight: Int, magnification: CGFloat) -> CGRect {
+    let available = min(imageWidth, imageHeight)
+    var count = max(1, Int(CGFloat(available) / magnification))
+    if count % 2 == 0 { count += 1 }
+    return CGRect(x: imageWidth / 2 - count / 2, y: imageHeight / 2 - count / 2,
+                  width: count, height: count)
 }

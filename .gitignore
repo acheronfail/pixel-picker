@@ -33,3 +33,9 @@ DerivedData
 Carthage/Build
 
 .DS_Store
+
+# Release artifacts and private signing material
+dist/
+*.p12
+*.pem
+*.key

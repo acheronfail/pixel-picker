@@ -3,10 +3,14 @@
 //  Pixel Picker
 //
 
+import Sparkle
 import MASShortcut
 import CocoaLumberjackSwift
 
 @NSApplicationMain class AppDelegate: NSObject, NSApplicationDelegate {
+
+    // An unconfigured development build never contacts the production feed.
+    private(set) var updaterController: SPUStandardUpdaterController?
 
     // This controller manages the pixel picker itself.
     @IBOutlet weak var overlayController: PPOverlayController!
@@ -20,6 +24,7 @@ import CocoaLumberjackSwift
 
     // Setup logging and load state.
     func applicationWillFinishLaunching(_ notification: Notification) {
+        #if !PIXEL_PICKER_TESTING
         DDLog.add(DDOSLogger.sharedInstance) // Uses os_log
         let fileLogger: DDFileLogger = DDFileLogger() // File Logger
         dynamicLogLevel = PPState.shared.defaults.bool(forKey: "debugMode") ? .debug : .info
@@ -31,10 +36,19 @@ import CocoaLumberjackSwift
         DDLog.add(fileLogger)
 
         PPState.shared.loadFromDisk()
+        #endif
     }
 
     // Setup the menubar item and register our activating shortcut.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        #if !PIXEL_PICKER_TESTING
+        #if !DEBUG
+        if let key = Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") as? String,
+           Data(base64Encoded: key)?.count == 32 {
+            updaterController = SPUStandardUpdaterController(startingUpdater: true,
+                updaterDelegate: nil, userDriverDelegate: nil)
+        }
+        #endif
         contextMenu.delegate = self
 
         menuBarItem.image = PPState.shared.statusItemImage(withName: PPState.shared.statusItemImageName)
@@ -50,10 +64,13 @@ import CocoaLumberjackSwift
         CGEventSource(stateID: CGEventSourceStateID.combinedSessionState)?.localEventsSuppressionInterval = 0.05
 
         DDLogInfo("Sucessfully launched.")
+        #endif
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
+        #if !PIXEL_PICKER_TESTING
         PPState.shared.saveToDisk()
+        #endif
     }
 
     func registerActivatingShortcut() {

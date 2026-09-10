@@ -61,7 +61,7 @@ import CocoaLumberjackSwift
     // Recent colors picks.
     var recentPicks: [PPPickedColor] = []
 
-    private init(atPath url: URL) {
+    init(atPath url: URL) {
         self.savePath = url
         defaults.register(defaults: [:])
     }
@@ -136,8 +136,8 @@ import CocoaLumberjackSwift
                 case "focusModeModifier":
                     focusModeModifier = NSEvent.ModifierFlags(rawValue: value.uInt ?? NSEvent.ModifierFlags.control.rawValue)
                 case "activatingShortcut":
-                    if let keyCode = value["keyCode"].uInt, let modifierFlags = value["modifierFlags"].uInt {
-                        let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: modifierFlags)
+                    if let keyCode = value["keyCode"].int, (0...127).contains(keyCode), let modifierFlags = value["modifierFlags"].uInt {
+                        let shortcut = MASShortcut(keyCode: keyCode, modifierFlags: NSEvent.ModifierFlags(rawValue: modifierFlags))
                         if MASShortcutValidator.shared().isShortcutValid(shortcut) {
                             activatingShortcut = shortcut
                         }
@@ -145,7 +145,7 @@ import CocoaLumberjackSwift
                 case "colorSpace":
                     // Check for the presence of the color space in our list. If it's found, then we
                     // can use it (safeguard against bogus input).
-                    if let _ = PPColor.colorSpaceNames.index(where: { $0.1 == value.string }) {
+                    if let _ = PPColor.colorSpaceNames.firstIndex(where: { $0.1 == value.string }) {
                         colorSpace = value.string
                     }
                 case "chosenFormat":
@@ -181,8 +181,8 @@ import CocoaLumberjackSwift
     func saveToDisk() {
         var shortcutData: JSON = [:]
         if let shortcut = activatingShortcut {
-            shortcutData["keyCode"].uInt = shortcut.keyCode
-            shortcutData["modifierFlags"].uInt = shortcut.modifierFlags
+            shortcutData["keyCode"].int = shortcut.keyCode
+            shortcutData["modifierFlags"].uInt = shortcut.modifierFlags.rawValue
         }
         
         let json: JSON = [

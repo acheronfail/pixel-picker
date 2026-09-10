@@ -4,9 +4,16 @@
 //
 
 import CocoaLumberjackSwift
+import ScreenCaptureKit
 
 // This is the controller for the actual pixel picker itself.
 class PPOverlayController: NSWindowController {
+
+    private var captureTask: Task<Void, Never>?
+    private var captureContent: SCShareableContent?
+    private var pendingCapturePoint: NSPoint?
+    private var captureSession = 0
+    private var pickAfterCapture = false
 
     // Outlets related to the actual pixel picker.
     @IBOutlet weak var overlayPanel: PPOverlayPanel!
@@ -72,10 +79,18 @@ class PPOverlayController: NSWindowController {
         infoContrastView.layer?.cornerRadius = 3
 
         // For some reason if we don't listen for events this way we miss the escape key.
-        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) {
-            if self.isEnabled { self.keyDown(with: $0) }
-            return nil
+        NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { [weak self] event in
+            guard let self = self else { return event }
+            return self.handleLocalKeyEvent(event)
         }
+    }
+
+    // Other controls, including the shortcut editor, must receive keys
+    // while the picker is closed. Consume only events handled by the picker.
+    func handleLocalKeyEvent(_ event: NSEvent) -> NSEvent? {
+        guard isEnabled else { return event }
+        keyDown(with: event)
+        return nil
     }
 
     // Even though the picker is active and is the key window, our application is not the
@@ -93,20 +108,19 @@ class PPOverlayController: NSWindowController {
 
     // When the user clicks, animate the cursor out, save the picked color and copy it.
     override func mouseDown(with event: NSEvent) {
-        hidePicker(animate: true)
-        pickColor()
+        requestPick()
     }
 
     // Listen to key events.
     override func keyDown(with event: NSEvent) {
+        if pickAfterCapture && Int(event.keyCode) != kVK_Escape { return }
         switch Int(event.keyCode) {
         // Close immediately on escape.
         case kVK_Escape:
             hidePicker(animate: false)
         // Act as if the user clicked on space.
         case kVK_Space:
-            hidePicker(animate: true)
-            pickColor()
+            requestPick()
         // Cycle between formats when the user presses the left or right arrow keys.
         case kVK_LeftArrow:
             PPState.shared.chosenFormat = PPState.shared.chosenFormat.previous()
@@ -149,20 +163,19 @@ class PPOverlayController: NSWindowController {
     func moveByPixel(dx: CGFloat, dy: CGFloat) {
         var mouseLoc = lastMouseLocation
         let currentScreen = getScreenWithMouse()
-        guard let screenFrame = currentScreen?.frame, let screenScale = currentScreen?.backingScaleFactor else {
+        guard let screenScale = currentScreen?.backingScaleFactor else {
             return
         }
         mouseLoc.x += dx / screenScale
         mouseLoc.y += dy / screenScale
         lastMouseLocation = mouseLoc
         updatePreview(aroundPoint: mouseLoc)
-        mouseLoc.y = screenFrame.maxY - mouseLoc.y
-        CGDisplayMoveCursorToPoint(0, mouseLoc)
+        CGWarpMouseCursorPosition(convertToCGCoordinateSystem(mouseLoc))
     }
 
     // Enable "focusMode" when correct modifier flag is changed.
     override func flagsChanged(with event: NSEvent) {
-        if isEnabled {
+        if isEnabled && !pickAfterCapture {
             focusMode = event.modifierFlags.contains(PPState.shared.focusModeModifier)
             updatePreview(aroundPoint: lastMouseLocation)
         }
@@ -171,7 +184,7 @@ class PPOverlayController: NSWindowController {
     // Move the picker with the mouse, and if "focusMode" is active then
     // slow it down to make it easier to pick the correct pixel.
     override func mouseMoved(with event: NSEvent) {
-        if isEnabled {
+        if isEnabled && !pickAfterCapture {
             let currentMouseLocation = NSEvent.mouseLocation
             var nextMouseLocation = currentMouseLocation
 
@@ -201,6 +214,13 @@ class PPOverlayController: NSWindowController {
         }
     }
 
+    // Wait for the latest capture before copying the selected pixel.
+    private func requestPick() {
+        guard isEnabled && !pickAfterCapture else { return }
+        pickAfterCapture = true
+        updatePreview(aroundPoint: lastMouseLocation)
+    }
+
     func pickColor() {
         let pickedColor = PPPickedColor(color: lastHighlightedColor, format: PPState.shared.chosenFormat)
         PPState.shared.addRecentPick(pickedColor)
@@ -210,6 +230,8 @@ class PPOverlayController: NSWindowController {
     // Show the picker, save the previously active application, and hide the cursor.
     func showPicker() {
         if overlayPanel.isVisible || infoPanel.isVisible { return }
+        captureSession += 1
+        captureContent = nil
         isEnabled = true
         overlayPanel.activate(withSize: panelSize, infoPanel: infoPanel)
 
@@ -227,6 +249,12 @@ class PPOverlayController: NSWindowController {
     // active application (if there was one).
     func hidePicker(animate: Bool) {
         isEnabled = false
+        captureSession += 1
+        captureTask?.cancel()
+        captureTask = nil
+        captureContent = nil
+        pendingCapturePoint = nil
+        pickAfterCapture = false
         infoFormatField.stringValue = "Copied!"
 
         let deactivate = { [unowned self] in
@@ -307,12 +335,53 @@ class PPOverlayController: NSWindowController {
         resizeInfoPanel()
     }
 
-    // Gets a screenshot of all windows below the picker. If the panel is configured correctly,
-    // then hopefully this should capture everything - dock, menubar, etc - underneath the picker.
-    func getScreenShot(aroundPoint point: NSPoint) -> CGImage? {
+    // ScreenCaptureKit replaces CGWindowListCreateImage in current macOS SDKs.
+    // Exclude our own windows so the magnifier never captures itself.
+    @MainActor
+    private func getScreenShot(aroundPoint point: NSPoint) async throws -> CGImage? {
+        let panelIDs = Set([CGWindowID(overlayPanel.windowNumber), CGWindowID(infoPanel.windowNumber)])
+        if captureContent == nil {
+            // A status-item click can reach here before WindowServer has listed
+            // the newly ordered panels. Never cache an incomplete exclusion list.
+            for _ in 0..<10 {
+                let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: false)
+                try Task.checkCancellation()
+                if panelIDs.isSubset(of: Set(content.windows.map(\.windowID))) {
+                    captureContent = content
+                    break
+                }
+                try await Task.sleep(nanoseconds: 20_000_000)
+            }
+        }
+        guard let content = captureContent else {
+            throw NSError(domain: "PixelPicker.Capture", code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "The picker windows are not ready for capture. Please try again."])
+        }
+        guard let screen = getScreenFromPoint(point),
+              let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32,
+              let display = content.displays.first(where: { $0.displayID == displayID }) else { return nil }
+        // Window IDs are reliable for accessory/menu-bar apps even when they
+        // aren't included in SCShareableContent.applications.
+        let excludedWindows = content.windows.filter {
+            panelIDs.contains($0.windowID) || $0.owningApplication?.processID == ProcessInfo.processInfo.processIdentifier
+        }
+        let filter = SCContentFilter(display: display, excludingWindows: excludedWindows)
+        let configuration = SCStreamConfiguration()
+        let scale = CGFloat(filter.pointPixelScale)
+        // Capture the complete native raster. Fractional sourceRect origins can
+        // interpolate neighboring pixels before we ever get a CGImage.
+        configuration.width = Int((filter.contentRect.width * scale).rounded())
+        configuration.height = Int((filter.contentRect.height * scale).rounded())
+        configuration.captureResolution = .best
+        configuration.showsCursor = false
+        configuration.capturesAudio = false
+        let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration)
         let cgPoint = convertToCGCoordinateSystem(point)
-        let rect = CGRect(x: cgPoint.x - panelSize / 2, y: cgPoint.y - panelSize / 2, width: panelSize, height: panelSize)
-        return CGWindowListCreateImage(rect, [.optionOnScreenBelowWindow], CGWindowID(overlayPanel.windowNumber), .bestResolution)
+        let pixelPoint = CGPoint(
+            x: (cgPoint.x - display.frame.minX) * scale,
+            y: (cgPoint.y - display.frame.minY) * scale
+        )
+        return image.pixelRegion(centeredAt: pixelPoint, size: Int((panelSize * scale).rounded()))
     }
 
     // Update overlay with zoomed pixels around the given point.
@@ -328,46 +397,69 @@ class PPOverlayController: NSWindowController {
 
         // Center the mouse in the picker window.
         overlayPanel.setFrameOrigin(NSPoint(x: point.x - (panelSize / 2), y: point.y - (panelSize / 2)))
-        let normalisedPoint = NSPoint(x: round(point.x * 2) / 2, y: round(point.y * 2) / 2)
-        if let screenShot = getScreenShot(aroundPoint: normalisedPoint) {
-
-            // Calculate a zoomed rect which will crop the screenshot we took.
-            let magnification = CGFloat(PPState.shared.magnificationLevel)
-            let zoomReciprocal: CGFloat = 1.0 / (focusMode ? magnification * 2.0 : magnification)
-            let currentSize = CGFloat(screenShot.width) + 1
-            let origin = floor(currentSize * ((1 - zoomReciprocal) / 2))
-            let x = origin + (isHalf(normalisedPoint.x) ? 1 : 0)
-            let y = origin + (isHalf(normalisedPoint.y) ? 1 : 0)
-
-            // Ensure preview size is an odd number (so there's a middle pixel).
-            let zoomedSize = floor(ensureOdd(currentSize * zoomReciprocal))
-            let croppedRect = CGRect(x: x, y: y, width: zoomedSize, height: zoomedSize)
-            let zoomedImage: CGImage = screenShot.cropping(to: croppedRect)!
-            let pixelSize = panelSize / zoomedSize
-
-            // Convert the preview to the correct color space, and update the overlay.
-
-            // User has chosen a custom color space.
-            if let colorSpace = getChosenColorSpace(point) {
-                if colorSpace == zoomedImage.colorSpace {
-                    return updatePreview(zoomedImage, pixelSize, zoomedSize)
-                } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
-                    return updatePreview(image, pixelSize, zoomedSize)
-                }
+        pendingCapturePoint = point
+        guard captureTask == nil else { return }
+        let session = captureSession
+        captureTask = Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            defer {
+                if self.captureSession == session { self.captureTask = nil }
             }
-
-            // No custom color space chosen, so use the screen's one.
-            if let colorSpace = getScreenColorSpace(point) {
-                if colorSpace == zoomedImage.colorSpace {
-                    return updatePreview(zoomedImage, pixelSize, zoomedSize)
-                } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
-                    return updatePreview(image, pixelSize, zoomedSize)
+            do {
+                while let point = self.pendingCapturePoint, self.isEnabled, self.captureSession == session {
+                    self.pendingCapturePoint = nil
+                    guard let image = try await self.getScreenShot(aroundPoint: point) else { continue }
+                    guard !Task.isCancelled, self.isEnabled, self.captureSession == session else { return }
+                    self.renderPreview(image, aroundPoint: point)
+                    if self.pickAfterCapture && self.pendingCapturePoint == nil {
+                        self.pickColor()
+                        self.hidePicker(animate: true)
+                        return
+                    }
                 }
+            } catch {
+                guard self.isEnabled, self.captureSession == session else { return }
+                self.hidePicker(animate: false)
+                let alert = NSAlert()
+                alert.messageText = "Screen capture unavailable"
+                alert.informativeText = "Allow Pixel Picker in System Settings → Privacy & Security → Screen Recording, then try again.\n\n" + error.localizedDescription
+                alert.runModal()
             }
-
-            // If that also didn't work, then just return the image in its default color space.
-            return updatePreview(zoomedImage, pixelSize, zoomedSize)
         }
+    }
+
+    // Crop and color-match the captured pixels before drawing the preview.
+    private func renderPreview(_ screenShot: CGImage, aroundPoint point: NSPoint) {
+        // Calculate a zoomed rect which will crop the screenshot we took.
+        let magnification = CGFloat(PPState.shared.magnificationLevel) * (focusMode ? 2 : 1)
+        let croppedRect = pixelPreviewRect(imageWidth: screenShot.width,
+            imageHeight: screenShot.height, magnification: magnification)
+        let zoomedSize = croppedRect.width
+        guard let zoomedImage = screenShot.cropping(to: croppedRect) else { return }
+        let pixelSize = panelSize / zoomedSize
+
+        // Convert the preview to the correct color space, and update the overlay.
+
+        // User has chosen a custom color space.
+        if let colorSpace = getChosenColorSpace(point) {
+            if colorSpace == zoomedImage.colorSpace {
+                return updatePreview(zoomedImage, pixelSize, zoomedSize)
+            } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
+                return updatePreview(image, pixelSize, zoomedSize)
+            }
+        }
+
+        // No custom color space chosen, so use the screen's one.
+        if let colorSpace = getScreenColorSpace(point) {
+            if colorSpace == zoomedImage.colorSpace {
+                return updatePreview(zoomedImage, pixelSize, zoomedSize)
+            } else if let image = zoomedImage.copy(colorSpace: colorSpace) {
+                return updatePreview(image, pixelSize, zoomedSize)
+            }
+        }
+
+        // If that also didn't work, then just return the image in its default color space.
+        return updatePreview(zoomedImage, pixelSize, zoomedSize)
     }
 
     private func updatePreview(_ image: CGImage, _ pixelSize: CGFloat, _ numberOfPixels: CGFloat) {
