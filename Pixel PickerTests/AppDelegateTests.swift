@@ -4,6 +4,7 @@
 //
 
 import XCTest
+import CoreVideo
 @testable import PixelPicker
 
 #if !PIXEL_PICKER_TESTING
@@ -106,6 +107,51 @@ final class AppDelegateTests: XCTestCase {
         XCTAssertEqual(alert.runModal(), .alertFirstButtonReturn)
         input.invalidate()
         finish.invalidate()
+    }
+
+    func testStreamFrameCropPreservesPixelsAndPadsDisplayEdges() throws {
+        var buffer: CVPixelBuffer?
+        XCTAssertEqual(CVPixelBufferCreate(kCFAllocatorDefault, 8, 8,
+            kCVPixelFormatType_32BGRA, nil, &buffer), kCVReturnSuccess)
+        let pixels = try XCTUnwrap(buffer)
+        CVPixelBufferLockBaseAddress(pixels, [])
+        let base = try XCTUnwrap(CVPixelBufferGetBaseAddress(pixels))
+        let stride = CVPixelBufferGetBytesPerRow(pixels)
+        for y in 0..<8 {
+            for x in 0..<8 {
+                let pixel = base.advanced(by: y * stride + x * 4).assumingMemoryBound(to: UInt8.self)
+                pixel[0] = 25
+                pixel[1] = UInt8(y * 30)
+                pixel[2] = UInt8(x * 30)
+                pixel[3] = 255
+            }
+        }
+        CVPixelBufferUnlockBaseAddress(pixels, [])
+
+        // Reuse one captured frame across fractional pointer movements and edges.
+        let frame = PPCaptureFrame(buffer: pixels)
+        for x in [0.25, 0.75, 1.5, 4.25, 4.75, 7.75] {
+            for y in [0.25, 1.5, 4.25, 7.75] {
+                let image = try XCTUnwrap(frame.pixelRegion(centeredAt: CGPoint(x: x, y: y), size: 4))
+                XCTAssertEqual(image.width, 4)
+                XCTAssertEqual(image.height, 4)
+                for row in 0..<4 {
+                    for column in 0..<4 {
+                        let sourceX = Int(floor(x)) - 2 + column
+                        let sourceY = Int(floor(y)) - 2 + row
+                        let color = image.colorAt(x: column, y: row)
+                        if (0..<8).contains(sourceX) && (0..<8).contains(sourceY) {
+                            XCTAssertEqual(color.redComponent, CGFloat(sourceX * 30) / 255, accuracy: 1.0 / 255)
+                            XCTAssertEqual(color.greenComponent, CGFloat(sourceY * 30) / 255, accuracy: 1.0 / 255)
+                            XCTAssertEqual(color.blueComponent, 25.0 / 255, accuracy: 1.0 / 255)
+                            XCTAssertEqual(color.alphaComponent, 1)
+                        } else {
+                            XCTAssertEqual(color.alphaComponent, 0)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func checkerboard() throws -> CGImage {

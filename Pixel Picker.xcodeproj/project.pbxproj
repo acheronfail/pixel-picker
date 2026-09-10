@@ -34,6 +34,7 @@
 		D20000000000000000000002 /* MASShortcut in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000002 /* MASShortcut */; };
 		D20000000000000000000003 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000003 /* Sparkle */; };
 		D20000000000000000000004 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D10000000000000000000004 /* CocoaLumberjackSwift */; };
+		D40000000000000000000000 /* PPDisplayCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000000000000000000001 /* PPDisplayCapture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		BA74C14D20ADA33E00306B27 /* PPColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPColor.swift; sourceTree = "<group>"; };
 		BAB6F14E221ABB3500EA11D4 /* ShowAndHideCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAndHideCursor.swift; sourceTree = "<group>"; };
 		D62EACF12465996700686344 /* WCAG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCAG.swift; sourceTree = "<group>"; };
+		D40000000000000000000001 /* PPDisplayCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPDisplayCapture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				BA74C13F20AA390400306B27 /* PPOverlayPreview.swift */,
 				BA74C14320AA609500306B27 /* PPOverlayWrapper.swift */,
 				BA74C0F620A692D100306B27 /* PPOverlayController.swift */,
+				D40000000000000000000001 /* PPDisplayCapture.swift */,
 				BA74C0F720A692D100306B27 /* PPOverlayController.xib */,
 			);
 			path = OverlayPanel;
@@ -333,6 +336,7 @@
 				BA74C14420AA609500306B27 /* PPOverlayWrapper.swift in Sources */,
 				BAB6F14F221ABB3500EA11D4 /* ShowAndHideCursor.swift in Sources */,
 				BA74C0F820A692D100306B27 /* PPOverlayController.swift in Sources */,
+				D40000000000000000000000 /* PPDisplayCapture.swift in Sources */,
 				15493F6720BE6E0F007B2BA5 /* CGImage.swift in Sources */,
 				BA74C14220AA409D00306B27 /* NSColor.swift in Sources */,
 				15492103207B53AE00E45BBC /* Util.swift in Sources */,

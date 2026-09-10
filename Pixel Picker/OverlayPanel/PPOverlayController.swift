@@ -11,7 +11,8 @@ class PPOverlayController: NSWindowController {
 
     private var captureTask: Task<Void, Never>?
     private var captureContent: SCShareableContent?
-    private var pendingCapturePoint: NSPoint?
+    private var displayCapture: PPDisplayCapture?
+    private var captureDisplayID: CGDirectDisplayID?
     private var captureSession = 0
     private var pickAfterCapture = false
 
@@ -214,7 +215,7 @@ class PPOverlayController: NSWindowController {
         }
     }
 
-    // Wait for the latest capture before copying the selected pixel.
+    // Copy from the current frame, or wait for the first frame after changing displays.
     private func requestPick() {
         guard isEnabled && !pickAfterCapture else { return }
         pickAfterCapture = true
@@ -253,7 +254,9 @@ class PPOverlayController: NSWindowController {
         captureTask?.cancel()
         captureTask = nil
         captureContent = nil
-        pendingCapturePoint = nil
+        displayCapture?.stop()
+        displayCapture = nil
+        captureDisplayID = nil
         pickAfterCapture = false
         infoFormatField.stringValue = "Copied!"
 
@@ -335,10 +338,9 @@ class PPOverlayController: NSWindowController {
         resizeInfoPanel()
     }
 
-    // ScreenCaptureKit replaces CGWindowListCreateImage in current macOS SDKs.
-    // Exclude our own windows so the magnifier never captures itself.
+    // Wait until both panels can be excluded before starting a display stream.
     @MainActor
-    private func getScreenShot(aroundPoint point: NSPoint) async throws -> CGImage? {
+    private func makeDisplayCapture(displayID: CGDirectDisplayID) async throws -> PPDisplayCapture {
         let panelIDs = Set([CGWindowID(overlayPanel.windowNumber), CGWindowID(infoPanel.windowNumber)])
         if captureContent == nil {
             // A status-item click can reach here before WindowServer has listed
@@ -357,31 +359,17 @@ class PPOverlayController: NSWindowController {
             throw NSError(domain: "PixelPicker.Capture", code: 1,
                 userInfo: [NSLocalizedDescriptionKey: "The picker windows are not ready for capture. Please try again."])
         }
-        guard let screen = getScreenFromPoint(point),
-              let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32,
-              let display = content.displays.first(where: { $0.displayID == displayID }) else { return nil }
+        guard let display = content.displays.first(where: { $0.displayID == displayID }) else {
+            throw NSError(domain: "PixelPicker.Capture", code: 2,
+                userInfo: [NSLocalizedDescriptionKey: "The selected display is no longer available."])
+        }
         // Window IDs are reliable for accessory/menu-bar apps even when they
         // aren't included in SCShareableContent.applications.
         let excludedWindows = content.windows.filter {
             panelIDs.contains($0.windowID) || $0.owningApplication?.processID == ProcessInfo.processInfo.processIdentifier
         }
         let filter = SCContentFilter(display: display, excludingWindows: excludedWindows)
-        let configuration = SCStreamConfiguration()
-        let scale = CGFloat(filter.pointPixelScale)
-        // Capture the complete native raster. Fractional sourceRect origins can
-        // interpolate neighboring pixels before we ever get a CGImage.
-        configuration.width = Int((filter.contentRect.width * scale).rounded())
-        configuration.height = Int((filter.contentRect.height * scale).rounded())
-        configuration.captureResolution = .best
-        configuration.showsCursor = false
-        configuration.capturesAudio = false
-        let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: configuration)
-        let cgPoint = convertToCGCoordinateSystem(point)
-        let pixelPoint = CGPoint(
-            x: (cgPoint.x - display.frame.minX) * scale,
-            y: (cgPoint.y - display.frame.minY) * scale
-        )
-        return image.pixelRegion(centeredAt: pixelPoint, size: Int((panelSize * scale).rounded()))
+        return PPDisplayCapture(display: display, filter: filter)
     }
 
     // Update overlay with zoomed pixels around the given point.
@@ -397,35 +385,76 @@ class PPOverlayController: NSWindowController {
 
         // Center the mouse in the picker window.
         overlayPanel.setFrameOrigin(NSPoint(x: point.x - (panelSize / 2), y: point.y - (panelSize / 2)))
-        pendingCapturePoint = point
-        guard captureTask == nil else { return }
+        lastMouseLocation = point
+        guard let screen = getScreenFromPoint(point),
+              let displayID = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32 else { return }
+        if captureDisplayID != displayID {
+            startCapture(displayID: displayID)
+        }
+        renderLatestFrame()
+    }
+
+    // Start once per display, not once per pointer movement.
+    private func startCapture(displayID: CGDirectDisplayID) {
+        captureTask?.cancel()
+        displayCapture?.stop()
+        displayCapture = nil
+        captureDisplayID = displayID
+        captureSession += 1
         let session = captureSession
+        preview.layer?.contents = nil
         captureTask = Task { @MainActor [weak self] in
             guard let self = self else { return }
             defer {
                 if self.captureSession == session { self.captureTask = nil }
             }
             do {
-                while let point = self.pendingCapturePoint, self.isEnabled, self.captureSession == session {
-                    self.pendingCapturePoint = nil
-                    guard let image = try await self.getScreenShot(aroundPoint: point) else { continue }
-                    guard !Task.isCancelled, self.isEnabled, self.captureSession == session else { return }
-                    self.renderPreview(image, aroundPoint: point)
-                    if self.pickAfterCapture && self.pendingCapturePoint == nil {
-                        self.pickColor()
-                        self.hidePicker(animate: true)
-                        return
-                    }
+                let capture = try await self.makeDisplayCapture(displayID: displayID)
+                guard !Task.isCancelled, self.isEnabled, self.captureSession == session else {
+                    capture.stop()
+                    return
                 }
+                capture.frameChanged = { [weak self] in
+                    guard let self = self, self.isEnabled, self.captureSession == session else { return }
+                    self.renderLatestFrame()
+                }
+                capture.failed = { [weak self] error in
+                    guard let self = self, self.isEnabled, self.captureSession == session else { return }
+                    self.captureFailed(error)
+                }
+                self.displayCapture = capture
+                try await capture.start()
             } catch {
-                guard self.isEnabled, self.captureSession == session else { return }
-                self.hidePicker(animate: false)
-                let alert = NSAlert()
-                alert.messageText = "Screen capture unavailable"
-                alert.informativeText = "Allow Pixel Picker in System Settings → Privacy & Security → Screen Recording, then try again.\n\n" + error.localizedDescription
-                alert.runModal()
+                guard !Task.isCancelled, self.isEnabled, self.captureSession == session else { return }
+                self.captureFailed(error)
             }
         }
+    }
+
+    // Mouse movement uses the cached frame immediately; incoming frames also refresh
+    // a stationary pointer when the screen content changes underneath it.
+    private func renderLatestFrame() {
+        guard isEnabled, let capture = displayCapture, let frame = capture.latestFrame else { return }
+        let point = lastMouseLocation
+        let cgPoint = convertToCGCoordinateSystem(point)
+        let pixelPoint = CGPoint(
+            x: (cgPoint.x - capture.displayFrame.minX) * capture.scale,
+            y: (cgPoint.y - capture.displayFrame.minY) * capture.scale
+        )
+        guard let image = frame.pixelRegion(centeredAt: pixelPoint, size: Int((panelSize * capture.scale).rounded())) else { return }
+        renderPreview(image, aroundPoint: point)
+        if pickAfterCapture {
+            pickColor()
+            hidePicker(animate: true)
+        }
+    }
+
+    private func captureFailed(_ error: Error) {
+        hidePicker(animate: false)
+        let alert = NSAlert()
+        alert.messageText = "Screen capture unavailable"
+        alert.informativeText = "Allow Pixel Picker in System Settings → Privacy & Security → Screen Recording, then try again.\n\n" + error.localizedDescription
+        alert.runModal()
     }
 
     // Crop and color-match the captured pixels before drawing the preview.
