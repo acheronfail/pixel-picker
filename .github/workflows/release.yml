@@ -14,7 +14,7 @@ concurrency:
 jobs:
   release:
     runs-on: macos-26
-    timeout-minutes: 30
+    timeout-minutes: 90
     permissions:
       contents: write
     steps:
@@ -29,12 +29,36 @@ jobs:
           persist-credentials: false
       - name: Test
         run: ./scripts/test.sh
-      - name: Build signed universal release
+      - name: Build universal release app
+        id: build
         env:
           RELEASE_TAG: ${{ inputs.tag }}
-          MACOS_CODE_SIGN_P12_BASE64: ${{ secrets.MACOS_CODE_SIGN_P12_BASE64 }}
-          MACOS_CODE_SIGN_P12_PASSWORD: ${{ secrets.MACOS_CODE_SIGN_P12_PASSWORD }}
-        run: ./scripts/with-code-signing-identity.sh ./scripts/build.sh "$RELEASE_TAG"
+        run: ./scripts/build.sh "$RELEASE_TAG"
+      - name: Sign, notarize and package ZIP and DMG
+        uses: acheronfail/dist-tools/actions/apple-release@v1
+        with:
+          app-path: ${{ steps.build.outputs.app-path }}
+          bundle-id: fail.acheron.pixel-picker
+          output-archive: ${{ steps.build.outputs.archive }}
+          output-disk-image: ${{ steps.build.outputs.disk-image }}
+          signing-plan: ${{ steps.build.outputs.signing-plan }}
+          team-id: ${{ secrets.APPLE_TEAM_ID }}
+          p12-base64: ${{ secrets.MACOS_CODE_SIGN_P12_BASE64 }}
+          p12-password: ${{ secrets.MACOS_CODE_SIGN_P12_PASSWORD }}
+          notary-auth-mode: ${{ vars.APPLE_NOTARY_AUTH_MODE || 'apple-id' }}
+          notary-api-key: ${{ (vars.APPLE_NOTARY_AUTH_MODE == 'api-team' || vars.APPLE_NOTARY_AUTH_MODE == 'api-individual') && secrets.APPLE_NOTARY_API_KEY || '' }}
+          notary-key-id: ${{ (vars.APPLE_NOTARY_AUTH_MODE == 'api-team' || vars.APPLE_NOTARY_AUTH_MODE == 'api-individual') && secrets.APPLE_NOTARY_KEY_ID || '' }}
+          notary-issuer-id: ${{ vars.APPLE_NOTARY_AUTH_MODE == 'api-team' && secrets.APPLE_NOTARY_ISSUER_ID || '' }}
+          notary-apple-id: ${{ (vars.APPLE_NOTARY_AUTH_MODE == 'apple-id' || vars.APPLE_NOTARY_AUTH_MODE == '') && secrets.APPLE_NOTARY_APPLE_ID || '' }}
+          notary-password: ${{ (vars.APPLE_NOTARY_AUTH_MODE == 'apple-id' || vars.APPLE_NOTARY_AUTH_MODE == '') && secrets.APPLE_NOTARY_PASSWORD || '' }}
+          notary-timeout: 30m
+          ticket-network-workaround: 'true'
+      - name: Generate checksums for final packages
+        env:
+          ARTIFACT_NAME: ${{ steps.build.outputs.name }}
+        run: |
+          cd dist
+          shasum -a 256 "$ARTIFACT_NAME.zip" "$ARTIFACT_NAME.dmg" > "$ARTIFACT_NAME-SHA256SUMS.txt"
       - name: Generate and verify signed Sparkle feed
         env:
           RELEASE_TAG: ${{ inputs.tag }}

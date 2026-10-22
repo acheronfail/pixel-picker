@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 # An optional release tag sets the version inside the app as well as artifact names.
 tag="${1:-}"
 version_args=("CODE_SIGN_IDENTITY=-")
-if [[ -n "$tag" || ( -n "${CODE_SIGN_IDENTITY:-}" && "$CODE_SIGN_IDENTITY" != - ) ]]; then
+if [[ -n "$tag" ]]; then
     python3 - <<'PYTHON'
 import base64
 import plistlib
@@ -18,10 +18,6 @@ fi
 if [[ -n "$tag" ]]; then
     if [[ ! "$tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
         echo "Expected a release tag in the form v1.2.3, got: $tag" >&2
-        exit 1
-    fi
-    if [[ -z "${CODE_SIGN_IDENTITY:-}" || "$CODE_SIGN_IDENTITY" == - ]]; then
-        echo 'Release packages require scripts/with-code-signing-identity.sh in CI.' >&2
         exit 1
     fi
     version_args+=("MARKETING_VERSION=${tag#v}")
@@ -47,33 +43,33 @@ while IFS= read -r -d '' binary; do
     fi
 done < <(find "$app" -type f -print0)
 lipo -archs "$app/Contents/MacOS/Pixel Picker"
-if [[ -n "${CODE_SIGN_IDENTITY:-}" && "$CODE_SIGN_IDENTITY" != - ]]; then
-    : "${CODE_SIGN_KEYCHAIN:?Use scripts/with-code-signing-identity.sh in CI}"
-    : "${CODE_SIGN_REQUIREMENTS:?The stable designated requirement is required}"
-    : "${CODE_SIGN_REQUIREMENT:?The stable verification requirement is required}"
-    # Sign Sparkle's nested code inside-out before sealing the enclosing app.
-    # Each helper keeps its own identifier; the app's custom requirement is only
-    # applied to the outer bundle.
-    while IFS= read -r -d '' bundle; do
-        codesign --force --sign "$CODE_SIGN_IDENTITY" --keychain "$CODE_SIGN_KEYCHAIN" \
-            --preserve-metadata=entitlements --timestamp=none "$bundle"
-    done < <(find "$app/Contents/Frameworks" -depth \( -name '*.xpc' -o -name '*.app' -o -name '*.framework' -o -name Autoupdate \) -print0)
-    codesign --force --sign "$CODE_SIGN_IDENTITY" --keychain "$CODE_SIGN_KEYCHAIN" \
-        --requirements "$CODE_SIGN_REQUIREMENTS" --timestamp=none "$app"
-    codesign --verify --deep --strict --test-requirement "=$CODE_SIGN_REQUIREMENT" "$app"
-    codesign --display --requirements - "$app"
-else
-    # Ad-hoc signing is only for development/PR builds, never tagged releases.
-    if [[ -n "$tag" ]]; then
-        echo 'Release packages require the long-lived CI signing identity.' >&2
-        exit 1
-    fi
-    codesign --verify --deep --strict "$app"
-fi
+codesign --verify --deep --strict "$app"
 
 version=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' "$app/Contents/Info.plist")
 name="PixelPicker-${version}-universal"
 mkdir -p dist
+if [[ -n "$tag" ]]; then
+    python3 - "$app" <<'PYTHON'
+import json
+from pathlib import Path
+import sys
+app = Path(sys.argv[1])
+frameworks = app / 'Contents/Frameworks'
+targets = sorted((p for p in frameworks.rglob('*') if not p.is_symlink() and
+                  (p.suffix in ('.framework', '.xpc', '.app') or p.name == 'Autoupdate')),
+                 key=lambda p: (-len(p.parts), str(p)))
+plan = [{'path': p.relative_to(app).as_posix(), 'preserve-entitlements': True} for p in targets]
+Path('build/macos-signing-plan.json').write_text(json.dumps(plan, indent=2) + '\n')
+PYTHON
+    if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+        printf 'app-path=%s\narchive=%s\ndisk-image=%s\nsigning-plan=%s\nname=%s\n' \
+            "$PWD/$app" "$PWD/dist/$name.zip" "$PWD/dist/$name.dmg" \
+            "$PWD/build/macos-signing-plan.json" "$name" >> "$GITHUB_OUTPUT"
+    fi
+    echo "Built universal release app: $app"
+    exit 0
+fi
+
 staging=$(mktemp -d "${TMPDIR:-/tmp}/pixel-picker-dmg.XXXXXX")
 trap 'rm -rf "$staging"' EXIT
 ditto "$app" "$staging/Pixel Picker.app"

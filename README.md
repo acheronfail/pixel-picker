@@ -107,8 +107,7 @@ builds universal preview artifacts on both. The manually triggered Draft release
 workflow signs packages and the Sparkle feed and creates **only a draft release**.
 It never publishes a release or modifies an existing release.
 
-See [RELEASING.md](RELEASING.md) for one-time key generation, `gh secret set`
-commands, the public-key plist update, and draft-only testing instructions.
+See [RELEASING.md](RELEASING.md) for credential sync, Sparkle keys and draft releases.
 
 ## License
 
